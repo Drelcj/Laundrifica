@@ -47,7 +47,7 @@ const slides = [
   {
     title: "Pristine Garment Care",
     description:
-      "From delicate silks to sturdy denims, we handle every fabric with expert precision. Your fabric's pristine care, guaranteed.",
+      "From delicate silks to sturdy denims, we handle every fabric with expert precision. Your fabric&apos;s pristine care, guaranteed.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1748611439/laundrifica_images/hero/pristine-garment-care_rzopts.jpg",
     cta: "Start Today",
     ctaLink: "/order",
