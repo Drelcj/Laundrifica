@@ -108,10 +108,11 @@ export default function DashboardPage() {
           <TabsTrigger value="upcoming-services">Upcoming Services</TabsTrigger>
         </TabsList>
         <TabsContent value="recent-orders" className="space-y-4">
-          <RecentOrdersList />
+          {/* Commented this out and will fix later */}
+          {/* <RecentOrdersList /> */}
         </TabsContent>
         <TabsContent value="upcoming-services" className="space-y-4">
-          <UpcomingServicesList />
+          {/* <UpcomingServicesList /> */}
         </TabsContent>
       </Tabs>
 
@@ -212,7 +213,7 @@ export default function DashboardPage() {
             <CardDescription>Earn points with every order</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <LoyaltyPointsCard />
+            {/* <LoyaltyPointsCard /> */}
           </CardContent>
           <CardFooter>
             <Button variant="outline" className="w-full" asChild>

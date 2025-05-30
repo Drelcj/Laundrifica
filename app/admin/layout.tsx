@@ -8,7 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
 import { Suspense } from "react"
-import { LoadingSkeleton } from "@/components/loading-skeleton"
+import { Skeleton } from "@/components/loading-skeleton"
 
 export const metadata: Metadata = {
   title: "Admin Dashboard | Laundrify",
@@ -66,7 +66,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           </ScrollArea>
         </aside>
         <main className="flex-1 p-6">
-          <Suspense fallback={<LoadingSkeleton />}>{children}</Suspense>
+          <Suspense fallback={<Skeleton />}>{children}</Suspense>
         </main>
       </div>
     </div>
