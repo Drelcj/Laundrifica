@@ -4,7 +4,8 @@
 import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetTrigger } from "@/components/ui/sheet" // SheetContent moved to MobileNav
+// Only import Sheet and SheetTrigger here; SheetContent will be in MobileNav
+import { Sheet, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, User, ShoppingCart } from "lucide-react"
 import { MainNav } from "@/components/main-nav" // Import the desktop main nav
 import { MobileNav } from "@/components/mobile-nav" // Import the new mobile nav component
@@ -30,7 +31,7 @@ export function SiteHeader() {
 
         {/* Desktop Navigation - Only visible on desktop */}
         <div className="hidden md:flex">
-          <MainNav />
+          <MainNav /> {/* Renders the desktop navigation component */}
         </div>
 
         <div className="flex items-center space-x-2">
@@ -48,15 +49,15 @@ export function SiteHeader() {
             </Link>
           </Button>
 
-          {/* Mobile Navigation Trigger and Sheet */}
+          {/* This is the ONE and ONLY mobile menu trigger and sheet */}
           <Sheet open={isMobileNavOpen} onOpenChange={setIsMobileNavOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden"> {/* This is the ONLY menu button */}
+              <Button variant="ghost" size="icon" className="md:hidden"> {/* Only visible on mobile */}
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle mobile menu</span>
               </Button>
             </SheetTrigger>
-            {/* The actual content of the mobile sheet is now in MobileNav */}
+            {/* The actual content of the mobile sheet is now in MobileNav component */}
             <MobileNav setIsOpen={setIsMobileNavOpen} />
           </Sheet>
         </div>

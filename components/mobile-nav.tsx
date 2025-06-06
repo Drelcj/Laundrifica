@@ -5,7 +5,8 @@ import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet" // Only import what's needed for content
+// Only import SheetContent, SheetHeader, SheetTitle for the content of the sheet
+import { SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 
 const mainNavItems = [
@@ -47,8 +48,9 @@ export function MobileNav({ setIsOpen }: MobileNavProps) {
   const pathname = usePathname()
 
   return (
+    // This SheetContent is the actual panel that slides out
     <SheetContent side="right" className="w-[80%] sm:w-[350px]">
-      {/* Required for accessibility */}
+      {/* Required for accessibility, even if visually hidden */}
       <SheetHeader>
         <SheetTitle className="sr-only">Mobile Navigation Menu</SheetTitle>
       </SheetHeader>
@@ -65,13 +67,20 @@ export function MobileNav({ setIsOpen }: MobileNavProps) {
           </div>
         </Link>
 
+        {/* Mobile navigation links */}
         <nav className="flex flex-col gap-4">
           {mainNavItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "text-foreground/60 transition-colors hover:text-foreground px-2 py-1 rounded-md hover:bg-muted",
+                // Base styles for links
+                "text-foreground/60 px-2 py-1 rounded-md",
+                // Smoother transitions for all changes
+                "transition-colors duration-200 ease-in-out", // Keeping simpler for now
+                // Enhanced hover effects (using bg-accent for a clearer visual change)
+                "hover:text-foreground hover:bg-accent", // Simpler hover effect
+                // Active link styles
                 pathname === item.href
                   ? "text-foreground font-medium bg-muted"
                   : "",
@@ -81,6 +90,7 @@ export function MobileNav({ setIsOpen }: MobileNavProps) {
               {item.title}
             </Link>
           ))}
+          {/* Additional buttons for mobile */}
           <div className="flex flex-col gap-2 mt-4 pt-4 border-t">
             <Button asChild variant="outline" size="sm" className="w-full">
               <Link href="/login" onClick={() => setIsOpen(false)}>Login</Link>
