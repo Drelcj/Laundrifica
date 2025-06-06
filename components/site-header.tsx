@@ -1,15 +1,17 @@
+// components/site-header.tsx
 "use client"
 
 import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetTrigger } from "@/components/ui/sheet" // SheetContent moved to MobileNav
 import { Menu, User, ShoppingCart } from "lucide-react"
-import { MainNav } from "@/components/main-nav"
+import { MainNav } from "@/components/main-nav" // Import the desktop main nav
+import { MobileNav } from "@/components/mobile-nav" // Import the new mobile nav component
 import { ThemeToggle } from "@/components/theme-toggle"
 
 export function SiteHeader() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false) // State to control the mobile sheet
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -26,6 +28,7 @@ export function SiteHeader() {
           </Link>
         </div>
 
+        {/* Desktop Navigation - Only visible on desktop */}
         <div className="hidden md:flex">
           <MainNav />
         </div>
@@ -45,27 +48,16 @@ export function SiteHeader() {
             </Link>
           </Button>
 
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          {/* Mobile Navigation Trigger and Sheet */}
+          <Sheet open={isMobileNavOpen} onOpenChange={setIsMobileNavOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <Button variant="ghost" size="icon" className="md:hidden"> {/* This is the ONLY menu button */}
                 <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle menu</span>
+                <span className="sr-only">Toggle mobile menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <div className="flex flex-col space-y-4 mt-4">
-                <Link href="/" className="flex items-center space-x-2 mb-6">
-                  <div className="h-8 w-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">L</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-bold text-lg leading-none">Laundrifica</span>
-                    <span className="text-xs text-muted-foreground leading-none">Your fabric's pristine care</span>
-                  </div>
-                </Link>
-                <MainNav mobile onItemClick={() => setIsOpen(false)} />
-              </div>
-            </SheetContent>
+            {/* The actual content of the mobile sheet is now in MobileNav */}
+            <MobileNav setIsOpen={setIsMobileNavOpen} />
           </Sheet>
         </div>
       </div>

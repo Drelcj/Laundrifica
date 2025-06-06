@@ -20,7 +20,6 @@ interface AdminLayoutProps {
 }
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
-  // Mock admin user data - would come from authentication in a real app
   const user = {
     name: "Admin User",
     email: "admin@laundrify.com",
@@ -28,8 +27,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   }
 
   return (
-    <div className="flex min-h-screen">
-      <header className="sticky top-0 z-50 flex h-16 items-center gap-4 border-b bg-background px-6">
+    <div className="flex flex-col min-h-screen"> {/* Adjust layout for mobile */}
+      <header className="sticky top-0 z-50 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6"> {/* Adjust padding */}
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline" size="icon" className="md:hidden">
@@ -40,8 +39,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <SheetContent side="left" className="pr-0">
             <ScrollArea className="h-[calc(100vh-3rem)] pb-10">
               <div className="px-2 py-2">
-                <Link href="/admin" className="flex items-center gap-2 font-semibold">
-                  <span className="gradient-text text-xl">Laundrify Admin</span>
+                <Link href="/dashboard/admin" className="flex items-center gap-2 font-semibold">
+                  <span className="gradient-text text-lg md:text-xl">Laundrify Admin</span> {/* Adjust text size */}
                 </Link>
                 <AdminNav className="mt-4" />
               </div>
@@ -49,8 +48,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           </SheetContent>
         </Sheet>
         <div className="flex items-center gap-2">
-          <Link href="/admin" className="flex items-center gap-2 font-semibold">
-            <span className="gradient-text text-xl hidden md:inline-flex">Laundrify Admin</span>
+          <Link href="/dashboard/admin" className="flex items-center gap-2 font-semibold">
+            <span className="gradient-text text-lg md:text-xl hidden md:inline-flex">Laundrify Admin</span> {/* Adjust text size */}
           </Link>
         </div>
         <div className="ml-auto flex items-center gap-4">
@@ -65,7 +64,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </div>
           </ScrollArea>
         </aside>
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-4 md:p-6"> {/* Adjust padding */}
           <Suspense fallback={<Skeleton />}>{children}</Suspense>
         </main>
       </div>
