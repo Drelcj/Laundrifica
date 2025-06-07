@@ -28,67 +28,77 @@ export function AdminNav({ className, ...props }: AdminNavProps) {
 
   const routes = [
     {
-      href: "/admin",
+      href: "/dashboard/admin",
       icon: LayoutDashboard,
       title: "Dashboard",
     },
     {
-      href: "/admin/orders",
+      href: "/dashboard/admin/orders",
       icon: Package,
       title: "Orders",
     },
     {
-      href: "/admin/customers",
+      href: "/dashboard/admin/customers",
       icon: Users,
       title: "Customers",
     },
     {
-      href: "/admin/staff",
+      href: "/dashboard/admin/staff",
       icon: Users,
       title: "Staff",
     },
     {
-      href: "/admin/delivery",
+      href: "/dashboard/admin/delivery",
       icon: Truck,
       title: "Delivery",
     },
     {
-      href: "/admin/inventory",
+      href: "/dashboard/admin/inventory",
       icon: Box,
       title: "Inventory",
     },
     {
-      href: "/admin/blog",
+      href: "/dashboard/admin/blog",
       icon: FileText,
       title: "Blog",
     },
     {
-      href: "/admin/products",
+      href: "/dashboard/admin/products",
       icon: ShoppingBag,
       title: "Products",
     },
     {
-      href: "/admin/vouchers",
+      href: "/dashboard/admin/voucher",
+      icon: Gift,
+      title: "Voucher",
+    },
+    {
+      href: "/dashboard/admin/vouchers",
       icon: Gift,
       title: "Vouchers",
     },
     {
-      href: "/admin/analytics",
+      href: "/dashboard/admin/analytics",
       icon: BarChart3,
       title: "Analytics",
     },
     {
-      href: "/admin/marketing",
+      href: "/dashboard/admin/marketing",
       icon: Tag,
       title: "Marketing",
     },
     {
-      href: "/admin/locations",
+      href: "/dashboard/admin/reports",
+      icon: FileText,
+      title: "Reports",
+    },
+    {
+      href: "/dashboard/admin/locations",
       icon: MapPin,
       title: "Locations",
     },
     {
-      href: "/admin/settings",
+      href: "/dashboard/admin/settings",
       icon: Settings,
       title: "Settings",
     },

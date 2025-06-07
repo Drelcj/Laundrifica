@@ -12,7 +12,7 @@ export default function AdminDashboardPage() {
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
         <p className="text-muted-foreground">
-          Welcome to the Laundrify admin dashboard. Here's an overview of your business.
+          Welcome to the Laundrifica admin dashboard. Here's an overview of your business.
         </p>
       </div>
 
@@ -28,7 +28,7 @@ export default function AdminDashboardPage() {
           </CardContent>
           <CardFooter>
             <Button variant="ghost" size="sm" className="w-full" asChild>
-              <Link href="/admin/orders">
+              <Link href="/dashboard/admin/orders">
                 View all orders
                 <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
@@ -46,7 +46,7 @@ export default function AdminDashboardPage() {
           </CardContent>
           <CardFooter>
             <Button variant="ghost" size="sm" className="w-full" asChild>
-              <Link href="/admin/delivery">
+              <Link href="/dashboard/admin/delivery">
                 View deliveries
                 <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
@@ -64,7 +64,7 @@ export default function AdminDashboardPage() {
           </CardContent>
           <CardFooter>
             <Button variant="ghost" size="sm" className="w-full" asChild>
-              <Link href="/admin/customers">
+              <Link href="/dashboard/admin/customers">
                 View customers
                 <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
@@ -82,7 +82,7 @@ export default function AdminDashboardPage() {
           </CardContent>
           <CardFooter>
             <Button variant="ghost" size="sm" className="w-full" asChild>
-              <Link href="/admin/analytics">
+              <Link href="/dashboard/admin/analytics">
                 View analytics
                 <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
@@ -111,7 +111,7 @@ export default function AdminDashboardPage() {
           </CardContent>
           <CardFooter>
             <Button variant="outline" className="w-full" asChild>
-              <Link href="/admin/delivery">View Detailed Map</Link>
+              <Link href="/dashboard/admin/delivery">View Detailed Map</Link>
             </Button>
           </CardFooter>
         </Card>
@@ -128,7 +128,7 @@ export default function AdminDashboardPage() {
           </CardContent>
           <CardFooter>
             <Button variant="outline" className="w-full" asChild>
-              <Link href="/admin/orders">View All Orders</Link>
+              <Link href="/dashboard/admin/orders">View All Orders</Link>
             </Button>
           </CardFooter>
         </Card>
@@ -142,7 +142,7 @@ export default function AdminDashboardPage() {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="text-sm font-medium">Membership Distribution</h4>
-                  <Link href="/admin/customers" className="text-xs text-primary hover:underline">
+                  <Link href="/dashboard/admin/customers" className="text-xs text-primary hover:underline">
                     View Details
                   </Link>
                 </div>
@@ -171,7 +171,7 @@ export default function AdminDashboardPage() {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="text-sm font-medium">Top Services</h4>
-                  <Link href="/admin/analytics" className="text-xs text-primary hover:underline">
+                  <Link href="/dashboard/admin/analytics" className="text-xs text-primary hover:underline">
                     View Details
                   </Link>
                 </div>
