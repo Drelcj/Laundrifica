@@ -1,28 +1,45 @@
-import type { Metadata } from "next"
-import Link from "next/link"
-import { ArrowRight, ArrowUpRight, Calendar, Package, Star, Users } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
-import { RecentOrdersList } from "@/components/dashboard/recent-orders-list"
-import { UpcomingServicesList } from "@/components/dashboard/upcoming-services-list"
-import { LoyaltyPointsCard } from "@/components/dashboard/loyalty-points-card"
+import type { Metadata } from "next";
+import Link from "next/link";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Calendar,
+  Package,
+  Star,
+  Users,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { RecentOrdersList } from "@/components/dashboard/recent-orders-list";
+import { UpcomingServicesList } from "@/components/dashboard/upcoming-services-list";
+import { LoyaltyPointsCard } from "@/components/dashboard/loyalty-points-card";
 
 export const metadata: Metadata = {
   title: "Dashboard | Laundrify",
   description: "Manage your laundry orders and account settings",
-}
+};
 
 export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">Welcome back! Here's an overview of your laundry services.</p>
+        <p className="text-muted-foreground">
+          Welcome back! Here's an overview of your laundry services.
+        </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      {/* Responsive grid: stack on mobile, grid on md+ */}
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Active Orders</CardTitle>
@@ -34,7 +51,7 @@ export default function DashboardPage() {
           </CardContent>
           <CardFooter>
             <Button variant="ghost" size="sm" className="w-full" asChild>
-              <Link href="/dashboard/orders">
+              <Link href="/dashboard/user/orders">
                 View all orders
                 <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
@@ -43,16 +60,20 @@ export default function DashboardPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Upcoming Services</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Upcoming Services
+            </CardTitle>
             <Calendar className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">2</div>
-            <p className="text-xs text-muted-foreground">Next pickup: Tomorrow, 10:00 AM</p>
+            <p className="text-xs text-muted-foreground">
+              Next pickup: Tomorrow, 10:00 AM
+            </p>
           </CardContent>
           <CardFooter>
             <Button variant="ghost" size="sm" className="w-full" asChild>
-              <Link href="/dashboard/upcoming">
+              <Link href="/dashboard/user/upcoming">
                 View schedule
                 <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
@@ -61,16 +82,20 @@ export default function DashboardPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Loyalty Points</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Loyalty Points
+            </CardTitle>
             <Star className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">450</div>
-            <p className="text-xs text-muted-foreground">50 points until next reward</p>
+            <p className="text-xs text-muted-foreground">
+              50 points until next reward
+            </p>
           </CardContent>
           <CardFooter>
             <Button variant="ghost" size="sm" className="w-full" asChild>
-              <Link href="/dashboard/rewards">
+              <Link href="/dashboard/user/rewards">
                 View rewards
                 <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
@@ -89,11 +114,13 @@ export default function DashboardPage() {
                 Active
               </Badge>
             </div>
-            <p className="text-xs text-muted-foreground">Since January 15, 2023</p>
+            <p className="text-xs text-muted-foreground">
+              Since January 15, 2023
+            </p>
           </CardContent>
           <CardFooter>
             <Button variant="ghost" size="sm" className="w-full" asChild>
-              <Link href="/dashboard/membership">
+              <Link href="/dashboard/user/membership">
                 Upgrade to Premium
                 <ArrowUpRight className="ml-1 h-4 w-4" />
               </Link>
@@ -102,21 +129,30 @@ export default function DashboardPage() {
         </Card>
       </div>
 
-      <Tabs defaultValue="recent-orders" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="recent-orders">Recent Orders</TabsTrigger>
-          <TabsTrigger value="upcoming-services">Upcoming Services</TabsTrigger>
-        </TabsList>
-        <TabsContent value="recent-orders" className="space-y-4">
-          {/* Commented this out and will fix later */}
-          {/* <RecentOrdersList /> */}
-        </TabsContent>
-        <TabsContent value="upcoming-services" className="space-y-4">
-          {/* <UpcomingServicesList /> */}
-        </TabsContent>
-      </Tabs>
+      {/* Tabs: add overflow-x-auto for mobile */}
+      <div className="overflow-x-auto">
+        <Tabs
+          defaultValue="recent-orders"
+          className="min-w-[340px] sm:min-w-0 space-y-4"
+        >
+          <TabsList>
+            <TabsTrigger value="recent-orders">Recent Orders</TabsTrigger>
+            <TabsTrigger value="upcoming-services">
+              Upcoming Services
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="recent-orders" className="space-y-4">
+            {/* Commented this out and will fix later */}
+            {/* <RecentOrdersList /> */}
+          </TabsContent>
+          <TabsContent value="upcoming-services" className="space-y-4">
+            {/* <UpcomingServicesList /> */}
+          </TabsContent>
+        </Tabs>
+      </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+      {/* Responsive grid for membership/loyalty cards */}
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
         <Card className="lg:col-span-4">
           <CardHeader>
             <CardTitle>Membership Status</CardTitle>
@@ -223,5 +259,5 @@ export default function DashboardPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

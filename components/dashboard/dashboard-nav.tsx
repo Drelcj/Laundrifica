@@ -27,57 +27,57 @@ export function DashboardNav({ className, ...props }: DashboardNavProps) {
 
   const routes = [
     {
-      href: "/dashboard",
+      href: "/dashboard/user",
       icon: Home,
       title: "Overview",
     },
     {
-      href: "/dashboard/orders",
+      href: "/dashboard//user/orders",
       icon: Package,
       title: "Orders",
     },
     {
-      href: "/dashboard/upcoming",
+      href: "/dashboard/user/upcoming",
       icon: Truck,
       title: "Upcoming",
     },
     {
-      href: "/dashboard/membership",
+      href: "/dashboard/user/membership",
       icon: Star,
       title: "Membership",
     },
     {
-      href: "/dashboard/rewards",
+      href: "/dashboard/user/rewards",
       icon: Gift,
       title: "Rewards",
     },
     {
-      href: "/dashboard/payment-methods",
+      href: "/dashboard/user/payment-methods",
       icon: CreditCard,
       title: "Payment Methods",
     },
     {
-      href: "/dashboard/addresses",
+      href: "/dashboard/user/addresses",
       icon: MapPin,
       title: "Addresses",
     },
     {
-      href: "/dashboard/notifications",
+      href: "/dashboard/user/notifications",
       icon: Bell,
       title: "Notifications",
     },
     {
-      href: "/dashboard/vouchers",
+      href: "/dashboard/user/vouchers",
       icon: ShoppingBag,
       title: "Vouchers",
     },
     {
-      href: "/dashboard/invoices",
+      href: "/dashboard/user/invoices",
       icon: FileText,
       title: "Invoices",
     },
     {
-      href: "/dashboard/settings",
+      href: "/dashboard/user/settings",
       icon: Settings,
       title: "Settings",
     },
