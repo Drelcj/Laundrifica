@@ -1,11 +1,12 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, Play, Volume2, VolumeX } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight, Play, Volume2, VolumeX } from "lucide-react";
+import { cn } from "@/lib/utils";
+import Image from "next/image"; // Import the Image component
 
 const testimonials = [
   {
@@ -15,7 +16,6 @@ const testimonials = [
     content:
       "Laundrify has completely changed how I handle laundry. The premium membership is worth every naira with the instant pickup and priority handling. My clothes have never looked better!",
     videoThumbnail: "https://res.cloudinary.com/dt3czltxx/image/upload/v1747412517/images/ninthgrid-ti8cT-DKwes-unsplash_n0j4lj.jpg",
-
     videoSrc: "#",
   },
   {
@@ -63,72 +63,72 @@ const testimonials = [
     videoThumbnail: "https://res.cloudinary.com/dt3czltxx/image/upload/v1747416797/images/ben-scott-CwWCuaTp21o-unsplash_tqy7wl.jpg",
     videoSrc: "#",
   },
-]
+];
 
 export function TestimonialsSection() {
-  const [activeVideo, setActiveVideo] = useState<number | null>(null)
-  const [isMuted, setIsMuted] = useState(true)
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isMobile, setIsMobile] = useState(false)
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
+  const [activeVideo, setActiveVideo] = useState<number | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
+      setIsMobile(window.innerWidth < 768);
+    };
 
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const scrollToIndex = (index: number) => {
     if (scrollContainerRef.current && !isMobile) {
-      const container = scrollContainerRef.current
-      const cardWidth = 320 // Fixed card width for consistent scrolling
-      const gap = 16 // Gap between cards
-      const scrollPosition = index * (cardWidth + gap)
-      setCurrentIndex(index)
-      container.scrollTo({ left: scrollPosition, behavior: "smooth" })
+      const container = scrollContainerRef.current;
+      const cardWidth = 320; // Fixed card width for consistent scrolling
+      const gap = 16; // Gap between cards
+      const scrollPosition = index * (cardWidth + gap);
+      setCurrentIndex(index);
+      container.scrollTo({ left: scrollPosition, behavior: "smooth" });
     }
-  }
+  };
 
   const scrollLeft = () => {
-    const newIndex = Math.max(0, currentIndex - 1)
-    scrollToIndex(newIndex)
-  }
+    const newIndex = Math.max(0, currentIndex - 1);
+    scrollToIndex(newIndex);
+  };
 
   const scrollRight = () => {
-    const maxIndex = isMobile ? testimonials.length - 1 : Math.max(0, testimonials.length - 3)
-    const newIndex = Math.min(maxIndex, currentIndex + 1)
-    scrollToIndex(newIndex)
-  }
+    const maxIndex = isMobile ? testimonials.length - 1 : Math.max(0, testimonials.length - 3);
+    const newIndex = Math.min(maxIndex, currentIndex + 1);
+    scrollToIndex(newIndex);
+  };
 
   const handleVideoPlay = (index: number) => {
     if (activeVideo !== null && activeVideo !== index && videoRefs.current[activeVideo]) {
-      videoRefs.current[activeVideo]?.pause()
+      videoRefs.current[activeVideo]?.pause();
     }
 
     if (activeVideo === index) {
       if (videoRefs.current[index]?.paused) {
-        videoRefs.current[index]?.play()
+        videoRefs.current[index]?.play();
       } else {
-        videoRefs.current[index]?.pause()
-        setActiveVideo(null)
+        videoRefs.current[index]?.pause();
+        setActiveVideo(null);
       }
     } else {
-      setActiveVideo(index)
-      videoRefs.current[index]?.play()
+      setActiveVideo(index);
+      videoRefs.current[index]?.play();
     }
-  }
+  };
 
   const toggleMute = () => {
-    setIsMuted(!isMuted)
+    setIsMuted(!isMuted);
     videoRefs.current.forEach((video) => {
-      if (video) video.muted = !isMuted
-    })
-  }
+      if (video) video.muted = !isMuted;
+    });
+  };
 
   return (
     <section className="w-full bg-muted/30 py-8 sm:py-12 md:py-16 lg:py-24 overflow-hidden">
@@ -173,10 +173,17 @@ export function TestimonialsSection() {
                       {/* Video Container */}
                       <div className="relative w-full aspect-video overflow-hidden">
                         <div className="absolute inset-0 bg-black/20 z-10"></div>
-                        <img
+                        {/* ***** MODIFIED HERE (Mobile Layout) *****
+                         Replaced <img> with <Image />
+                         Added fill, sizes, and priority for LCP
+                         */}
+                        <Image
                           src={testimonial.videoThumbnail || "/placeholder.svg"}
                           alt={`${testimonial.name} testimonial`}
-                          className="w-full h-full object-cover"
+                          fill // Fills the parent div
+                          style={{ objectFit: 'cover' }} // Equivalent to object-cover
+                          sizes="(max-width: 768px) 100vw, 33vw" // Responsive sizes for optimization
+                          priority={index < 3} // Prioritize first few images for faster loading
                         />
                         <button
                           className={cn(
@@ -259,10 +266,18 @@ export function TestimonialsSection() {
                           {/* Video Container */}
                           <div className="relative aspect-video overflow-hidden">
                             <div className="absolute inset-0 bg-black/20 z-10"></div>
-                            <img
+                            {/*
+                             ***** MODIFIED HERE (Desktop Layout) *****
+                             Replaced <img> with <Image />
+                             Added fill, sizes, and priority for LCP
+                             */}
+                            <Image
                               src={testimonial.videoThumbnail || "/placeholder.svg"}
                               alt={`${testimonial.name} testimonial`}
-                              className="w-full h-full object-cover"
+                              fill // Fills the parent div
+                              style={{ objectFit: 'cover' }} // Equivalent to object-cover
+                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" // Responsive sizes
+                              priority={index < 3} // Prioritize first few images
                             />
                             <button
                               className={cn(
@@ -369,12 +384,12 @@ export function TestimonialsSection() {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
-        
+
         /* Ensure no horizontal overflow */
         .testimonials-container * {
           box-sizing: border-box;
         }
-        
+
         /* Prevent text overflow */
         .testimonials-container p {
           word-wrap: break-word;
@@ -383,5 +398,5 @@ export function TestimonialsSection() {
         }
       `}</style>
     </section>
-  )
+  );
 }
