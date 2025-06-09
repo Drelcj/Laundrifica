@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: "Laundrifica - Your fabric's pristine care",
   description:
     "Premium laundry services with pickup and delivery. Experience the convenience of professional fabric care with Laundrifica.",
-  keywords: ["laundry", "dry cleaning", "fabric care", "pickup delivery", "Lagos", "Nigeria"],
+  keywords: ["laundry", "247 digital laundry", "Laundry in Choba", "Choba", "Uniport Laundry", "Port Harcourt", "dry cleaning", "fabric care", "pickup delivery", "Lagos", "Nigeria"],
   openGraph: {
     title: "Laundrifica - Your fabric's pristine care",
     description: "Premium laundry services with pickup and delivery",
@@ -32,9 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Laundrifica - Your fabric's pristine care",
     description: "Premium laundry services with pickup and delivery",
-  },
-    generator: 'v0.dev'
-}
+  }}
 
 export default function RootLayout({
   children,
