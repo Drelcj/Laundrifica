@@ -15,8 +15,8 @@ import {
 } from "@/components/ui/dialog"
 import { InventoryTable } from "@/components/inventory/inventory-table"
 import { InventoryForm } from "@/components/inventory/inventory-form"
-import { getInventory, updateInventoryItem } from "@/src/lib/api"
-import type { InventoryItem } from "@/src/lib/types"
+import { getInventory, updateInventoryItem } from "@/lib/api"
+import type { InventoryItem } from "@/lib/types"
 
 export default function InventoryPageClient() {
   const [inventory, setInventory] = useState<InventoryItem[]>([])
