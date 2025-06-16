@@ -108,7 +108,7 @@ export default function CheckoutPage() {
         tax: cart.tax,
         shipping: shippingCost,
         total: cart.subtotal + cart.tax + shippingCost,
-        email: shippingAddress?.email || "customer@example.com", // In a real app, this would come from the user's account or checkout form
+        email: "customer@example.com", // In a real app, this would come from the user's account or checkout form
       })
 
       // Set order ID and mark as complete

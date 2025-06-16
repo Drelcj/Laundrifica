@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { useCartStore } from "@/src/lib/cart"
+import { useCartStore } from "@/lib/cart"
 
 // This would normally be fetched from a database based on the ID
 const getProductById = (id: string) => {
