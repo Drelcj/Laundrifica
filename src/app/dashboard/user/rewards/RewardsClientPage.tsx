@@ -25,7 +25,7 @@ const itemVariants = {
     y: 0,
     opacity: 1,
     transition: {
-      type: "spring",
+      type: "spring" as "spring",
       stiffness: 100,
     },
   },
@@ -67,7 +67,7 @@ export default function RewardsClientPage() {
                 <span>Next Reward: 500 points</span>
                 <span>50 points to go</span>
               </div>
-              <Progress value={90} className="h-2 w-full bg-white/20" indicatorClassName="bg-white" />
+              <Progress value={90} className="h-2 w-full bg-white/20" />
             </div>
           </CardContent>
           <CardFooter>

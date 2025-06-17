@@ -72,7 +72,8 @@
     "vaul": "^0.9.6",
     "web-vitals": "latest",
     "zod": "latest",
-    "zustand": "latest"
+    "zustand": "latest",
+    "target": "es2018"
   },
   "devDependencies": {
     "@types/node": "^22",

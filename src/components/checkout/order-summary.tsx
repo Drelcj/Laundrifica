@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import type { CartItem } from "@/src/lib/types"
+import type { CartItem } from "@/lib/types"
 
 interface OrderSummaryProps {
   items: CartItem[]

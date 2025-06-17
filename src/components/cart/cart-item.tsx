@@ -3,8 +3,8 @@
 import type React from "react"
 import Image from "next/image"
 import { Trash2Icon, MinusIcon, PlusIcon } from "lucide-react"
-import type { CartItem } from "@/src/lib/types"
-import { useCartStore } from "@/src/lib/cart"
+import type { CartItem } from "@/lib/types"
+import { useCartStore } from "@/lib/cart"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 

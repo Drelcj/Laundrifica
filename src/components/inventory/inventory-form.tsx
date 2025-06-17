@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import type { InventoryItem } from "@/src/lib/types"
+import type { InventoryItem } from "@/lib/types"
 
 const inventorySchema = z.object({
   name: z.string().min(1, "Name is required"),

@@ -1,6 +1,6 @@
 import { CheckCircle, Clock, Package, Truck, Home } from "lucide-react"
-import { cn } from "@/src/lib/utils"
-import type { Order } from "@/src/lib/types"
+import { cn } from "@/lib/utils"
+import type { Order } from "@/lib/types"
 
 interface OrderStatusTimelineProps {
   order: Order

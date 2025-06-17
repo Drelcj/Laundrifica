@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge"
-import { cn } from "@/src/lib/utils"
+import { cn } from "@/lib/utils"
 
 type OrderStatus =
   | "pending"
@@ -49,8 +49,11 @@ export function OrderStatusBadge({ status, className }: OrderStatusBadgeProps) {
   const config = getStatusConfig(status)
 
   return (
-    <Badge variant={config.variant} className={cn(className)}>
-      {config.label}
-    </Badge>
+    <div>
+      here
+    </div>
+    // <Badge variant={config.variant} className={cn(className)}>
+    //   {config.label}
+    // </Badge>
   )
 }

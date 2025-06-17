@@ -1,7 +1,7 @@
 "use client"
 import { useRouter } from "next/navigation"
 import { ShoppingBagIcon } from "lucide-react"
-import { useCartStore } from "@/src/lib/cart"
+import { useCartStore } from "@/lib/cart"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"

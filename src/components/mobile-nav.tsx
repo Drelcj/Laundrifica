@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 // Only import SheetContent, SheetHeader, SheetTitle for the content of the sheet
 import { SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
-import { cn } from "@/src/lib/utils"
+import { cn } from "@/lib/utils"
 
 const mainNavItems = [
   {

@@ -10,7 +10,7 @@ const posts = [
     title: "10 Tips for Keeping Your Clothes Looking New",
     excerpt: "Learn how to extend the life of your favorite garments with these expert tips.",
     date: "May 15, 2023",
-    image: "/images/blog/clothing-care-tips.png",
+    image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1748611462/laundrifica_images/services/ironing-hero_ym2dhe.jpg",
     category: "Clothing Care",
   },
   {
@@ -18,7 +18,7 @@ const posts = [
     title: "The Environmental Impact of Laundry Detergents",
     excerpt: "Discover eco-friendly alternatives that are better for the planet and your clothes.",
     date: "June 2, 2023",
-    image: "/images/blog/eco-detergents.png",
+    image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1748611461/laundrifica_images/services/eco-cleaning_xszhxb.jpg",
     category: "Sustainability",
   },
   {
@@ -26,7 +26,7 @@ const posts = [
     title: "How to Remove Common Stains from Your Clothes",
     excerpt: "A comprehensive guide to tackling everything from coffee to ink stains.",
     date: "July 10, 2023",
-    image: "/images/blog/stain-removal-guide.png",
+    image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1748611439/laundrifica_images/hero/pristine-garment-care_rzopts.jpg",
     category: "Stain Removal",
   },
 ]
