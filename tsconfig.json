@@ -18,11 +18,14 @@
         "name": "next"
       }
     ],
-    "baseUrl": "./src",
+    "baseUrl": ".", // <-- MADE THIS KEY CHANGE
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"], // <-- MADE THIS KEY CHANGE
+      "@/components/*": ["./src/components/*"], // Added this for clarity and robustness if you use @/components
+      "@/lib/*": ["./src/lib/*"], // Added this for clarity and robustness
+      "@/app/*": ["./src/app/*"] // Added this for clarity and robustness
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/**/*.ts", "src/**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

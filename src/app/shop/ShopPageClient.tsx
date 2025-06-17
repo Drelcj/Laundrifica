@@ -1,5 +1,5 @@
 "use client"
-import { useCartStore } from "@/src/lib/cart"
+import { useCartStore } from "@/lib/cart"
 import { Suspense } from "react"
 import { ProductGrid } from "@/components/shop/product-grid"
 import { ProductFilters } from "@/components/shop/product-filters"

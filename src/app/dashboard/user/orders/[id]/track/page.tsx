@@ -9,8 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { OrderStatusTimeline } from "@/components/order-tracking/order-status-timeline"
 import { ShippingMap } from "@/components/order-tracking/shipping-map"
-import { getOrderById } from "@/src/lib/api"
-import type { Order } from "@/src/lib/types"
+import { getOrderById } from "@/lib/api"
+import type { Order } from "@/lib/types"
 
 export default function OrderTrackingPage() {
   const params = useParams()

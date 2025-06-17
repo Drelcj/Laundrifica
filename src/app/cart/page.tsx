@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import Link from "next/link"
 import { ShoppingBag } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useCartStore } from "@/src/lib/cart"
+import { useCartStore } from "@/lib/cart"
 import { CartItemComponent } from "@/components/cart/cart-item"
 import { CartSummary } from "@/components/cart/cart-summary"
 
