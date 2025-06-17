@@ -4,7 +4,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation" // Keep if you use it for active link styling
-import { cn } from "@/src/lib/utils"
+import { cn } from "@/lib/utils"
 
 // Removed: import { Menu } from "lucide-react"
 // Removed: import { Button } from "@/components/ui/button"

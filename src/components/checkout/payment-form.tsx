@@ -11,7 +11,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { processPayment } from "@/src/lib/api"
+import { processPayment } from "@/lib/api"
 
 const paymentSchema = z.object({
   paymentMethod: z.enum(["credit_card", "paypal"]),

@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { cn } from "@/src/lib/utils"
+import { cn } from "@/lib/utils"
 import dynamic from "next/dynamic"
 
 // Dynamically import motion components to reduce initial bundle size

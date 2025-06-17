@@ -15,7 +15,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { InventoryForm } from "@/components/inventory/inventory-form"
-import type { InventoryItem } from "@/src/lib/types"
+import type { InventoryItem } from "@/lib/types"
 
 interface InventoryTableProps {
   items: InventoryItem[]
