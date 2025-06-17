@@ -5,13 +5,12 @@ import * as RechartsPrimitive from "recharts"
 import { AreaChart as AreaChartComponent } from "@tremor/react"
 import { BarChart as BarChartComponent } from "@tremor/react"
 import { LineChart as LineChartComponent } from "@tremor/react"
-import { PieChart as PieChartComponent } from "@tremor/react"
-import { DonutChart as DonutChartComponent } from "@tremor/react"
+// import { DonutChart as DonutChartComponent } from "@tremor/react"
 import { Card as CardComponent } from "@tremor/react"
 import { Title } from "@tremor/react"
 import { Text } from "@tremor/react"
 
-import { cn } from "@/src/lib/utils"
+import { cn } from "@/lib/utils"
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
@@ -51,13 +50,9 @@ export function LineChart(props: React.ComponentProps<typeof LineChartComponent>
   return <LineChartComponent {...props} />
 }
 
-export function PieChart(props: React.ComponentProps<typeof PieChartComponent>) {
-  return <PieChartComponent {...props} />
-}
-
-export function DonutChart(props: React.ComponentProps<typeof DonutChartComponent>) {
-  return <DonutChartComponent {...props} />
-}
+// export function DonutChart(props: React.ComponentProps<typeof DonutChartComponent>) {
+//   return <DonutChartComponent {...props} />
+// }
 
 const ChartContainerComponent = React.forwardRef<
   HTMLDivElement,

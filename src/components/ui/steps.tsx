@@ -2,7 +2,7 @@
 
 import React from "react"
 import { Check } from "lucide-react"
-import { cn } from "@/src/lib/utils"
+import { cn } from "@/lib/utils"
 
 interface StepProps {
   title: string
@@ -45,20 +45,19 @@ export function Steps({ currentStep, children, className }: StepsProps) {
   return (
     <div className={cn("flex items-center", className)}>
       {steps.map((step, index) => (
-        <React.Fragment key={index}>
-          {index > 0 && (
-            <div
-              className={cn("flex-1 h-1 mx-2", {
-                "bg-primary": index <= currentStep,
-                "bg-muted": index > currentStep,
-              })}
-            />
-          )}
-          {React.cloneElement(step as React.ReactElement, {
-            stepIndex: index,
-            currentStep,
-          })}
-        </React.Fragment>
+        <StepContext.Provider value={index} key={index}>
+          <CurrentStepContext.Provider value={currentStep}>
+            {index > 0 && (
+              <div
+                className={cn("flex-1 h-1 mx-2", {
+                  "bg-primary": index <= currentStep,
+                  "bg-muted": index > currentStep,
+                })}
+              />
+            )}
+            {step}
+          </CurrentStepContext.Provider>
+        </StepContext.Provider>
       ))}
     </div>
   )

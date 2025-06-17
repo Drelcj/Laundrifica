@@ -17,7 +17,7 @@ import {
   Star,
   Truck,
 } from "lucide-react"
-import { cn } from "@/src/lib/utils"
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
 interface DashboardNavProps extends React.HTMLAttributes<HTMLElement> {}
