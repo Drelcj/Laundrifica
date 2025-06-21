@@ -27,19 +27,33 @@ export function UserNav({ user, profile }: UserNavProps) {
   const supabase = createClient()
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
-    router.push('/') // Redirect to home page after sign out
-    router.refresh()
+    try {
+      const { error } = await supabase.auth.signOut()
+      if (error) {
+        // Optionally, show a toast or alert here
+        console.error('Sign out error:', error.message)
+        return
+      }
+      router.push('/') // Redirect to home page after sign out
+      router.refresh()
+    } catch (err) {
+      // Optionally, show a toast or alert here
+      console.error('Unexpected sign out error:', err)
+    }
   }
   
-  // Get user initials for the avatar fallback
-  const initials = profile?.full_name
-    ? profile.full_name
-        .split(' ')
-        .map((n) => n[0])
-        .join('')
-        .substring(0, 2).toUpperCase()
-    : 'U'
+  // Helper function to get user initials for the avatar fallback
+  function getInitials(fullName?: string | null) {
+    if (!fullName) return 'U'
+    return fullName
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .substring(0, 2)
+      .toUpperCase()
+  }
+
+  const initials = getInitials(profile?.full_name)
 
   return (
     <DropdownMenu>

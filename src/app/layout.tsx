@@ -58,10 +58,19 @@ export default async function RootLayout({
   const { data: { session } } = await supabase.auth.getSession()
   const user = session?.user
 
-  // Fetch profile only if a user is logged in
-  const { data: profile } = user
-    ? await supabase.from('profiles').select('*').eq('id', user.id).single()
-    : { data: null }
+  // Fetch profile only if a user is logged in, with error handling
+  let profile = null;
+  if (user) {
+    try {
+      const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+      if (error) {
+        console.error('Error fetching profile:', error.message);
+      }
+      profile = data;
+    } catch (err) {
+      console.error('Unexpected error fetching profile:', err);
+    }
+  }
   // --- END OF ADDED LOGIC ---
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>

@@ -32,9 +32,18 @@ export function MobileNav({ setIsOpen, user }: MobileNavProps) {
   
   const handleSignOut = async () => {
     const supabase = createClient()
-    await supabase.auth.signOut()
-    setIsOpen(false) // Close the nav
-    router.refresh() // Refresh to update auth state
+    try {
+      const { error } = await supabase.auth.signOut()
+      if (error) {
+        // Optionally, you can use a toast or alert here
+        alert("Sign out failed: " + error.message)
+        return
+      }
+      setIsOpen(false) // Close the nav
+      router.refresh() // Refresh to update auth state
+    } catch (err: any) {
+      alert("An unexpected error occurred during sign out.")
+    }
   }
 
   const handleLinkClick = (href: string) => {
