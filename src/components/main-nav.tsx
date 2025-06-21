@@ -1,14 +1,10 @@
 // components/main-nav.tsx
-"use client" // Keep use client if you need usePathname
+"use client"
 
 import * as React from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation" // Keep if you use it for active link styling
+import { usePathname } from "next/navigation" 
 import { cn } from "@/lib/utils"
-
-// Removed: import { Menu } from "lucide-react"
-// Removed: import { Button } from "@/components/ui/button"
-// Removed: import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 const mainNavItems = [
   {
@@ -41,10 +37,9 @@ const mainNavItems = [
   },
 ]
 
-// No 'mobile' prop or 'onItemClick' needed here anymore
-// Also, no 'isOpen' state as Sheet is no longer here
+
 export function MainNav() {
-  const pathname = usePathname() // Still useful for highlighting the active desktop link
+  const pathname = usePathname() 
 
   return (
     // This nav is for desktop only, hidden on smaller screens
