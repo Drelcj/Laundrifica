@@ -7,6 +7,9 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Toaster } from "@/components/ui/toaster"
 import { Analytics } from "@vercel/analytics/next"
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+import { Database } from '@/types/database'
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,11 +37,32 @@ export const metadata: Metadata = {
     description: "Premium laundry services with pickup and delivery",
   }}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // --- ADDED THIS LOGIC TO FETCH THE USER ---
+  const cookieStore = await cookies();
+  const supabase = createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value
+        },
+      },
+    }
+  )
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
+
+  // Fetch profile only if a user is logged in
+  const { data: profile } = user
+    ? await supabase.from('profiles').select('*').eq('id', user.id).single()
+    : { data: null }
+  // --- END OF ADDED LOGIC ---
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>
@@ -53,7 +77,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
           <div className="relative flex min-h-screen flex-col">
-            <SiteHeader />
+            <SiteHeader user={user ?? null} profile={profile} />
             <main className="flex-1">{children}</main>
             <SiteFooter />
           </div>
