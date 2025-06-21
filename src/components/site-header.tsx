@@ -1,18 +1,25 @@
-// components/site-header.tsx
+// src/components/site-header.tsx
 "use client"
 
 import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-// Only import Sheet and SheetTrigger here; SheetContent will be in MobileNav
 import { Sheet, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, User, ShoppingCart } from "lucide-react"
-import { MainNav } from "@/components/main-nav" // Import the desktop main nav
-import { MobileNav } from "@/components/mobile-nav" // Import the new mobile nav component
+import { Menu, ShoppingCart, User as UserIcon } from "lucide-react" // Renamed User to UserIcon to avoid conflict
+import { MainNav } from "@/components/main-nav"
+import { MobileNav } from "@/components/mobile-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { UserNav } from "@/components/user-nav" // Import our new UserNav
+import type { Profile, User } from '@/types/app' // Import our shared types
 
-export function SiteHeader() {
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false) // State to control the mobile sheet
+// Define the props the SiteHeader will accept
+type SiteHeaderProps = {
+  user: User | null;
+  profile: Profile | null;
+};
+
+export function SiteHeader({ user, profile }: SiteHeaderProps) {
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -29,9 +36,8 @@ export function SiteHeader() {
           </Link>
         </div>
 
-        {/* Desktop Navigation - Only visible on desktop */}
         <div className="hidden md:flex">
-          <MainNav /> {/* Renders the desktop navigation component */}
+          <MainNav />
         </div>
 
         <div className="flex items-center space-x-2">
@@ -42,23 +48,29 @@ export function SiteHeader() {
               <span className="sr-only">Shopping cart</span>
             </Link>
           </Button>
-          <Button variant="ghost" size="icon" asChild>
-            <Link href="/login">
-              <User className="h-5 w-5" />
-              <span className="sr-only">User account</span>
-            </Link>
-          </Button>
 
-          {/* This is the ONE and ONLY mobile menu trigger and sheet */}
+          {/* --- THIS IS THE CONDITIONAL LOGIC --- */}
+          {user && profile ? (
+            <UserNav user={user} profile={profile} />
+          ) : (
+            <Button variant="ghost" size="icon" asChild>
+              <Link href="/login">
+                <UserIcon className="h-5 w-5" />
+                <span className="sr-only">Login</span>
+              </Link>
+            </Button>
+          )}
+          {/* --- END OF CONDITIONAL LOGIC --- */}
+          
           <Sheet open={isMobileNavOpen} onOpenChange={setIsMobileNavOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden"> {/* Only visible on mobile */}
+              <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle mobile menu</span>
               </Button>
             </SheetTrigger>
-            {/* The actual content of the mobile sheet is now in MobileNav component */}
-            <MobileNav setIsOpen={setIsMobileNavOpen} />
+            {/* Pass user data to the mobile nav as well */}
+            <MobileNav setIsOpen={setIsMobileNavOpen} user={user} />
           </Sheet>
         </div>
       </div>
