@@ -5,14 +5,13 @@ import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, ShoppingCart, User as UserIcon } from "lucide-react" // Renamed User to UserIcon to avoid conflict
+import { Menu, ShoppingCart, User as UserIcon } from "lucide-react"
 import { MainNav } from "@/components/main-nav"
 import { MobileNav } from "@/components/mobile-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { UserNav } from "@/components/user-nav" // Import our new UserNav
-import type { Profile, User } from '@/types/app' // Import our shared types
+import { UserNav } from "@/components/user-nav"
+import type { Profile, User } from '@/types/app'
 
-// Define the props the SiteHeader will accept
 type SiteHeaderProps = {
   user: User | null;
   profile: Profile | null;
@@ -49,18 +48,21 @@ export function SiteHeader({ user, profile }: SiteHeaderProps) {
             </Link>
           </Button>
 
-          {/* --- THIS IS THE CONDITIONAL LOGIC --- */}
-          {user && profile ? (
-            <UserNav user={user} profile={profile} />
-          ) : (
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/login">
-                <UserIcon className="h-5 w-5" />
-                <span className="sr-only">Login</span>
-              </Link>
-            </Button>
-          )}
-          {/* --- END OF CONDITIONAL LOGIC --- */}
+          {/* --- CORRECTED LOGIC --- */}
+          {/* This container hides the user menu/login button on mobile, as the sheet will handle it */}
+          <div className="hidden md:block">
+            {/* The condition is now just 'user'. We only need to know if a session exists. */}
+            {user ? (
+              <UserNav user={user} profile={profile} />
+            ) : (
+              <Button variant="ghost" size="icon" asChild>
+                <Link href="/login">
+                  <UserIcon className="h-5 w-5" />
+                  <span className="sr-only">Login</span>
+                </Link>
+              </Button>
+            )}
+          </div>
           
           <Sheet open={isMobileNavOpen} onOpenChange={setIsMobileNavOpen}>
             <SheetTrigger asChild>
@@ -69,7 +71,6 @@ export function SiteHeader({ user, profile }: SiteHeaderProps) {
                 <span className="sr-only">Toggle mobile menu</span>
               </Button>
             </SheetTrigger>
-            {/* Pass user data to the mobile nav as well */}
             <MobileNav setIsOpen={setIsMobileNavOpen} user={user} />
           </Sheet>
         </div>

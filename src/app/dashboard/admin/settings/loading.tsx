@@ -1,3 +1,4 @@
+// src/app/dashboard/admin/settings/loading.tsx
 export default function Loading() {
   return (
     <div className="container mx-auto py-8">

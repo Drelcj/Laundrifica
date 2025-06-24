@@ -84,7 +84,7 @@ export function DashboardNav({ className, ...props }: DashboardNavProps) {
   ]
 
   return (
-    <nav className={cn("flex flex-col space-y-1", className)} {...props}>
+    <nav className={cn("h-full flex flex-col space-y-1", className)} {...props}>
       {routes.map((route) => (
         <Button
           key={route.href}
