@@ -1,3 +1,4 @@
+// src/app/dashboard/admin/settings/page.tsx
 "use client"
 
 import { useState } from "react"
