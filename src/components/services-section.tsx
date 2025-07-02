@@ -10,7 +10,7 @@ const services = [
     title: "Wash & Fold",
     description:
       "Professional washing and folding service for your everyday garments. Your fabric's pristine care with attention to detail.",
-    image: "/images/services/wash-and-fold.png",
+    image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1751444146/laundrifica_images/services/1d296f74-9c4c-4ccf-b074-361fcf5f6416.png",
     price: "From ₦500",
     duration: "24-48 hours",
     features: ["Eco-friendly detergents", "Fabric softener included", "Folded to perfection"],
@@ -21,7 +21,7 @@ const services = [
     title: "Dry Cleaning",
     description:
       "Expert dry cleaning for delicate fabrics and formal wear. Your fabric's pristine care using advanced techniques.",
-    image: "/images/services/dry-cleaning.png",
+    image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1751444720/laundrifica_images/services/843233ba-eb3c-470e-a005-28d42c4f1c65.png",
     price: "From ₦1,200",
     duration: "48-72 hours",
     features: ["Delicate fabric care", "Stain removal", "Professional pressing"],
@@ -32,7 +32,7 @@ const services = [
     title: "Ironing Service",
     description:
       "Professional ironing and pressing for crisp, wrinkle-free clothes. Your fabric's pristine care with perfect finishing.",
-    image: "/images/services/ironing.png",
+    image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1751444840/laundrifica_images/services/861b332b-a90c-4802-8b0f-b54bf92b6cdc.png",
     price: "From ₦300",
     duration: "Same day",
     features: ["Steam pressing", "Crease-free finish", "Hanger service"],
@@ -43,7 +43,7 @@ const services = [
     title: "Repairs & Alterations",
     description:
       "Expert tailoring and repair services to extend your garment's life. Your fabric's pristine care includes restoration.",
-    image: "/images/services/repairs.png",
+    image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1751445127/laundrifica_images/services/56dea7fd-dc21-44bf-bff6-d35c03e35ae5.png",
     price: "From ₦800",
     duration: "3-5 days",
     features: ["Expert tailoring", "Button replacement", "Hem adjustments"],
