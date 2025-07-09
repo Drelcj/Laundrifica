@@ -1,4 +1,5 @@
 // src/app/dashboard/layout.tsx
+
 import type React from "react"
 import { Suspense } from "react"
 import { DashboardNav } from "@/components/dashboard/dashboard-nav"
@@ -6,12 +7,19 @@ import { Skeleton } from "@/components/ui/skeleton" // Corrected import path
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { Menu } from "lucide-react"
+import { createClient } from '@/utils/supabase/server';
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const { data: profile } = user 
+    ? await supabase.from('profiles').select('*').eq('id', user.id).single() 
+    : { data: null };
+
   return (
     // On mobile, this will be a single-column layout (default)
     // On medium screens and up (md:), it becomes a two-column grid.
@@ -56,7 +64,7 @@ export default function DashboardLayout({
           <div className="w-full flex-1">
              {/* You can add breadcrumbs or search here if you want */}
           </div>
-          {/* <UserAccountNav />  This can be re-enabled later */}
+          {/* <UserAccountNav user={user} profile={profile} />  This can be re-enabled later */}
         </header>
 
         {/* The main content area for each page */}

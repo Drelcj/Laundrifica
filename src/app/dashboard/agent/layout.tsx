@@ -1,3 +1,4 @@
+
 import type React from "react"
 import type { Metadata } from "next"
 import Link from "next/link"
@@ -9,6 +10,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/co
 import { Menu } from "lucide-react"
 import { Suspense } from "react"
 import { Skeleton } from "@/components/loading-skeleton"
+import { createClient } from '@/utils/supabase/server';
 
 export const metadata: Metadata = {
   title: "Agent Dashboard | Laundrify",
@@ -19,12 +21,12 @@ interface AgentLayoutProps {
   children: React.ReactNode
 }
 
-export default function AgentLayout({ children }: AgentLayoutProps) {
-  const user = {
-    name: "Agent User",
-    email: "agent@laundrify.com",
-    image: "/placeholder.svg?height=32&width=32",
-  }
+export default async function AgentLayout({ children }: AgentLayoutProps) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const { data: profile } = user 
+    ? await supabase.from('profiles').select('*').eq('id', user.id).single() 
+    : { data: null };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -56,7 +58,21 @@ export default function AgentLayout({ children }: AgentLayoutProps) {
           </Link>
         </div>
         <div className="ml-auto flex items-center gap-4">
-          <UserAccountNav user={user} />
+          <UserAccountNav
+            user={
+              user
+                ? {
+                    name: user.user_metadata?.name || "Unknown User",
+                    email: user.email || "unknown@example.com",
+                    image: user.user_metadata?.avatar_url || "/default-avatar.png",
+                  }
+                : {
+                    name: "Unknown User",
+                    email: "unknown@example.com",
+                    image: "/default-avatar.png",
+                  }
+            }
+          />
         </div>
       </header>
       <div className="flex-1 md:grid md:grid-cols-[220px_1fr]">

@@ -8,9 +8,9 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Toaster } from "@/components/ui/toaster"
 import { Analytics } from "@vercel/analytics/next"
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
-import { Database } from '@/types/database'
+import { createClient } from '@/utils/supabase/server' 
+// import { cookies } from 'next/headers'
+// import { Database } from '@/types/database'
 
 const inter = Inter({
   subsets: ["latin"],
@@ -43,36 +43,14 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // --- ADDED THIS LOGIC TO FETCH THE USER ---
-  const cookieStore = await cookies();
-  const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
-        },
-      },
-    }
-  )
-  const { data: { session } } = await supabase.auth.getSession()
-  const user = session?.user
+// --- ADDED THIS LOGIC TO FETCH THE USER ---
+const supabase = await createClient();
+const { data: { user } } = await supabase.auth.getUser();
+const { data: profile } = user 
+  ? await supabase.from('profiles').select('*').eq('id', user.id).single() 
+  : { data: null };
 
-  // Fetch profile only if a user is logged in, with error handling
-  let profile = null;
-  if (user) {
-    try {
-      const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
-      if (error) {
-        console.error('Error fetching profile:', error.message);
-      }
-      profile = data;
-    } catch (err) {
-      console.error('Unexpected error fetching profile:', err);
-    }
-  }
-  // --- END OF ADDED LOGIC ---
+
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>

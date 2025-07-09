@@ -81,7 +81,7 @@ export function UserNav({ user, profile }: UserNavProps) {
               Dashboard
             </DropdownMenuItem>
           </Link>
-          <Link href="/settings">
+          <Link href="/dashboard/user/settings">
             <DropdownMenuItem>
               Settings
             </DropdownMenuItem>

@@ -47,8 +47,8 @@ export default function LoginPage() {
     // On successful login, redirect the user.
     // The middleware will handle routing to the correct dashboard based on role.
     // The router.refresh() is crucial to update server components with the new auth state.
-    router.refresh();
     router.push('/dashboard');
+    router.refresh();
   };
 
   // --- HANDLER for Social Logins (OAuth) ---
