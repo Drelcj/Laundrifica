@@ -2,8 +2,8 @@ import type { Metadata } from "next"
 import { TermsOfService } from "@/components/terms-of-service"
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Laundrify",
-  description: "Terms and conditions for using Laundrify services",
+  title: "Terms of Service | Laundrilab",
+  description: "Terms and conditions for using Laundrilab services",
 }
 
 export default function TermsPage() {

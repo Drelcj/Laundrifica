@@ -402,7 +402,7 @@ export default function MembershipComparisonPage() {
           <div className="max-w-4xl mx-auto glass-card p-12 rounded-3xl relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10"></div>
             <div className="relative z-10 text-center">
-              <h2 className="text-3xl font-bold gradient-text mb-6">Ready to Join Laundrify?</h2>
+              <h2 className="text-3xl font-bold gradient-text mb-6">Ready to Join Laundrilab?</h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Sign up today and experience the convenience of professional laundry service. Premium members get their
                 first month at 50% off!

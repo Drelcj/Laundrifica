@@ -15,7 +15,7 @@ const slides = [
   {
     title: "Premium Laundry Service",
     description:
-      "Experience the convenience of professional laundry service with free pickup and delivery. Your fabric's pristine care is our commitment.",
+      "Experience the convenience of professional laundry service with free pickup and delivery. your effortless pristine fabric care is our commitment.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1748611430/laundrifica_images/hero/laundry-service-hero_r9klvh.jpg",
     cta: "Order Now",
     ctaLink: "/order",
@@ -23,7 +23,7 @@ const slides = [
   {
     title: "Premium Membership Benefits",
     description:
-      "Enjoy instant pickup, priority handling, and exclusive discounts with our premium membership. Your fabric's pristine care, elevated.",
+      "Enjoy instant pickup, priority handling, and exclusive discounts with our premium membership. your effortless pristine fabric care, elevated.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1748611439/laundrifica_images/hero/premium-membership_x8wimn.jpg",
     cta: "Upgrade Now",
     ctaLink: "/membership",
@@ -31,7 +31,7 @@ const slides = [
   {
     title: "Eco-Friendly Cleaning",
     description:
-      "We use environmentally friendly detergents and energy-efficient machines for all our services. Your fabric's pristine care meets sustainability.",
+      "We use environmentally friendly detergents and energy-efficient machines for all our services. your effortless pristine fabric care meets sustainability.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1748611429/laundrifica_images/hero/fabric-care-excellence_ezisnk.jpg",
     cta: "Learn More",
     ctaLink: "/eco-friendly",
@@ -39,7 +39,7 @@ const slides = [
   {
     title: "Fabric Care Excellence",
     description:
-      "Every garment receives meticulous attention with our advanced cleaning techniques. Your fabric's pristine care is our specialty.",
+      "Every garment receives meticulous attention with our advanced cleaning techniques. your effortless pristine fabric care is our specialty.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1748611430/laundrifica_images/hero/fabric-care-excellence_ezisnk.jpg",
     cta: "Discover More",
     ctaLink: "/services",
@@ -47,7 +47,7 @@ const slides = [
   {
     title: "Pristine Garment Care",
     description:
-      "From delicate silks to sturdy denims, we handle every fabric with expert precision. Your fabric&apos;s pristine care, guaranteed.",
+      "From delicate silks to sturdy denims, we handle every fabric with expert precision. your effortless pristine fabric care, guaranteed.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1748611439/laundrifica_images/hero/pristine-garment-care_rzopts.jpg",
     cta: "Start Today",
     ctaLink: "/order",
@@ -129,7 +129,7 @@ export function HeroSection() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <span className="text-sm font-medium">Laundrifica • Your fabric's pristine care</span>
+                    <span className="text-sm font-medium">Laundrilab • your effortless pristine fabric care</span>
                   </MotionDiv>
                   <MotionDiv
                     className="font-heading text-4xl md:text-6xl lg:text-7xl mb-6 max-w-3xl gradient-text"
@@ -164,7 +164,7 @@ export function HeroSection() {
                 // Fallback for SSR
                 <div className="max-w-4xl mx-auto">
                   <div className="mb-2 inline-block px-4 py-1 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30">
-                    <span className="text-sm font-medium">Laundrifica • Your fabric's pristine care</span>
+                    <span className="text-sm font-medium">Laundrilab • your effortless pristine fabric care</span>
                   </div>
                   <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl mb-6 max-w-3xl gradient-text">
                     {slide.title}

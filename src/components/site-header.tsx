@@ -30,7 +30,7 @@ export function SiteHeader({ user, profile }: SiteHeaderProps) {
             </div>
             <div className="flex flex-col">
               <span className="font-bold text-lg leading-none">Laundrifica</span>
-              <span className="text-xs text-muted-foreground leading-none">Your fabric's pristine care</span>
+              <span className="text-xs text-muted-foreground leading-none">your effortless pristine fabric care</span>
             </div>
           </Link>
         </div>

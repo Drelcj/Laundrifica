@@ -677,7 +677,7 @@ export default function PricingPage() {
                 <div className="relative z-10 text-center">
                   <h2 className="text-3xl font-bold gradient-text mb-6">Ready to Get Started?</h2>
                   <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                    Experience the convenience of professional laundry service with Laundrify. Place your first order
+                    Experience the convenience of professional laundry service with Laundrilab. Place your first order
                     today and enjoy 20% off!
                   </p>
                   <div className="flex flex-wrap justify-center gap-4">

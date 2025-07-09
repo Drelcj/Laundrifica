@@ -12,7 +12,7 @@ export default function AdminDashboardPage() {
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
         <p className="text-muted-foreground">
-          Welcome to the Laundrifica admin dashboard. Here's an overview of your business.
+          Welcome to the Laundrilab admin dashboard. Here's an overview of your business.
         </p>
       </div>
 

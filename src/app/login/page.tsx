@@ -62,7 +62,7 @@ export default function LoginPage() {
       },
     });
     // The user will be redirected to the provider's login page
-    // and then back to laundrifica app. The loading state will persist until then.
+    // and then back to laundrilab app. The loading state will persist until then.
   };
 
   // Note: Phone/OTP login is a separate flow, it will be addressed after email/social is working.
@@ -79,7 +79,7 @@ export default function LoginPage() {
         <div className="text-center">
           <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }}>
             <Link href="/" className="inline-block">
-              <h2 className="text-3xl font-bold gradient-text">Laundrifica</h2>
+              <h2 className="text-3xl font-bold gradient-text">Laundrilab</h2>
             </Link>
           </motion.div>
           <motion.h2 className="mt-6 text-3xl font-extrabold" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>

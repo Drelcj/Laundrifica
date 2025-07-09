@@ -9,7 +9,7 @@ const services = [
   {
     title: "Wash & Fold",
     description:
-      "Professional washing and folding service for your everyday garments. Your fabric's pristine care with attention to detail.",
+      "Professional washing and folding service for your everyday garments. your effortless pristine fabric care with attention to detail.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1751444146/laundrifica_images/services/1d296f74-9c4c-4ccf-b074-361fcf5f6416.png",
     price: "From ₦500",
     duration: "24-48 hours",
@@ -20,7 +20,7 @@ const services = [
   {
     title: "Dry Cleaning",
     description:
-      "Expert dry cleaning for delicate fabrics and formal wear. Your fabric's pristine care using advanced techniques.",
+      "Expert dry cleaning for delicate fabrics and formal wear. your effortless pristine fabric care using advanced techniques.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1751444720/laundrifica_images/services/843233ba-eb3c-470e-a005-28d42c4f1c65.png",
     price: "From ₦1,200",
     duration: "48-72 hours",
@@ -31,7 +31,7 @@ const services = [
   {
     title: "Ironing Service",
     description:
-      "Professional ironing and pressing for crisp, wrinkle-free clothes. Your fabric's pristine care with perfect finishing.",
+      "Professional ironing and pressing for crisp, wrinkle-free clothes. your effortless pristine fabric care with perfect finishing.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1751444840/laundrifica_images/services/861b332b-a90c-4802-8b0f-b54bf92b6cdc.png",
     price: "From ₦300",
     duration: "Same day",
@@ -42,7 +42,7 @@ const services = [
   {
     title: "Repairs & Alterations",
     description:
-      "Expert tailoring and repair services to extend your garment's life. Your fabric's pristine care includes restoration.",
+      "Expert tailoring and repair services to extend your garment's life. your effortless pristine fabric care includes restoration.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1751445127/laundrifica_images/services/56dea7fd-dc21-44bf-bff6-d35c03e35ae5.png",
     price: "From ₦800",
     duration: "3-5 days",
@@ -59,7 +59,7 @@ export function ServicesSection() {
         <div className="text-center space-y-4 mb-12">
           <h2 className="text-3xl md:text-4xl font-bold">Our Premium Services</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Experience Laundrifica's comprehensive fabric care solutions. Your fabric's pristine care is our specialty.
+            Experience Laundrilab's comprehensive fabric care solutions. your effortless pristine fabric care is our specialty.
           </p>
         </div>
 

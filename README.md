@@ -1,18 +1,18 @@
-# 🧺 **Laundrifica**
+# 🧺 **Laundrilab**
 
-**Your fabric's pristine care**
+**your effortless pristine fabric care**
 
 A modern, full-featured laundry service web application built with Next.js 14, offering comprehensive laundry management, e-commerce functionality, and premium customer experience.
 
-![Laundrifica Hero](public/images/hero/laundry-service-hero.png)
+![Laundrilab Hero](public/images/hero/laundry-service-hero.png)
 
 ---
 
 ## 🚀 Project Overview
 
-Laundrifica is a comprehensive digital platform for laundry services, designed specifically for the Nigerian market with global scalability in mind. The application provides a seamless experience for customers to book laundry services, track orders in real-time, manage their accounts, and purchase laundry-related products.
+Laundrilab is a comprehensive digital platform for laundry services, designed specifically for the Nigerian market with global scalability in mind. The application provides a seamless experience for customers to book laundry services, track orders in real-time, manage their accounts, and purchase laundry-related products.
 
-It features a robust admin dashboard for business management, inventory tracking, and analytics. The platform emphasizes premium fabric care with eco-friendly practices, offering services from basic wash-and-fold to specialized dry cleaning and garment repairs. Built with modern web technologies, Laundrifica delivers exceptional performance, accessibility, and user experience across all devices.
+It features a robust admin dashboard for business management, inventory tracking, and analytics. The platform emphasizes premium fabric care with eco-friendly practices, offering services from basic wash-and-fold to specialized dry cleaning and garment repairs. Built with modern web technologies, Laundrilab delivers exceptional performance, accessibility, and user experience across all devices.
 
 ---
 
@@ -112,8 +112,8 @@ Before you begin, ensure you have the following installed on your system:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/yourusername/laundrifica.git](https://github.com/yourusername/laundrifica.git)
-    cd laundrifica
+    git clone [https://github.com/yourusername/laundrilab.git](https://github.com/yourusername/laundrilab.git)
+    cd laundrilab
     ```
     *(Remember to replace `yourusername` with `cjonyedikachi`)*
 

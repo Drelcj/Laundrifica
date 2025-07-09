@@ -33,7 +33,7 @@ export default async function DashboardLayout({
         <div className="flex h-full max-h-screen flex-col gap-2">
           {/* We can add a logo or header for the sidebar here if needed */}
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-             {/* This could be your Laundrifica logo/link */}
+             {/* This could be your Laundrilab logo/link */}
           </div>
           <div className="flex-1">
              <DashboardNav />

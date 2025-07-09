@@ -34,12 +34,12 @@ export default function PrivacyPolicyPage() {
           <section>
             <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
             <p className="mb-4">
-              Welcome to Laundrify. We respect your privacy and are committed to protecting your personal data. This
+              Welcome to Laundrilab. We respect your privacy and are committed to protecting your personal data. This
               privacy policy will inform you about how we look after your personal data when you visit our website and
               tell you about your privacy rights and how the law protects you.
             </p>
             <p>
-              This privacy policy aims to give you information on how Laundrify collects and processes your personal
+              This privacy policy aims to give you information on how Laundrilab collects and processes your personal
               data through your use of this website, including any data you may provide through this website when you
               sign up for our service, place an order, or take part in a promotion.
             </p>
@@ -150,7 +150,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <div className="bg-primary/10 p-4 rounded-lg">
               <p>
-                <strong>Email:</strong> privacy@laundrify.com
+                <strong>Email:</strong> privacy@laundrilab.com
               </p>
               <p>
                 <strong>Phone:</strong> +234 800 000 0000

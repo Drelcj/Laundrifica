@@ -91,8 +91,8 @@ export default function ShopPageClient() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4">Shop Laundrifica Products</h1>
-        <p className="text-muted-foreground">Discover premium laundry care products for your fabric's pristine care.</p>
+        <h1 className="text-3xl font-bold mb-4">Shop Laundrilab Products</h1>
+        <p className="text-muted-foreground">Discover premium laundry care products for your effortless pristine fabric care.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">

@@ -186,7 +186,7 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">Why Choose Laundrify</h2>
+            <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">Why Choose Laundrilab</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Experience the benefits of our professional laundry service.
             </p>
@@ -314,7 +314,7 @@ export default function ServicesPage() {
           <div className="max-w-4xl mx-auto glass-card p-12 rounded-3xl relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10"></div>
             <div className="relative z-10 text-center">
-              <h2 className="text-3xl font-bold gradient-text mb-6">Ready to Experience Laundrify?</h2>
+              <h2 className="text-3xl font-bold gradient-text mb-6">Ready to Experience Laundrilab?</h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Join thousands of satisfied customers who have made laundry day the easiest part of their week.
               </p>
