@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CalendarIcon, FilterIcon, SearchIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -54,7 +55,9 @@ export default async function OrdersPage() {
             <CalendarIcon className="mr-2 h-4 w-4" />
             Date Range
           </Button>
-          <Button>New Order</Button>
+          <Link href="/dashboard/agent/place-order">
+            <Button>New Order</Button>
+          </Link>
         </div>
       </div>
 
