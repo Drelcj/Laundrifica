@@ -7,3 +7,14 @@ export type User = SupabaseUser
 
 // This pulls the 'profiles' table type from our auto-generated database types
 export type Profile = Database['public']['Tables']['profiles']['Row']
+
+// This pulls the 'products' table type from our auto-generated database types
+export type Product = Database['public']['Tables']['products']['Row'] & {
+  categories: Category | null
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  description?: string;
+}

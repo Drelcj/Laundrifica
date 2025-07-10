@@ -23,10 +23,49 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Crucially, this refreshes the session cookie
-  await supabase.auth.getUser()
+  // Crucially, this refreshes the session cookie and gets user data
+  const { data: { user } } = await supabase.auth.getUser();
+  const { pathname } = request.nextUrl;
 
-  return response
+  // If the user is logged in, fetch their role from the profiles table
+  let userRole = 'user'; // Default role
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+    if (profile) {
+      userRole = profile.role;
+    }
+  }
+
+  // Define protected routes for different roles
+  const adminRoutes = ['/dashboard/admin'];
+  const agentRoutes = ['/delivery-agent'];
+  const userRoutes = ['/dashboard', '/checkout', '/order-history'];
+
+  // Role-based redirection logic
+  if (adminRoutes.some(route => pathname.startsWith(route)) && userRole !== 'admin') {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  if (pathname.startsWith('/delivery-agent') && userRole !== 'delivery_agent' && userRole !== 'admin') {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  // Redirect unauthenticated users from generic protected routes
+  if (!user && userRoutes.some(route => pathname.startsWith(route))) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+
+  // Redirect authenticated users from login/signup pages
+  if (user && (pathname === '/login' || pathname === '/signup')) {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
+  }
+
+  return response;
 }
 
 export const config = {
