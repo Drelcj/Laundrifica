@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Checkbox } from '@/components/ui/checkbox'
 import { useRouter } from 'next/navigation';
-import { createProduct } from '@/lib/actions/product.actions'
+import { createProduct, updateProduct } from '@/lib/actions/product.actions'
 import {
   Select,
   SelectContent,
@@ -42,33 +42,40 @@ const productFormSchema = z.object({
 
 type ProductFormValues = z.infer<typeof productFormSchema>;
 
+import { Product } from '@/types/app';
+
 interface ProductFormProps {
-  categories: { id: number; name: string }[]
+  categories: { id: number; name: string }[];
+  product?: Product;
 }
 
-export function ProductForm({ categories }: ProductFormProps) {
+export function ProductForm({ categories, product }: ProductFormProps) {
   const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
   const router = useRouter();
   const form = useForm<ProductFormValues>({
         resolver: zodResolver(productFormSchema),
     defaultValues: {
-      name: '',
-      description: '',
-      price: 0,
-      stock_quantity: 0,
-      category_id: 0, // Using 0 as a placeholder for 'not selected'
-      type: 'service',
-      is_active: true,
-      is_featured: false,
-      image_urls: '',
+      name: product?.name ?? '',
+      description: product?.description ?? '',
+      price: product?.price ?? 0,
+      stock_quantity: product?.stock_quantity ?? 0,
+      category_id: product?.category_id ?? 0,
+      type: product?.type ?? 'service',
+      is_active: product?.is_active ?? true,
+      is_featured: product?.is_featured ?? false,
+      image_urls: product?.image_urls?.join(', ') ?? '',
     },
   });
 
   const onSubmit = async (values: ProductFormValues) => {
     setMessage(null);
     startTransition(async () => {
-      const result = await createProduct(values);
+      const action = product
+        ? updateProduct.bind(null, product.id, values)
+        : createProduct.bind(null, values);
+
+      const result = await action();
 
       if (result.status === 'success') {
         setMessage({ text: result.message, type: 'success' });
@@ -250,7 +257,9 @@ export function ProductForm({ categories }: ProductFormProps) {
         )}
 
         <Button type="submit" disabled={isPending}>
-          {isPending ? 'Adding Product...' : 'Add Product'}
+          {isPending
+            ? product ? 'Updating Product...' : 'Adding Product...'
+            : product ? 'Update Product' : 'Add Product'}
         </Button>
       </form>
     </Form>

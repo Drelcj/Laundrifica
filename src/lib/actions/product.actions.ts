@@ -54,3 +54,78 @@ export async function createProduct(values: z.infer<typeof productFormSchema>) {
     message: 'Product created successfully!',
   };
 }
+
+export async function deleteProduct(productId: number) {
+  const supabase = await createClient();
+
+  const { error } = await supabase.from('products').delete().eq('id', productId);
+
+  if (error) {
+    console.error('Supabase error:', error);
+    return {
+      status: 'error' as const,
+      message: 'Database Error: Failed to delete product.',
+    };
+  }
+
+  revalidatePath('/dashboard/admin/products');
+  return {
+    status: 'success' as const,
+    message: 'Product deleted successfully!',
+  };
+}
+
+export async function getProducts() {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching products:', error);
+    return { status: 'error' as const, message: 'Failed to fetch products.', data: [] };
+  }
+
+  return { status: 'success' as const, message: 'Products fetched successfully.', data };
+}
+
+export async function updateProduct(productId: number, values: z.infer<typeof productFormSchema>) {
+  const supabase = await createClient();
+
+  const validatedFields = productFormSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return {
+      status: 'error' as const,
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing or invalid fields. Failed to update product.',
+    };
+  }
+
+  const { image_urls, ...rest } = validatedFields.data;
+
+  const { error } = await supabase
+    .from('products')
+    .update({
+      ...rest,
+      image_urls: image_urls ? image_urls.split(',').map((url) => url.trim()) : [],
+    })
+    .eq('id', productId);
+
+  if (error) {
+    console.error('Supabase error:', error);
+    return {
+      status: 'error' as const,
+      message: 'Database Error: Failed to update product.',
+    };
+  }
+
+  revalidatePath('/dashboard/admin/products');
+  revalidatePath(`/dashboard/admin/products/${productId}/edit`);
+  return {
+    status: 'success' as const,
+    message: 'Product updated successfully!',
+  };
+}

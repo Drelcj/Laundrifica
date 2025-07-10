@@ -1,70 +1,25 @@
-import type { Metadata } from "next"
-import { CalendarIcon, FilterIcon, SearchIcon } from "lucide-react"
+import type { Metadata } from "next";
+import { CalendarIcon, FilterIcon, SearchIcon } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { getOrders } from "@/lib/actions/order.actions";
+import type { DbOrder } from "@/lib/types";
+import { getDeliveryAgents } from "@/lib/actions/user.actions";
+import { AssignAgentDialog } from "@/components/admin/assign-agent-dialog";
 
 export const metadata: Metadata = {
-  title: "Orders Management | Laundrify Admin",
+  title: "Orders Management | Laundrilab Admin",
   description: "Manage all customer orders and their statuses",
-}
-
-// Mock data for orders
-const orders = [
-  {
-    id: "ORD-2023-1001",
-    customer: "John Doe",
-    date: "2023-05-18",
-    total: "₦12,500",
-    status: "Delivered",
-    items: 8,
-    address: "15 Adebayo St, Lekki Phase 1",
-  },
-  {
-    id: "ORD-2023-1002",
-    customer: "Sarah Johnson",
-    date: "2023-05-18",
-    total: "₦8,750",
-    status: "Processing",
-    items: 5,
-    address: "7B Admiralty Way, Lekki",
-  },
-  {
-    id: "ORD-2023-1003",
-    customer: "Michael Obi",
-    date: "2023-05-17",
-    total: "₦15,200",
-    status: "Ready for delivery",
-    items: 10,
-    address: "24 Bode Thomas St, Surulere",
-  },
-  {
-    id: "ORD-2023-1004",
-    customer: "Amina Yusuf",
-    date: "2023-05-17",
-    total: "₦6,800",
-    status: "Pickup agent on the way",
-    items: 4,
-    address: "5 Adeola Odeku St, Victoria Island",
-  },
-  {
-    id: "ORD-2023-1005",
-    customer: "David Adeleke",
-    date: "2023-05-16",
-    total: "₦22,500",
-    status: "Delivered",
-    items: 15,
-    address: "10 Bourdillon Rd, Ikoyi",
-  },
-]
+};
 
 // Helper function to get status badge color
-function getStatusColor(status: string) {
+function getStatusColor(status: string | null) {
   switch (status) {
     case "Delivered":
       return "bg-green-100 text-green-800"
@@ -79,7 +34,13 @@ function getStatusColor(status: string) {
   }
 }
 
-export default function OrdersPage() {
+export default async function OrdersPage() {
+  const { data: orders, message, status } = await getOrders();
+  const agents = await getDeliveryAgents();
+
+  if (status === 'error') {
+    return <p>Error: {message}</p>;
+  }
   return (
     <div className="flex flex-col space-y-6">
       <div className="flex items-center justify-between">
@@ -136,32 +97,29 @@ export default function OrdersPage() {
                     <TableHead>Order ID</TableHead>
                     <TableHead>Customer</TableHead>
                     <TableHead>Date</TableHead>
-                    <TableHead>Items</TableHead>
                     <TableHead>Total</TableHead>
                     <TableHead>Status</TableHead>
-                    <TableHead>Address</TableHead>
+                    <TableHead>Delivery Agent</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {orders.map((order) => (
+                  {orders.map((order: DbOrder) => (
                     <TableRow key={order.id}>
-                      <TableCell className="font-medium">{order.id}</TableCell>
-                      <TableCell>{order.customer}</TableCell>
-                      <TableCell>{order.date}</TableCell>
-                      <TableCell>{order.items}</TableCell>
-                      <TableCell>{order.total}</TableCell>
+                      <TableCell className="font-medium">#{order.id}</TableCell>
+                      <TableCell>{order.users?.full_name || order.customer_email || 'N/A'}</TableCell>
+                      <TableCell>{new Date(order.created_at).toLocaleDateString()}</TableCell>
+                      <TableCell>₦{order.total_amount?.toLocaleString()}</TableCell>
                       <TableCell>
-                        <Badge className={getStatusColor(order.status)}>{order.status}</Badge>
+                        <Badge className={getStatusColor(order.status)}>{order.status ?? 'Unknown'}</Badge>
                       </TableCell>
-                      <TableCell className="max-w-[200px] truncate">{order.address}</TableCell>
+                      <TableCell>{order.assigned_agent_id ?? 'Unassigned'}</TableCell>
                       <TableCell className="text-right">
-                        <Button variant="ghost" size="sm">
-                          View
-                        </Button>
-                        <Button variant="ghost" size="sm">
-                          Edit
-                        </Button>
+                        <AssignAgentDialog
+                          orderId={order.id}
+                          agents={agents}
+                          currentAgentId={order.assigned_agent_id}
+                        />
                       </TableCell>
                     </TableRow>
                   ))}

@@ -32,6 +32,24 @@ export interface Cart {
 }
 
 // Order Types
+
+export type DbOrderStatus = 'pending_payment' | 'pending_pickup' | 'processing' | 'out_for_delivery' | 'completed' | 'cancelled';
+
+export interface DbOrder {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  user_id: string | null;
+  customer_email: string | null;
+  total_amount: number;
+  status: DbOrderStatus;
+  shipping_address: string | null;
+  assigned_agent_id: string | null;
+  users?: { 
+    full_name: string | null | undefined; 
+  };
+}
+
 export interface OrderAddress {
   firstName: string
   lastName: string

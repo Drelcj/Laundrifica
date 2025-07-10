@@ -2,7 +2,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import Link from "next/link"
-import { AdminNav } from "@/components/admin/admin-nav"
+import { AgentNav } from "@/components/agent/agent-nav"
 import { UserAccountNav } from "@/components/dashboard/user-account-nav"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -11,9 +11,10 @@ import { Menu } from "lucide-react"
 import { Suspense } from "react"
 import { Skeleton } from "@/components/loading-skeleton"
 import { createClient } from '@/utils/supabase/server';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: "Agent Dashboard | Laundrify",
+  title: "Agent Dashboard | Laundrilab",
   description: "Manage your assigned orders and track your performance",
 }
 
@@ -25,8 +26,12 @@ export default async function AgentLayout({ children }: AgentLayoutProps) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   const { data: profile } = user 
-    ? await supabase.from('profiles').select('*').eq('id', user.id).single() 
+    ? await supabase.from('profiles').select('role').eq('id', user.id).single() 
     : { data: null };
+
+  if (!profile || profile.role !== 'delivery_agent') {
+    redirect('/dashboard');
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -45,16 +50,16 @@ export default async function AgentLayout({ children }: AgentLayoutProps) {
             <ScrollArea className="h-[calc(100vh-3rem)] pb-10">
               <div className="px-2 py-2">
                 <Link href="/dashboard/agent" className="flex items-center gap-2 font-semibold">
-                  <span className="gradient-text text-lg md:text-xl">Laundrify Agent</span>
+                  <span className="gradient-text text-lg md:text-xl">Laundrilab Agent</span>
                 </Link>
-                <AdminNav className="mt-4" />
+                <AgentNav className="mt-4" />
               </div>
             </ScrollArea>
           </SheetContent>
         </Sheet>
         <div className="flex items-center gap-2">
           <Link href="/dashboard/agent" className="flex items-center gap-2 font-semibold">
-            <span className="gradient-text text-lg md:text-xl hidden md:inline-flex">Laundrify Agent</span>
+            <span className="gradient-text text-lg md:text-xl hidden md:inline-flex">Laundrilab Agent</span>
           </Link>
         </div>
         <div className="ml-auto flex items-center gap-4">
@@ -79,7 +84,7 @@ export default async function AgentLayout({ children }: AgentLayoutProps) {
         <aside className="hidden border-r md:block">
           <ScrollArea className="h-[calc(100vh-4rem)]">
             <div className="flex flex-col gap-4 py-4">
-              <AdminNav className="px-4" />
+              <AgentNav className="px-4" />
             </div>
           </ScrollArea>
         </aside>
