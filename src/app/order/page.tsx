@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useCartStore } from "@/lib/cart"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Check, Info, Minus, Plus, ShoppingBag } from "lucide-react"
@@ -157,69 +158,47 @@ const laundryItems: LaundryItem[] = [
   },
 ]
 
+
 export default function OrderPage() {
   const searchParams = useSearchParams()
   const initialTier = (searchParams.get("tier") as ServiceTier) || "standard"
 
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategory>("wash-fold")
-  const [orderItems, setOrderItems] = useState<OrderItem[]>([])
+  const { cart, addItem: addCartItem, removeItem: removeCartItem, updateQuantity, clearCart } = useCartStore()
+  const orderItems = cart.items
   const [defaultTier, setDefaultTier] = useState<ServiceTier>(initialTier)
 
   // Filter items by category
   const filteredItems = laundryItems.filter((item) => item.category === selectedCategory)
 
-  // Calculate totals
-  const subtotal = orderItems.reduce((sum, orderItem) => {
-    const price = orderItem.tier === "premium" ? orderItem.item.premiumPrice : orderItem.item.standardPrice
-    return sum + price * orderItem.quantity
-  }, 0)
+  // Subtotal, delivery, total from cart store
+  const subtotal = cart.subtotal
+  const deliveryFee = cart.shipping
+  const total = cart.total
 
-  const deliveryFee = 1500 // Fixed delivery fee
-  const total = subtotal + deliveryFee
-
-  // Add item to order
+  // Add item to cart (map LaundryItem to CartItem)
   const addItem = (item: LaundryItem) => {
-    const existingItem = orderItems.find((orderItem) => orderItem.item.id === item.id)
-
-    if (existingItem) {
-      setOrderItems(
-        orderItems.map((orderItem) =>
-          orderItem.item.id === item.id ? { ...orderItem, quantity: orderItem.quantity + 1 } : orderItem,
-        ),
-      )
-    } else {
-      setOrderItems([...orderItems, { item, quantity: 1, tier: defaultTier }])
-    }
+    addCartItem({
+      id: item.id,
+      productId: item.id,
+      name: item.name,
+      price: defaultTier === "premium" ? item.premiumPrice : item.standardPrice,
+      quantity: 1,
+      image: "", // No image in LaundryItem
+    })
   }
 
-  // Remove item from order
+  // Remove item from cart
   const removeItem = (itemId: string) => {
-    const existingItem = orderItems.find((orderItem) => orderItem.item.id === itemId)
-
-    if (existingItem && existingItem.quantity > 1) {
-      setOrderItems(
-        orderItems.map((orderItem) =>
-          orderItem.item.id === itemId ? { ...orderItem, quantity: orderItem.quantity - 1 } : orderItem,
-        ),
-      )
-    } else {
-      setOrderItems(orderItems.filter((orderItem) => orderItem.item.id !== itemId))
-    }
+    removeCartItem(itemId)
   }
 
-  // Toggle item tier between standard and premium
-  const toggleItemTier = (itemId: string) => {
-    setOrderItems(
-      orderItems.map((orderItem) =>
-        orderItem.item.id === itemId
-          ? {
-              ...orderItem,
-              tier: orderItem.tier === "standard" ? "premium" : "standard",
-            }
-          : orderItem,
-      ),
-    )
+  // Toggle item tier (not implemented in cart store)
+  const toggleItemTier = (_itemId: string) => {
+    // Not implemented
   }
+
+  // Remove legacy handlers (already replaced above)
 
   // Format price in Naira
   const formatPrice = (price: number) => {
@@ -297,7 +276,7 @@ export default function OrderPage() {
                       <div
                         key={item.id}
                         className="flex justify-between items-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer"
-                        onClick={() => addItem(item)}
+                onClick={() => addItem(item)}
                       >
                         <div>
                           <h3 className="font-medium">{item.name}</h3>
@@ -379,32 +358,19 @@ export default function OrderPage() {
               ) : (
                 <div className="space-y-4">
                   {orderItems.map((orderItem) => (
-                    <div key={orderItem.item.id} className="flex flex-col gap-2 pb-4 border-b">
+                    <div key={orderItem.id} className="flex flex-col gap-2 pb-4 border-b">
                       <div className="flex justify-between">
                         <div>
                           <div className="font-medium flex items-center">
-                            {orderItem.item.name}
-                            {orderItem.tier === "premium" && (
-                              <Badge className="ml-2 bg-primary text-primary-foreground text-xs">Premium</Badge>
-                            )}
-                          </div>
-                          <div className="text-sm text-muted-foreground">
-                            {orderItem.item.category === "wash-fold" ? "Per kg" : "Per item"}
+                            {orderItem.name}
                           </div>
                         </div>
                         <div className="text-right">
                           <div className="font-medium">
-                            {formatPrice(
-                              orderItem.tier === "premium"
-                                ? orderItem.item.premiumPrice * orderItem.quantity
-                                : orderItem.item.standardPrice * orderItem.quantity,
-                            )}
+                            {formatPrice(orderItem.price * orderItem.quantity)}
                           </div>
                           <div className="text-sm text-muted-foreground">
-                            {formatPrice(
-                              orderItem.tier === "premium" ? orderItem.item.premiumPrice : orderItem.item.standardPrice,
-                            )}{" "}
-                            × {orderItem.quantity}
+                            {formatPrice(orderItem.price)} × {orderItem.quantity}
                           </div>
                         </div>
                       </div>
@@ -415,7 +381,7 @@ export default function OrderPage() {
                             variant="outline"
                             size="icon"
                             className="h-8 w-8 rounded-full"
-                            onClick={() => removeItem(orderItem.item.id)}
+                            onClick={() => removeItem(orderItem.id)}
                           >
                             <Minus className="h-3 w-3" />
                             <span className="sr-only">Decrease quantity</span>
@@ -425,22 +391,11 @@ export default function OrderPage() {
                             variant="outline"
                             size="icon"
                             className="h-8 w-8 rounded-full"
-                            onClick={() => addItem(orderItem.item)}
+                            onClick={() => addCartItem({ ...orderItem, quantity: 1 })}
                           >
                             <Plus className="h-3 w-3" />
                             <span className="sr-only">Increase quantity</span>
                           </Button>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                          <Label htmlFor={`upgrade-${orderItem.item.id}`} className="text-xs cursor-pointer">
-                            {orderItem.tier === "standard" ? "Upgrade to Premium" : "Switch to Standard"}
-                          </Label>
-                          <Switch
-                            id={`upgrade-${orderItem.item.id}`}
-                            checked={orderItem.tier === "premium"}
-                            onCheckedChange={() => toggleItemTier(orderItem.item.id)}
-                          />
                         </div>
                       </div>
                     </div>
@@ -476,7 +431,15 @@ export default function OrderPage() {
               )}
             </CardContent>
             <CardFooter>
-              <Button className="w-full" size="lg" disabled={orderItems.length === 0}>
+              <Button
+                className="w-full"
+                size="lg"
+                disabled={orderItems.length === 0}
+                onClick={() => {
+                  // Cart is already persisted via Zustand, just navigate
+                  window.location.href = "/checkout";
+                }}
+              >
                 Proceed to Payment
               </Button>
             </CardFooter>

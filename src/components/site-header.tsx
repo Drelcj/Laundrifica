@@ -5,7 +5,8 @@ import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, ShoppingCart, User as UserIcon } from "lucide-react"
+import { Menu, User as UserIcon } from "lucide-react"
+import { CartIcon } from "@/components/cart-icon"
 import { MainNav } from "@/components/main-nav"
 import { MobileNav } from "@/components/mobile-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -41,12 +42,7 @@ export function SiteHeader({ user, profile }: SiteHeaderProps) {
 
         <div className="flex items-center space-x-2">
           <ThemeToggle />
-          <Button variant="ghost" size="icon" asChild>
-            <Link href="/cart">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="sr-only">Shopping cart</span>
-            </Link>
-          </Button>
+          <CartIcon />
 
           {/* --- CORRECTED LOGIC --- */}
           {/* This container hides the user menu/login button on mobile, as the sheet will handle it */}

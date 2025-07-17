@@ -16,9 +16,8 @@ const addressSchema = z.object({
   addressLine1: z.string().min(1, "Address is required"),
   addressLine2: z.string().optional(),
   city: z.string().min(1, "City is required"),
-  state: z.string().min(1, "State is required"),
+  state: z.enum(["Rivers", "Lagos"], { message: "Only Rivers and Lagos are supported" }),
   postalCode: z.string().min(5, "Valid postal code is required"),
-  country: z.string().min(1, "Country is required"),
   phone: z.string().min(10, "Valid phone number is required"),
 })
 
@@ -47,7 +46,6 @@ export function AddressForm({
       city: "",
       state: "",
       postalCode: "",
-      country: "USA",
       phone: "",
     },
   })
@@ -156,14 +154,8 @@ export function AddressForm({
                         <SelectValue placeholder="Select state" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="AL">Alabama</SelectItem>
-                        <SelectItem value="AK">Alaska</SelectItem>
-                        <SelectItem value="AZ">Arizona</SelectItem>
-                        <SelectItem value="CA">California</SelectItem>
-                        <SelectItem value="CO">Colorado</SelectItem>
-                        <SelectItem value="NY">New York</SelectItem>
-                        <SelectItem value="TX">Texas</SelectItem>
-                        {/* Add more states as needed */}
+                        <SelectItem value="Rivers">Rivers</SelectItem>
+                        <SelectItem value="Lagos">Lagos</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -188,29 +180,7 @@ export function AddressForm({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="country"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Country</FormLabel>
-                  <FormControl>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select country" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="USA">United States</SelectItem>
-                        <SelectItem value="CAN">Canada</SelectItem>
-                        <SelectItem value="MEX">Mexico</SelectItem>
-                        {/* Add more countries as needed */}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {/* Country field removed as it's not needed */}
 
             <FormField
               control={form.control}

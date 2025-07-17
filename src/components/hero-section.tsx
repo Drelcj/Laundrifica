@@ -8,8 +8,14 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import dynamic from "next/dynamic"
 
-// Dynamically import motion components to reduce initial bundle size
-const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div), { ssr: false })
+// Dynamically import motion.div safely to avoid runtime errors
+const MotionDiv = dynamic(
+  async () => {
+    const mod = await import("framer-motion")
+    return mod.motion.div
+  },
+  { ssr: false }
+)
 
 const slides = [
   {
