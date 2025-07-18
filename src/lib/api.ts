@@ -66,9 +66,7 @@ const MOCK_ORDERS: Order[] = [
       lastName: "Doe",
       addressLine1: "123 Main St",
       city: "Anytown",
-      state: "CA",
-      postalCode: "12345",
-      country: "USA",
+      state: "Lagos",
       phone: "555-123-4567",
     },
     billingAddress: {
@@ -76,9 +74,7 @@ const MOCK_ORDERS: Order[] = [
       lastName: "Doe",
       addressLine1: "123 Main St",
       city: "Anytown",
-      state: "CA",
-      postalCode: "12345",
-      country: "USA",
+      state: "Rivers",
       phone: "555-123-4567",
     },
     paymentMethod: {
