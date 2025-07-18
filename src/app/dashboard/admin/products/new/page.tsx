@@ -1,7 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { ProductForm } from '@/components/admin/product-form';
-import { createProduct } from '@/lib/actions/product.actions';
 import { Category } from '@/types/app';
 
 async function getCategories(supabase: any): Promise<Category[]> {
@@ -32,11 +31,7 @@ export default async function NewProductPage() {
   return (
     <div className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">Add New Product</h1>
-      <ProductForm 
-        categories={categories} 
-        createProduct={createProduct} 
-        updateProduct={async () => {}}
-      />
+      <ProductForm categories={categories} />
     </div>
   );
 }

@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Checkbox } from '@/components/ui/checkbox'
 import { useRouter } from 'next/navigation';
-
+import { createProduct, updateProduct } from '@/lib/actions/product.actions'
 import {
   Select,
   SelectContent,
@@ -47,11 +47,9 @@ import { Product } from '@/types/app';
 interface ProductFormProps {
   categories: { id: number; name: string }[];
   product?: Product;
-  createProduct: (values: ProductFormValues) => Promise<any>;
-  updateProduct: (id: number, values: ProductFormValues) => Promise<any>;
 }
 
-export function ProductForm({ categories, product, createProduct, updateProduct }: ProductFormProps) {
+export function ProductForm({ categories, product }: ProductFormProps) {
   const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
   const router = useRouter();

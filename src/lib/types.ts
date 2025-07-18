@@ -69,22 +69,7 @@ export interface OrderItem {
   image: string
 }
 
-
-
-export interface ClientOrder {
-  id?: string; // Optional on creation
-  items: OrderItem[];
-  shippingAddress: OrderAddress;
-  billingAddress: OrderAddress;
-  total: number;
-  subtotal?: number;
-  tax?: number;
-  shipping?: number;
-  paymentMethod?: string;
-  status?: DbOrderStatus;
-  createdAt?: string;
-  updatedAt?: string;
-}
+export type OrderStatus = "pending" | "processing" | "shipped" | "delivered" | "cancelled"
 
 export interface ShippingInfo {
   method: string
@@ -123,7 +108,7 @@ export interface Order {
   tax: number
   shipping: number
   total: number
-  status: DbOrderStatus
+  status: OrderStatus
   shippingInfo?: ShippingInfo
   createdAt: string
   updatedAt: string
