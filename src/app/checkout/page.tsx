@@ -307,7 +307,8 @@ export default function CheckoutPage() {
           )}
         </div>
         <div>
-          <OrderSummary
+          {currentStep !== 3 && (
+            <OrderSummary
             items={cart.items}
             subtotal={cart.subtotal}
             tax={cart.tax}
@@ -319,6 +320,7 @@ export default function CheckoutPage() {
               )?.name
             }
           />
+          )}
         </div>
       </div>
     </div>
