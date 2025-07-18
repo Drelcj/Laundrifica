@@ -247,7 +247,7 @@ export default function CheckoutPage() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between p-4 border rounded-lg bg-gray-100 opacity-50 cursor-not-allowed">
                       <div>
-                        <p className="font-medium">Pay with Card</p>
+                        <p className="font-medium text-gray-600">Pay with Card</p>
                         <p className="text-sm text-gray-500">
                           10% discount applied at checkout
                         </p>
