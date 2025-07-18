@@ -1,18 +1,21 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import { useRouter } from "next/navigation"
-import { CheckCircleIcon } from "lucide-react"
-import { useCartStore } from "@/lib/cart"
-import type { OrderAddress } from "@/lib/types"
-import { createOrder, calculateTax } from "@/lib/api"
-import { AddressForm } from "@/components/checkout/address-form"
-import { ShippingMethodSelector } from "@/components/checkout/shipping-method-selector"
-import { PaymentForm } from "@/components/checkout/payment-form"
-import { OrderSummary } from "@/components/checkout/order-summary"
-import { Steps, Step } from "@/components/ui/steps"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import React, { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { CheckCircleIcon } from "lucide-react";
+import { useCartStore } from "@/lib/cart";
+import type { OrderAddress } from "@/lib/types";
+import { createOrder, calculateTax } from "@/lib/api";
+import {
+  AddressForm,
+  AddressFormHandle,
+} from "@/components/checkout/address-form";
+import { ShippingMethodSelector } from "@/components/checkout/shipping-method-selector";
+import { PaymentForm } from "@/components/checkout/payment-form";
+import { OrderSummary } from "@/components/checkout/order-summary";
+import { Steps, Step } from "@/components/ui/steps";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 // Shipping methods with dynamic pricing
 const getShippingMethods = (cartSubtotal: number) => [
@@ -37,25 +40,34 @@ const getShippingMethods = (cartSubtotal: number) => [
     price: cartSubtotal < 5000 ? 5000 : cartSubtotal, // 100% of total, min ₦5,000
     estimatedDelivery: "Next business day",
   },
-]
+];
 
 export default function CheckoutPage() {
-  const router = useRouter()
-  const { cart, clearCart } = useCartStore()
+  const router = useRouter();
+  const { cart, clearCart } = useCartStore();
 
-  const [currentStep, setCurrentStep] = useState(0)
-  const [shippingAddress, setShippingAddress] = useState<OrderAddress | null>(null)
-  const [billingAddress, setBillingAddress] = useState<OrderAddress | null>(null)
-  const [selectedShippingMethod, setSelectedShippingMethod] = useState("standard")
-  const [orderComplete, setOrderComplete] = useState(false)
-  const [orderId, setOrderId] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [currentStep, setCurrentStep] = useState(0);
+  const [shippingAddress, setShippingAddress] = useState<OrderAddress | null>(
+    null
+  );
+  const [billingAddress, setBillingAddress] = useState<OrderAddress | null>(
+    null
+  );
+  const [selectedShippingMethod, setSelectedShippingMethod] =
+    useState("standard");
+  const [orderComplete, setOrderComplete] = useState(false);
+  const [orderId, setOrderId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const shippingFormRef = useRef<AddressFormHandle>(null);
+  const billingFormRef = useRef<AddressFormHandle>(null);
 
   // Get dynamic shipping methods based on cart subtotal
-  const shippingMethods = getShippingMethods(cart.subtotal)
-  
+  const shippingMethods = getShippingMethods(cart.subtotal);
+
   // Calculate shipping cost based on selected method
-  const shippingCost = shippingMethods.find((method) => method.id === selectedShippingMethod)?.price || 0
+  const shippingCost =
+    shippingMethods.find((method) => method.id === selectedShippingMethod)
+      ?.price || 0;
 
   // Update cart with shipping cost
   React.useEffect(() => {
@@ -63,42 +75,43 @@ export default function CheckoutPage() {
       // Update cart shipping cost
       // This would typically update the cart state
     }
-  }, [shippingCost, cart.shipping])
+  }, [shippingCost, cart.shipping]);
 
   const handleShippingAddressSubmit = async (address: OrderAddress) => {
-    setShippingAddress(address)
+    setShippingAddress(address);
 
     // Calculate tax based on shipping address
     try {
-      const taxAmount = await calculateTax(cart.subtotal, address.state)
+      const taxAmount = await calculateTax(cart.subtotal, address.state);
       // Update cart tax amount
       // This would typically update the cart state
     } catch (error) {
-      console.error("Error calculating tax:", error)
+      console.error("Error calculating tax:", error);
     }
 
     // Move to next step
-    setCurrentStep(1)
-  }
+    setCurrentStep(1);
+  };
 
   const handleBillingAddressSubmit = (address: OrderAddress) => {
-    setBillingAddress(address)
-    setCurrentStep(2)
-  }
+    setBillingAddress(address);
+    setCurrentStep(2);
+  };
 
   const handleSameAsShipping = () => {
     if (shippingAddress) {
-      setBillingAddress(shippingAddress)
-      setCurrentStep(2)
+      setBillingAddress(shippingAddress);
+      // Stay on step 1 to allow shipping method selection
+      // Don't automatically advance to payment step
     }
-  }
+  };
 
   const handleShippingMethodSelect = (methodId: string) => {
-    setSelectedShippingMethod(methodId)
-  }
+    setSelectedShippingMethod(methodId);
+  };
 
   const handlePaymentComplete = async (paymentDetails: any) => {
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
       // Create order
@@ -112,33 +125,33 @@ export default function CheckoutPage() {
         shipping: shippingCost,
         total: cart.subtotal + cart.tax + shippingCost,
         email: "customer@example.com", // In a real app, this would come from the user's account or checkout form
-      })
+      });
 
       // Set order ID and mark as complete
-      setOrderId(order.id)
-      setOrderComplete(true)
+      setOrderId(order.id);
+      setOrderComplete(true);
 
       // Clear cart
-      clearCart()
+      clearCart();
 
       // Move to confirmation step
-      setCurrentStep(3)
+      setCurrentStep(3);
     } catch (error) {
-      console.error("Error creating order:", error)
+      console.error("Error creating order:", error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleContinueShopping = () => {
-    router.push("/products")
-  }
+    router.push("/products");
+  };
 
   const handleViewOrder = () => {
     if (orderId) {
-      router.push(`/dashboard/orders/${orderId}`)
+      router.push(`/dashboard/orders/${orderId}`);
     }
-  }
+  };
 
   return (
     <div className="container mx-auto py-8">
@@ -156,11 +169,22 @@ export default function CheckoutPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           {currentStep === 0 && (
-            <Card>
-              <CardContent className="pt-6">
-                <AddressForm type="shipping" onSubmit={handleShippingAddressSubmit} />
-              </CardContent>
-            </Card>
+            <>
+              <Card>
+                <CardContent className="pt-6">
+                  <AddressForm
+                    ref={shippingFormRef}
+                    type="shipping"
+                    onSubmit={handleShippingAddressSubmit}
+                  />
+                </CardContent>
+              </Card>
+              <div className="flex justify-end">
+                <Button onClick={() => shippingFormRef.current?.submit()}>
+                  Continue to Billing
+                </Button>
+              </div>
+            </>
           )}
 
           {currentStep === 1 && (
@@ -168,6 +192,7 @@ export default function CheckoutPage() {
               <Card>
                 <CardContent className="pt-6">
                   <AddressForm
+                    ref={billingFormRef}
                     type="billing"
                     initialData={billingAddress || undefined}
                     onSubmit={handleBillingAddressSubmit}
@@ -187,7 +212,15 @@ export default function CheckoutPage() {
                 <Button variant="outline" onClick={() => setCurrentStep(0)}>
                   Back to Shipping
                 </Button>
-                <Button onClick={() => setCurrentStep(2)} disabled={!billingAddress}>
+                <Button
+                  onClick={() => {
+                    if (billingAddress) {
+                      setCurrentStep(2);
+                    } else {
+                      billingFormRef.current?.submit();
+                    }
+                  }}
+                >
                   Continue to Payment
                 </Button>
               </div>
@@ -196,11 +229,51 @@ export default function CheckoutPage() {
 
           {currentStep === 2 && (
             <div className="space-y-6">
-              <PaymentForm total={cart.subtotal + cart.tax + shippingCost} onPaymentComplete={handlePaymentComplete} />
+              <OrderSummary
+                items={cart.items}
+                subtotal={cart.subtotal}
+                tax={cart.tax}
+                shipping={shippingCost}
+                total={cart.subtotal + cart.tax + shippingCost}
+                shippingMethod={
+                  shippingMethods.find(
+                    (method) => method.id === selectedShippingMethod
+                  )?.name
+                }
+              />
+              <Card>
+                <CardContent className="pt-6 space-y-4">
+                  <h3 className="font-medium">Payment Method</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between p-4 border rounded-lg bg-gray-100 opacity-50 cursor-not-allowed">
+                      <div>
+                        <p className="font-medium">Pay with Card</p>
+                        <p className="text-sm text-gray-500">
+                          10% discount applied at checkout
+                        </p>
+                      </div>
+                      <p className="text-sm font-semibold text-gray-600">
+                        Coming Soon
+                      </p>
+                    </div>
+                    <div className="flex items-center p-4 border rounded-lg border-blue-500">
+                      <p className="font-medium">Pay on Delivery</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
               <div className="flex justify-between">
                 <Button variant="outline" onClick={() => setCurrentStep(1)}>
                   Back to Billing
+                </Button>
+                <Button
+                  onClick={() =>
+                    handlePaymentComplete({ method: "Pay on Delivery" })
+                  }
+                  className="w-auto"
+                >
+                  Place Order
                 </Button>
               </div>
             </div>
@@ -215,9 +288,12 @@ export default function CheckoutPage() {
                   </div>
                   <h2 className="text-2xl font-bold">Order Confirmed!</h2>
                   <p className="text-gray-500">
-                    Thank you for your order. Your order number is <span className="font-medium">{orderId}</span>.
+                    Thank you for your order. Your order number is{" "}
+                    <span className="font-medium">{orderId}</span>.
                   </p>
-                  <p className="text-gray-500">We've sent a confirmation email to your email address.</p>
+                  <p className="text-gray-500">
+                    We've sent a confirmation email to your email address.
+                  </p>
 
                   <div className="flex space-x-4 mt-6">
                     <Button variant="outline" onClick={handleContinueShopping}>
@@ -230,7 +306,6 @@ export default function CheckoutPage() {
             </Card>
           )}
         </div>
-
         <div>
           <OrderSummary
             items={cart.items}
@@ -238,10 +313,14 @@ export default function CheckoutPage() {
             tax={cart.tax}
             shipping={shippingCost}
             total={cart.subtotal + cart.tax + shippingCost}
-            shippingMethod={shippingMethods.find(method => method.id === selectedShippingMethod)?.name}
+            shippingMethod={
+              shippingMethods.find(
+                (method) => method.id === selectedShippingMethod
+              )?.name
+            }
           />
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -51,15 +51,13 @@ export interface DbOrder {
 }
 
 export interface OrderAddress {
-  firstName: string
-  lastName: string
-  addressLine1: string
-  addressLine2?: string
-  city: string
-  state: string
-  postalCode: string
-  country: string
-  phone: string
+  firstName: string;
+  lastName: string;
+  addressLine1: string;
+  addressLine2?: string;
+  city: string;
+  state: "Rivers" | "Lagos";
+  phone: string;
 }
 
 export interface OrderItem {
