@@ -1,7 +1,14 @@
 // Mock API functions for demonstration purposes
 // In a real application, these would make actual API calls to your backend
 
-import type { Product, Order, InventoryItem, AnalyticsData, OrderStatus, ShippingInfo } from "./types"
+import { createClient } from "@/utils/supabase/client";
+import type { Tables, TablesInsert } from "@/types/database";
+import type { Product, InventoryItem, AnalyticsData, DbOrderStatus, ShippingInfo, OrderItem } from "./types"
+import { createSupabaseOrder } from "./supabase-order";
+import { OrderWithItems, Order } from "@/types/order";
+import { ClientOrder } from "./types";
+
+
 
 // Mock data
 const MOCK_PRODUCTS: Product[] = [
@@ -46,89 +53,7 @@ const MOCK_PRODUCTS: Product[] = [
   },
 ]
 
-const MOCK_ORDERS: Order[] = [
-  {
-    id: "order-1",
-    userId: "user-1",
-    email: "customer@example.com",
-    items: [
-      {
-        id: "item-1",
-        productId: "prod-1",
-        name: "Premium Laundry Service",
-        price: 29.99,
-        quantity: 2,
-        image: "/placeholder.svg?height=100&width=100",
-      },
-    ],
-    shippingAddress: {
-      firstName: "John",
-      lastName: "Doe",
-      addressLine1: "123 Main St",
-      city: "Anytown",
-      state: "CA",
-      postalCode: "12345",
-      country: "USA",
-      phone: "555-123-4567",
-    },
-    billingAddress: {
-      firstName: "John",
-      lastName: "Doe",
-      addressLine1: "123 Main St",
-      city: "Anytown",
-      state: "CA",
-      postalCode: "12345",
-      country: "USA",
-      phone: "555-123-4567",
-    },
-    paymentMethod: {
-      type: "credit_card",
-      last4: "4242",
-      expiryDate: "12/25",
-    },
-    subtotal: 59.98,
-    tax: 4.8,
-    shipping: 5.99,
-    total: 70.77,
-    status: "shipped",
-    shippingInfo: {
-      method: "Standard",
-      carrier: "USPS",
-      trackingNumber: "1Z999AA10123456784",
-      estimatedDelivery: "2023-06-15T00:00:00Z",
-      cost: 5.99,
-      currentLocation: {
-        city: "Los Angeles",
-        state: "CA",
-        country: "USA",
-        latitude: 34.0522,
-        longitude: -118.2437,
-      },
-      updates: [
-        {
-          status: "order_placed",
-          location: "Online",
-          timestamp: "2023-06-10T10:00:00Z",
-          description: "Order has been placed",
-        },
-        {
-          status: "processing",
-          location: "Laundrilab Facility",
-          timestamp: "2023-06-11T09:30:00Z",
-          description: "Order is being processed",
-        },
-        {
-          status: "shipped",
-          location: "Laundrilab Facility",
-          timestamp: "2023-06-12T14:20:00Z",
-          description: "Order has been shipped",
-        },
-      ],
-    },
-    createdAt: "2023-06-10T10:00:00Z",
-    updatedAt: "2023-06-12T14:20:00Z",
-  },
-]
+
 
 const MOCK_INVENTORY: InventoryItem[] = [
   {
@@ -232,53 +157,91 @@ export async function getProductById(id: string): Promise<Product | null> {
   return MOCK_PRODUCTS.find((product) => product.id === id) || null
 }
 
-export async function createOrder(orderData: Partial<Order>): Promise<Order> {
-  await new Promise((resolve) => setTimeout(resolve, 800))
 
-  // Generate a new order with the provided data
-  const newOrder: Order = {
-    id: `order-${Date.now()}`,
-    userId: orderData.userId || undefined,
-    email: orderData.email || "",
-    items: orderData.items || [],
-    shippingAddress: orderData.shippingAddress!,
-    billingAddress: orderData.billingAddress!,
-    paymentMethod: orderData.paymentMethod!,
-    subtotal: orderData.subtotal || 0,
-    tax: orderData.tax || 0,
-    shipping: orderData.shipping || 0,
-    total: orderData.total || 0,
-    status: "pending",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+
+export async function createOrder(orderData: ClientOrder): Promise<Order> {
+  console.log("Creating order with client data:", orderData);
+
+  const { items, shippingAddress, total } = orderData;
+
+  if (!items || !shippingAddress || total === undefined) {
+    throw new Error('Missing required order data for creation.');
   }
 
-  // In a real app, this would be saved to a database
-  MOCK_ORDERS.push(newOrder)
+  // 1. Prepare the main order object for the database.
+  const orderToInsert: Omit<TablesInsert<'orders'>, 'id' | 'user_id' | 'created_at' | 'updated_at'> = {
+    status: 'pending_payment',
+    total_amount: total,
+    shipping_address: JSON.stringify(shippingAddress),
+  };
 
-  return newOrder
+  // 2. Prepare the order items for the database.
+  const itemsToInsert = items.map(item => ({
+    product_id: parseInt(item.productId.replace('prod-', ''), 10),
+    quantity: item.quantity,
+    price: item.price,
+  }));
+
+  // 3. Call the Supabase function to perform the transaction and get the final order object.
+  const newOrder = await createSupabaseOrder(orderToInsert, itemsToInsert);
+
+  console.log('Successfully created order with ID:', newOrder.id);
+  return newOrder;
 }
 
-export async function getOrders(): Promise<Order[]> {
-  await new Promise((resolve) => setTimeout(resolve, 500))
-  return MOCK_ORDERS
+export async function getOrders(): Promise<OrderWithItems[]> {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*, order_items(*, products(*))')
+    .eq('user_id', user.id)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching user orders:', error);
+    return [];
+  }
+
+  return data;
 }
 
-export async function getOrderById(id: string): Promise<Order | null> {
-  await new Promise((resolve) => setTimeout(resolve, 300))
-  return MOCK_ORDERS.find((order) => order.id === id) || null
+export async function getOrderById(id: string): Promise<Tables<'orders'> | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('id', parseInt(id, 10))
+    .single();
+
+  if (error) {
+    console.error('Error fetching order by ID:', error);
+    return null;
+  }
+
+  return data;
 }
 
-export async function updateOrderStatus(id: string, status: OrderStatus): Promise<Order | null> {
-  await new Promise((resolve) => setTimeout(resolve, 400))
+export async function updateOrderStatus(id: string, status: Tables<'orders'>['status']): Promise<Tables<'orders'> | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('orders')
+    .update({ status })
+    .eq('id', parseInt(id, 10))
+    .select()
+    .single();
 
-  const orderIndex = MOCK_ORDERS.findIndex((order) => order.id === id)
-  if (orderIndex === -1) return null
+  if (error) {
+    console.error(`Error updating order ${id} to status ${status}:`, error);
+    return null;
+  }
 
-  MOCK_ORDERS[orderIndex].status = status
-  MOCK_ORDERS[orderIndex].updatedAt = new Date().toISOString()
-
-  return MOCK_ORDERS[orderIndex]
+  return data;
 }
 
 export async function getInventory(): Promise<InventoryItem[]> {
@@ -305,11 +268,10 @@ export async function getAnalytics(startDate?: string, endDate?: string): Promis
 }
 
 export async function getShippingInfo(trackingNumber: string): Promise<ShippingInfo | null> {
+  // This function is deprecated as it relies on mock data.
+  // A real implementation would query the database.
   await new Promise((resolve) => setTimeout(resolve, 600))
-
-  // Find an order with the given tracking number
-  const order = MOCK_ORDERS.find((o) => o.shippingInfo?.trackingNumber === trackingNumber)
-  return order?.shippingInfo || null
+  return null;
 }
 
 export async function processPayment(

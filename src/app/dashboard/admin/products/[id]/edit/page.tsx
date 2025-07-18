@@ -2,6 +2,7 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { ProductForm } from '@/components/admin/product-form';
+import { createProduct, updateProduct } from '@/lib/actions/product.actions';
 import { Category, Product } from '@/types/app';
 
 async function getProductById(supabase: any, id: number): Promise<Product | null> {
@@ -54,7 +55,12 @@ export default async function EditProductPage({ params }: { params: { id: string
   return (
     <div className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">Edit Product</h1>
-      <ProductForm categories={categories} product={product} />
+      <ProductForm 
+        categories={categories} 
+        product={product} 
+        createProduct={createProduct} 
+        updateProduct={updateProduct} 
+      />
     </div>
   );
 }

@@ -4,10 +4,26 @@
 import Link from "next/link"
 import { ShoppingCart } from "lucide-react"
 import { useCartStore } from "@/lib/cart"
+import { useEffect, useState } from "react"
 
 export function CartIcon() {
-  const { cart } = useCartStore()
-  const itemCount = cart.items.reduce((sum, item) => sum + item.quantity, 0)
+  const { cart } = useCartStore();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const itemCount = cart.items.reduce((sum, item) => sum + item.quantity, 0);
+
+  if (!isMounted) {
+    return (
+      <Link href="/cart" className="relative inline-flex items-center">
+        <ShoppingCart className="h-5 w-5" />
+        <span className="sr-only">Shopping cart</span>
+      </Link>
+    );
+  }
 
   return (
     <Link href="/cart" className="relative inline-flex items-center">
@@ -19,5 +35,5 @@ export function CartIcon() {
       )}
       <span className="sr-only">Shopping cart</span>
     </Link>
-  )
+  );
 }
