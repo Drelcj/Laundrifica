@@ -8,9 +8,10 @@ interface OrderSummaryProps {
   tax: number
   shipping: number
   total: number
+  shippingMethod?: string
 }
 
-export function OrderSummary({ items, subtotal, tax, shipping, total }: OrderSummaryProps) {
+export function OrderSummary({ items, subtotal, tax, shipping, total, shippingMethod }: OrderSummaryProps) {
   return (
     <Card>
       <CardHeader>
@@ -40,8 +41,8 @@ export function OrderSummary({ items, subtotal, tax, shipping, total }: OrderSum
             <span>₦{tax.toLocaleString()}</span>
           </div>
           <div className="flex justify-between">
-            <span>Shipping</span>
-            <span>₦{shipping.toLocaleString()}</span>
+            <span>Shipping{shippingMethod ? ` (${shippingMethod})` : ''}</span>
+            <span>{shipping === 0 ? 'Free' : `₦${shipping.toLocaleString()}`}</span>
           </div>
         </div>
 

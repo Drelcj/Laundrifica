@@ -14,27 +14,27 @@ import { Steps, Step } from "@/components/ui/steps"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
-// Shipping methods
-const SHIPPING_METHODS = [
+// Shipping methods with dynamic pricing
+const getShippingMethods = (cartSubtotal: number) => [
   {
     id: "standard",
     name: "Standard Shipping",
     description: "Delivery in 3-5 business days",
-    price: 5.99,
+    price: 0, // Always free
     estimatedDelivery: "3-5 business days",
   },
   {
     id: "express",
     name: "Express Shipping",
     description: "Delivery in 1-2 business days",
-    price: 12.99,
+    price: cartSubtotal < 5000 ? 2500 : cartSubtotal * 0.5, // 50% of total, min ₦2,500
     estimatedDelivery: "1-2 business days",
   },
   {
     id: "overnight",
     name: "Overnight Shipping",
     description: "Next day delivery",
-    price: 19.99,
+    price: cartSubtotal < 5000 ? 5000 : cartSubtotal, // 100% of total, min ₦5,000
     estimatedDelivery: "Next business day",
   },
 ]
@@ -46,13 +46,16 @@ export default function CheckoutPage() {
   const [currentStep, setCurrentStep] = useState(0)
   const [shippingAddress, setShippingAddress] = useState<OrderAddress | null>(null)
   const [billingAddress, setBillingAddress] = useState<OrderAddress | null>(null)
-  const [selectedShippingMethod, setSelectedShippingMethod] = useState(SHIPPING_METHODS[0].id)
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState("standard")
   const [orderComplete, setOrderComplete] = useState(false)
   const [orderId, setOrderId] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
+  // Get dynamic shipping methods based on cart subtotal
+  const shippingMethods = getShippingMethods(cart.subtotal)
+  
   // Calculate shipping cost based on selected method
-  const shippingCost = SHIPPING_METHODS.find((method) => method.id === selectedShippingMethod)?.price || 0
+  const shippingCost = shippingMethods.find((method) => method.id === selectedShippingMethod)?.price || 0
 
   // Update cart with shipping cost
   React.useEffect(() => {
@@ -175,7 +178,7 @@ export default function CheckoutPage() {
               </Card>
 
               <ShippingMethodSelector
-                methods={SHIPPING_METHODS}
+                methods={shippingMethods}
                 selectedMethod={selectedShippingMethod}
                 onSelect={handleShippingMethodSelect}
               />
@@ -235,6 +238,7 @@ export default function CheckoutPage() {
             tax={cart.tax}
             shipping={shippingCost}
             total={cart.subtotal + cart.tax + shippingCost}
+            shippingMethod={shippingMethods.find(method => method.id === selectedShippingMethod)?.name}
           />
         </div>
       </div>
