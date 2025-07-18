@@ -171,10 +171,9 @@ export default function OrderPage() {
   // Filter items by category
   const filteredItems = laundryItems.filter((item) => item.category === selectedCategory)
 
-  // Subtotal, delivery, total from cart store
-  const subtotal = cart.subtotal
-  const deliveryFee = cart.shipping
-  const total = cart.total
+  // Calculate subtotal and total
+  const subtotal = cart.items.reduce((acc, item) => acc + item.price * item.quantity, 0)
+  const total = subtotal
 
   // Add item to cart (map LaundryItem to CartItem)
   const addItem = (item: LaundryItem) => {
@@ -298,43 +297,7 @@ export default function OrderPage() {
             </TabsContent>
           </Tabs>
 
-          <Card className="mt-8">
-            <CardHeader>
-              <CardTitle>Delivery Information</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input id="name" placeholder="Enter your full name" />
-                  </div>
-                  <div>
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" placeholder="Enter your phone number" />
-                  </div>
-                  <div>
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input id="email" placeholder="Enter your email address" />
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="address">Delivery Address</Label>
-                    <Textarea id="address" placeholder="Enter your delivery address" rows={3} />
-                  </div>
-                  <div>
-                    <Label htmlFor="instructions">Special Instructions (Optional)</Label>
-                    <Textarea
-                      id="instructions"
-                      placeholder="Any special instructions for pickup or delivery"
-                      rows={3}
-                    />
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+
         </div>
 
         <div>
@@ -409,10 +372,7 @@ export default function OrderPage() {
                     <span>Subtotal</span>
                     <span>{formatPrice(subtotal)}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span>Delivery Fee</span>
-                    <span>{formatPrice(deliveryFee)}</span>
-                  </div>
+
                   <Separator />
                   <div className="flex justify-between font-medium">
                     <span>Total</span>
