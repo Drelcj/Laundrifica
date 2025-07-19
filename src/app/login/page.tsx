@@ -1,9 +1,9 @@
 // src/app/login/page.tsx
 'use client'; // This is a client component because it uses hooks and handles user interaction
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,6 +14,8 @@ import { FaGoogle, FaFacebook, FaTwitter } from 'react-icons/fa';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client'; // Import Supabase client
 
+
+// LoginPage component
 export default function LoginPage() {
   const router = useRouter();
   const supabase = createClient();
@@ -27,9 +29,23 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+    const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/cart";
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        router.push(redirectUrl);
+        router.refresh();
+      }
+    };
+    checkSession();
+  }, [router, redirectUrl, supabase]);
+
   // --- HANDLER for Email/Password Login ---
-  const handleEmailLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent default form submission
+     const handleEmailLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setIsLoading(true);
     setError(null);
 
@@ -44,28 +60,27 @@ export default function LoginPage() {
       return;
     }
 
-    // On successful login, redirect the user.
-    // The middleware will handle routing to the correct dashboard based on role.
-    // The router.refresh() is crucial to update server components with the new auth state.
-    router.push('/dashboard');
+    router.push(redirectUrl);
     router.refresh();
   };
 
   // --- HANDLER for Social Logins (OAuth) ---
-  const handleOAuthSignIn = async (provider: 'google' | 'facebook' | 'twitter') => {
+     const handleOAuthSignIn = async (provider: 'google' | 'facebook' | 'twitter') => {
     setIsLoading(true);
     setError(null);
     await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
+        redirectTo: `${location.origin}/auth/callback?redirect=${encodeURIComponent(redirectUrl)}`,
       },
     });
-    // The user will be redirected to the provider's login page
-    // and then back to laundrilab app. The loading state will persist until then.
   };
 
   // Note: Phone/OTP login is a separate flow, it will be addressed after email/social is working.
+
+     if (isLoading && !error) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 hero-gradient">

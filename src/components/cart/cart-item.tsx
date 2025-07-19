@@ -1,3 +1,4 @@
+// src/components/cart/cart-item.tsx
 "use client"
 
 import type React from "react"
@@ -14,6 +15,12 @@ interface CartItemProps {
 
 export function CartItemComponent({ item }: CartItemProps) {
   const { updateQuantity, removeItem } = useCartStore()
+
+  // Formatter for Nigerian Naira
+  const formatter = new Intl.NumberFormat('en-NG', {
+    style: 'currency',
+    currency: 'NGN',
+  })
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = Number.parseInt(e.target.value)
@@ -50,7 +57,7 @@ export function CartItemComponent({ item }: CartItemProps) {
 
       <div className="flex-grow">
         <h3 className="font-medium">{item.name}</h3>
-        <p className="text-sm text-gray-500">${item.price.toFixed(2)}</p>
+        <p className="text-sm text-gray-500">{formatter.format(item.price)}</p>
       </div>
 
       <div className="flex items-center space-x-2">
@@ -78,7 +85,7 @@ export function CartItemComponent({ item }: CartItemProps) {
       </div>
 
       <div className="ml-4 text-right">
-        <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
+        <p className="font-medium">{formatter.format(item.price * item.quantity)}</p>
         <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700 mt-1" onClick={handleRemove}>
           <Trash2Icon className="h-4 w-4 mr-1" />
           <span className="text-xs">Remove</span>

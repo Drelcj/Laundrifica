@@ -55,14 +55,18 @@ export async function middleware(request: NextRequest) {
   }
 
   // Redirect unauthenticated users from generic protected routes
-  if (!user && userRoutes.some(route => pathname.startsWith(route))) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    if (!user && userRoutes.some(route => pathname.startsWith(route))) {
+    const redirectUrl = pathname === '/checkout' ? '/cart' : pathname;
+    return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(redirectUrl)}`, request.url));
   }
 
 
   // Redirect authenticated users from login/signup pages
-  if (user && (pathname === '/login' || pathname === '/signup')) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    if (user && (pathname === '/login' || pathname === '/signup')) {
+    const redirect = new URL(request.url).searchParams.get('redirect') || '/dashboard';
+    const allowedRedirects = ['/cart', '/checkout', '/dashboard', '/order-history'];
+    const safeRedirect = allowedRedirects.includes(redirect) ? redirect : '/dashboard';
+    return NextResponse.redirect(new URL(safeRedirect, request.url));
   }
 
   return response;

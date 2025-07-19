@@ -1,3 +1,4 @@
+// src/lib/cart.ts
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 import type { Cart, CartItem } from "./types"
@@ -72,12 +73,11 @@ export const useCartStore = create<CartState>()(
         // Calculate tax (7.5% VAT in Nigeria)
         const tax = subtotal * 0.075
 
-        // Calculate shipping (base rate of ₦1500 + ₦100 per item beyond the first)
-        const itemCount = cart.items.reduce((count, item) => count + item.quantity, 0)
-        const shipping = itemCount > 0 ? 1500 + Math.max(0, itemCount - 1) * 100 : 0
+        // Shipping is handled at checkout, so set to 0
+        const shipping = 0
 
         // Calculate total
-        const total = subtotal + tax + shipping
+        const total = subtotal + tax
 
         set({
           cart: {

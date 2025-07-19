@@ -30,7 +30,7 @@ export default function CartPage() {
             <p className="text-muted-foreground">Looks like you haven't added anything to your cart yet.</p>
           </div>
           <Button asChild size="lg">
-            <Link href="/shop">Continue Shopping</Link>
+            <Link href="/checkout/success">Continue Shopping</Link>
           </Button>
         </div>
       ) : (

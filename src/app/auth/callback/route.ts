@@ -4,36 +4,55 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { cookies } from 'next/headers'
 
 export async function GET(request: NextRequest) {
-  const { searchParams, origin } = new URL(request.url)
-  const code = searchParams.get('code')
-  // if "next" is in param, use it as the redirect URL
-  const next = searchParams.get('next') ?? '/dashboard'
+  const { searchParams, origin } = new URL(request.url);
+  const code = searchParams.get('code');
+  const redirect = searchParams.get('redirect') ?? '/cart';
+
+  // Validate redirect URL to prevent open redirect vulnerabilities
+  const allowedRedirects = ['/cart', '/checkout', '/dashboard', '/order-history'];
+  const safeRedirect = allowedRedirects.includes(redirect) ? redirect : '/cart';
 
   if (code) {
-    const cookieStore = cookies()
+    const cookieStore = await cookies(); // Await cookies() to resolve the promise
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
-          get(name: string) {
-            return cookieStore.get(name)?.value
+          get(name) {
+            return cookieStore.get(name)?.value;
           },
-          set(name: string, value: string, options) {
-            cookieStore.set({ name, value, ...options })
+          set(name, value, options) {
+            cookieStore.set({
+              name,
+              value,
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production',
+              sameSite: 'strict',
+              maxAge: options.maxAge,
+              path: '/',
+            });
           },
-          remove(name: string, options) {
-            cookieStore.set({ name, value: '', ...options })
+          remove(name) {
+            cookieStore.set({
+              name,
+              value: '',
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production',
+              sameSite: 'strict',
+              maxAge: 0,
+              path: '/',
+            });
           },
         },
       }
-    )
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    );
+
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      return NextResponse.redirect(`${origin}${next}`)
+      return NextResponse.redirect(`${origin}${safeRedirect}`);
     }
   }
 
-  // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/login?error=Could not authenticate user`)
+  return NextResponse.redirect(`${origin}/login?error=Could not authenticate user`);
 }
