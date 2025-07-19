@@ -13,7 +13,7 @@ export default function CheckoutSuccessPage() {
           What would you like to do next?
         </h1>
         <p className="text-muted-foreground text-lg">
-          Continue your shopping experience or place another order
+          Continue your shopping experience or place another laundry order
         </p>
       </div>
 
@@ -46,13 +46,18 @@ export default function CheckoutSuccessPage() {
             </div>
             <CardTitle className="text-xl">Place Another Laundry Order</CardTitle>
             <CardDescription>
-              Need more laundry services? Start a new standard tier order right away
+              Need more laundry services? Start a new standard or premium tier laundry order right away
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-0">
             <Button asChild className="w-full" size="lg" variant="secondary">
               <Link href="/order?tier=standard">
-                New Order
+                New Standard Laundry Order
+              </Link>
+            </Button>
+            <Button asChild className="w-full" size="lg" variant="secondary">
+              <Link href="/order?tier=premium">
+                New Premium Laundry Order
               </Link>
             </Button>
           </CardContent>
