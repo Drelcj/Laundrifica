@@ -28,7 +28,7 @@ export default async function BlogPage() {
             <div className="inline-block px-3 py-1 mb-4 rounded-full bg-primary/10 backdrop-blur-sm border border-primary/20">
               <span className="text-sm font-medium text-primary">Our Blog</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold gradient-text mb-6">Laundrifica Insights</h1>
+            <h1 className="text-4xl md:text-6xl font-bold gradient-text mb-6">LaundriLab Insights</h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-8">
               Tips, tricks, and insights about laundry care and clothing maintenance from our experts.
             </p>

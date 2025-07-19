@@ -43,7 +43,7 @@ const jobOpenings = [
     experience: "2-3 years",
     salary: "₦150,000 - ₦220,000",
     description:
-      "Ensure our customers receive world-class service and support throughout their journey with Laundrifica.",
+      "Ensure our customers receive world-class service and support throughout their journey with LaundriLab.",
     requirements: [
       "Bachelor's degree preferred",
       "2+ years in customer service",
@@ -189,7 +189,7 @@ export default function CareersPage() {
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               Join the{" "}
               <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Laundrifica
+                LaundriLab
               </span>{" "}
               Team
             </h1>
@@ -216,8 +216,8 @@ export default function CareersPage() {
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Why Work With Us?</h2>
             <p className="text-lg text-muted-foreground">
-              At Laundrifica, we&apos;re not just cleaning clothes U+2013 U+002d we&apos;re building the future of laundry services in Nigeria.
-              Join a team that&apos;s passionate about excellence, innovation, and making a real difference in people's
+              At LaundriLab, we're not just cleaning clothes – we're building the future of laundry services in Nigeria.
+              Join a team that's passionate about excellence, innovation, and making a real difference in people's
               lives.
             </p>
           </div>
@@ -338,7 +338,7 @@ export default function CareersPage() {
           <div className="max-w-3xl mx-auto text-white">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Journey?</h2>
             <p className="text-xl mb-8 opacity-90">
-              Join hundreds of talented professionals who are already making a difference at Laundrifica. Your next career
+              Join hundreds of talented professionals who are already making a difference at LaundriLab. Your next career
               adventure starts here.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

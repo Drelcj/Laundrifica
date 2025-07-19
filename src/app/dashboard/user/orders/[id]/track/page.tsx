@@ -172,10 +172,6 @@ export default function OrderTrackingPage() {
                     </p>
                     <p>{order.shippingAddress.addressLine1}</p>
                     {order.shippingAddress.addressLine2 && <p>{order.shippingAddress.addressLine2}</p>}
-                    <p>
-                      {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.postalCode}
-                    </p>
-                    <p>{order.shippingAddress.country}</p>
                     <p className="mt-1">{order.shippingAddress.phone}</p>
                   </div>
                 </div>

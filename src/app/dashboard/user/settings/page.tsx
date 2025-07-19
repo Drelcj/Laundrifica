@@ -8,7 +8,7 @@ import { Database } from '@/types/database'
 import SettingsClientPage from "./SettingsClientPage" // Your client component
 
 export const metadata: Metadata = {
-  title: "Account Settings | Laundrifica Dashboard",
+  title: "Account Settings | LaundriLab Dashboard",
   description: "Manage your account settings and preferences",
 }
 

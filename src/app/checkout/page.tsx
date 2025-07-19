@@ -144,7 +144,7 @@ export default function CheckoutPage() {
   };
 
   const handleContinueShopping = () => {
-    router.push("/products");
+    router.push("/checkout/success");
   };
 
   const handleViewOrder = () => {

@@ -24,7 +24,7 @@ export function NewsletterSection() {
       <div className="container max-w-4xl mx-auto text-center px-4">
         <div className="space-y-6">
           <div className="space-y-2">
-            <h2 className="text-3xl md:text-4xl font-bold">Stay Updated with Laundrifica</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">Stay Updated with LaundriLab</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Get the latest tips on fabric care, exclusive offers, and updates on our services. Your fabric's pristine
               care starts with staying informed.
@@ -58,7 +58,7 @@ export function NewsletterSection() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Join thousands of satisfied customers who trust Laundrifica for their fabric care needs.
+            Join thousands of satisfied customers who trust LaundriLab for their fabric care needs.
           </p>
         </div>
       </div>

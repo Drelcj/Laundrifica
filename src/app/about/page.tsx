@@ -10,7 +10,7 @@ const teamMembers = [
   {
     name: "Emmanuel Chijioke",
     role: "Founder & CEO",
-    bio: "With over 15 years in the laundry industry, Adebayo founded Laundrifica to revolutionize how people handle their laundry needs.",
+    bio: "With over 15 years in the laundry industry, Adebayo founded LaundriLab to revolutionize how people handle their laundry needs.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1746121522/Emmanuelchijioke/emmanuel-chijioke_jxc5hf.jpg",
   },
   {
@@ -28,7 +28,7 @@ const teamMembers = [
   {
     name: "Ezinne",
     role: "Customer Experience Director",
-    bio: "Ezinne is dedicated to ensuring that every customer interaction with Laundrifica exceeds expectations.",
+    bio: "Ezinne is dedicated to ensuring that every customer interaction with LaundriLab exceeds expectations.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1748613005/Emmanuelchijioke/Ezinne__em4jrt.jpg",
   },
 ]
@@ -95,7 +95,7 @@ export default function AboutPage() {
             transition={{ duration: 0.5 }}
           >
             <div className="inline-block px-3 py-1 mb-4 rounded-full bg-primary/10 backdrop-blur-sm border border-primary/20">
-              <span className="text-sm font-medium text-primary">About Laundrifica</span>
+              <span className="text-sm font-medium text-primary">About LaundriLab</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold gradient-text mb-6">Revolutionizing Laundry Services</h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-8">
@@ -125,7 +125,7 @@ export default function AboutPage() {
           <div className="relative h-[200px] md:h-[300px]">
             <Image
               src="https://res.cloudinary.com/dt3czltxx/image/upload/v1748611378/laundrifica_images/about/laundrify-facility_mxsl8r.jpg"
-              alt="Laundrifica Facility"
+              alt="LaundriLab Facility"
               fill
               className="object-cover rounded-t-3xl"
               priority
@@ -167,7 +167,7 @@ export default function AboutPage() {
               </div>
               <h2 className="text-3xl md:text-4xl font-bold gradient-text">From Idea to Innovation</h2>
               <p className="text-lg text-muted-foreground">
-                Laundrifica was born out of a simple frustration: the time-consuming and often inconvenient process of
+                LaundriLab was born out of a simple frustration: the time-consuming and often inconvenient process of
                 doing laundry. Our founder, Emmanuel Chijioke, experienced this firsthand as a busy professional in Port Harcourt.
               </p>
               <p className="text-lg text-muted-foreground">
@@ -176,7 +176,7 @@ export default function AboutPage() {
                 platform.
               </p>
               <p className="text-lg text-muted-foreground">
-                Today, Laundrifica serves customers across major cities in Port Harcourt and expanding into other cities in Nigeria, with a team of dedicated
+                Today, LaundriLab serves customers across major cities in Port Harcourt and expanding into other cities in Nigeria, with a team of dedicated
                 professionals committed to providing exceptional service and innovative solutions for all your laundry
                 needs.
               </p>
@@ -208,7 +208,7 @@ export default function AboutPage() {
             </div>
             <h2 className="text-3xl md:text-5xl font-bold gradient-text mb-6">What Drives Us</h2>
             <p className="text-lg text-muted-foreground">
-              At Laundrifica, our core values guide everything we do. They shape our culture, inform our decisions, and
+              At LaundriLab, our core values guide everything we do. They shape our culture, inform our decisions, and
               help us deliver exceptional service to our customers.
             </p>
           </motion.div>
@@ -349,7 +349,7 @@ export default function AboutPage() {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10"></div>
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-6">Ready to Experience Laundrifica?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-6">Ready to Experience LaundriLab?</h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Join hundreds of satisfied customers who have made laundry day the easiest part of their week.
               </p>
