@@ -49,7 +49,7 @@ export default function CartPage() {
 
             <div className="mt-6 flex justify-between items-center">
               <Button variant="outline" asChild>
-                <Link href="/shop">Continue Shopping</Link>
+                <Link href="/checkout/success">Continue Shopping</Link>
               </Button>
               <Button variant="destructive" onClick={() => useCartStore.getState().clearCart()}>
                 Clear Cart
