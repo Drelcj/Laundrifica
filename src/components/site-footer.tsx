@@ -12,12 +12,12 @@ export function SiteFooter() {
                 <span className="text-white font-bold text-sm">L</span>
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-lg leading-none">LaundriLab</span>
+                <span className="font-bold text-lg leading-none">LaundryLab</span>
                 <span className="text-xs text-muted-foreground leading-none">your effortless pristine fabric care</span>
               </div>
             </div>
             <p className="text-sm text-muted-foreground max-w-xs">
-              Experience premium laundry services with Laundrilab. your effortless pristine fabric care is our commitment to
+              Experience premium laundry services with LaundryLab. your effortless pristine fabric care is our commitment to
               excellence.
             </p>
             <div className="flex space-x-4">
@@ -97,7 +97,7 @@ export function SiteFooter() {
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
-                <span>hello@laundrifica.com</span>
+                <span>hello@laundrylab.com</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4" />
@@ -109,7 +109,7 @@ export function SiteFooter() {
 
         <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            © 2024 Laundrilab. All rights reserved. your effortless pristine fabric care.
+            © 2025 LaundryLab. All rights reserved. your effortless pristine fabric care.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <Link href="/privacy" className="text-sm text-muted-foreground hover:text-primary">

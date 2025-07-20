@@ -109,13 +109,13 @@ const MOCK_ORDERS: Order[] = [
         },
         {
           status: "processing",
-          location: "Laundrilab Facility",
+          location: "LaundryLab Facility",
           timestamp: "2023-06-11T09:30:00Z",
           description: "Order is being processed",
         },
         {
           status: "shipped",
-          location: "Laundrilab Facility",
+          location: "LaundryLab Facility",
           timestamp: "2023-06-12T14:20:00Z",
           description: "Order has been shipped",
         },

@@ -24,73 +24,73 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 const initialLocations = [
   {
     id: "L001",
-    name: "Laundrify HQ",
+    name: "LaundryLab HQ",
     type: "headquarters",
     address: "123 Main Street, Lekki Phase 1, Lagos",
     city: "Lagos",
     state: "Lagos",
     phone: "+234 801 234 5678",
-    email: "hq@laundrify.com",
+    email: "hq@laundrylab.com",
     operatingHours: "Mon-Fri: 8am-6pm, Sat: 9am-5pm, Sun: Closed",
     status: "active",
   },
   {
     id: "L002",
-    name: "Laundrify Ikeja Branch",
+    name: "LaundryLab Ikeja Branch",
     type: "branch",
     address: "45 Allen Avenue, Ikeja, Lagos",
     city: "Lagos",
     state: "Lagos",
     phone: "+234 802 345 6789",
-    email: "ikeja@laundrify.com",
+    email: "ikeja@laundrylab.com",
     operatingHours: "Mon-Sat: 8am-8pm, Sun: 10am-4pm",
     status: "active",
   },
   {
     id: "L003",
-    name: "Laundrify Abuja Branch",
+    name: "LaundryLab Abuja Branch",
     type: "branch",
     address: "78 Ademola Adetokunbo Crescent, Wuse II, Abuja",
     city: "Abuja",
     state: "FCT",
     phone: "+234 803 456 7890",
-    email: "abuja@laundrify.com",
+    email: "abuja@laundrylab.com",
     operatingHours: "Mon-Sat: 9am-7pm, Sun: Closed",
     status: "active",
   },
   {
     id: "L004",
-    name: "Laundrify Port Harcourt Branch",
+    name: "LaundryLab Port Harcourt Branch",
     type: "branch",
     address: "12 Aba Road, Port Harcourt, Rivers",
     city: "Port Harcourt",
     state: "Rivers",
     phone: "+234 804 567 8901",
-    email: "ph@laundrify.com",
+    email: "ph@laundrylab.com",
     operatingHours: "Mon-Sat: 8am-6pm, Sun: Closed",
     status: "active",
   },
   {
     id: "L005",
-    name: "Laundrify Ibadan Branch",
+    name: "LaundryLab Ibadan Branch",
     type: "branch",
     address: "56 Mokola Hill, Ibadan, Oyo",
     city: "Ibadan",
     state: "Oyo",
     phone: "+234 805 678 9012",
-    email: "ibadan@laundrify.com",
+    email: "ibadan@laundrylab.com",
     operatingHours: "Mon-Sat: 8am-6pm, Sun: Closed",
     status: "maintenance",
   },
   {
     id: "L006",
-    name: "Laundrify Kano Branch",
+    name: "LaundryLab Kano Branch",
     type: "branch",
     address: "34 Ibrahim Taiwo Road, Kano",
     city: "Kano",
     state: "Kano",
     phone: "+234 806 789 0123",
-    email: "kano@laundrify.com",
+    email: "kano@laundrylab.com",
     operatingHours: "Mon-Sat: 8am-6pm, Sun: Closed",
     status: "coming_soon",
   },
@@ -163,7 +163,7 @@ export default function LocationsPage() {
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>
               <DialogTitle>Add New Location</DialogTitle>
-              <DialogDescription>Enter the details for the new Laundrify location.</DialogDescription>
+              <DialogDescription>Enter the details for the new LaundryLab location.</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-2 gap-4">
@@ -173,7 +173,7 @@ export default function LocationsPage() {
                     id="name"
                     value={newLocation.name}
                     onChange={(e) => setNewLocation({ ...newLocation, name: e.target.value })}
-                    placeholder="e.g. Laundrify Victoria Island"
+                    placeholder="e.g. LaundryLab Victoria Island"
                   />
                 </div>
                 <div className="space-y-2">
@@ -244,7 +244,7 @@ export default function LocationsPage() {
                     type="email"
                     value={newLocation.email}
                     onChange={(e) => setNewLocation({ ...newLocation, email: e.target.value })}
-                    placeholder="e.g. branch@laundrify.com"
+                    placeholder="e.g. branch@laundrylab.com"
                   />
                 </div>
               </div>
@@ -289,8 +289,8 @@ export default function LocationsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Laundrify Locations</CardTitle>
-          <CardDescription>Manage all Laundrify physical locations and branches.</CardDescription>
+          <CardTitle>LaundryLab Locations</CardTitle>
+          <CardDescription>Manage all LaundryLab physical locations and branches.</CardDescription>
           <div className="flex items-center mt-4">
             <div className="relative flex-1 max-w-sm">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />

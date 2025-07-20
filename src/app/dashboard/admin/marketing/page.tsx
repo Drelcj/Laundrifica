@@ -85,19 +85,19 @@ const emailTemplates = [
   {
     id: "T001",
     name: "Welcome Email",
-    subject: "Welcome to Laundrify!",
+    subject: "Welcome to LaundryLab!",
     lastModified: "2023-05-10",
   },
   {
     id: "T002",
     name: "Order Confirmation",
-    subject: "Your Laundrify Order #[ORDER_ID] Confirmation",
+    subject: "Your LaundryLab Order #[ORDER_ID] Confirmation",
     lastModified: "2023-05-12",
   },
   {
     id: "T003",
     name: "Shipping Confirmation",
-    subject: "Your Laundrify Order Has Shipped!",
+    subject: "Your LaundryLab Order Has Shipped!",
     lastModified: "2023-05-15",
   },
   {

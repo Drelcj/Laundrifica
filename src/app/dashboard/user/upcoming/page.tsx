@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import UpcomingServicesClient from "./UpcomingServicesClient"
 
 export const metadata: Metadata = {
-  title: "Upcoming Services | Laundrify Dashboard",
+  title: "Upcoming Services | LaundryLab Dashboard",
   description: "View and manage your upcoming laundry services",
 }
 

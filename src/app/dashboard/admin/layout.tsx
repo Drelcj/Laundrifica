@@ -16,7 +16,7 @@ import { createClient } from '@/utils/supabase/server';
 
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard | Laundrify",
+  title: "Admin Dashboard | LaundryLab",
   description: "Manage your laundry business",
 }
 
@@ -45,7 +45,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
             <ScrollArea className="h-[calc(100vh-3rem)] pb-10">
               <div className="px-2 py-2">
                 <Link href="/dashboard/admin" className="flex items-center gap-2 font-semibold">
-                  <span className="gradient-text text-lg md:text-xl">Laundrify Admin</span> {/* Adjust text size */}
+                  <span className="gradient-text text-lg md:text-xl">LaundryLab Admin</span> {/* Adjust text size */}
                 </Link>
                 <AdminNav className="mt-4" />
               </div>
@@ -54,7 +54,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
         </Sheet>
         <div className="flex items-center gap-2">
           <Link href="/dashboard/admin" className="flex items-center gap-2 font-semibold">
-            <span className="gradient-text text-lg md:text-xl hidden md:inline-flex">Laundrify Admin</span> {/* Adjust text size */}
+            <span className="gradient-text text-lg md:text-xl hidden md:inline-flex">LaundryLab Admin</span> {/* Adjust text size */}
           </Link>
         </div>
         <div className="ml-auto flex items-center gap-4">

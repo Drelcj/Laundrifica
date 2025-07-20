@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge"
 
 export const metadata: Metadata = {
-  title: "Address Book | Laundrify Dashboard",
+  title: "Address Book | LaundryLab Dashboard",
   description: "Manage your delivery addresses",
 }
 

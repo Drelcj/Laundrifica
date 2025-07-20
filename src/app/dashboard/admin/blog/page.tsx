@@ -9,7 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 
 export const metadata: Metadata = {
-  title: "Blog Management | Laundrify Admin",
+  title: "Blog Management | LaundryLab Admin",
   description: "Manage all blog posts and content",
 }
 

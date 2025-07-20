@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 
 export const metadata: Metadata = {
-  title: "Payment Methods | Laundrify Dashboard",
+  title: "Payment Methods | LaundryLab Dashboard",
   description: "Manage your payment methods",
 }
 
@@ -33,7 +33,7 @@ export default function PaymentMethodsPage() {
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Payment Methods</h1>
-        <p className="text-muted-foreground">Manage your payment methods for Laundrify services.</p>
+        <p className="text-muted-foreground">Manage your payment methods for LaundryLab services.</p>
       </div>
 
       <div className="flex justify-end">
@@ -132,7 +132,7 @@ export default function PaymentMethodsPage() {
       <Card>
         <CardHeader>
           <CardTitle>Payment History</CardTitle>
-          <CardDescription>Recent payments for Laundrify services</CardDescription>
+          <CardDescription>Recent payments for LaundryLab services</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">

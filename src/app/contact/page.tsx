@@ -180,12 +180,12 @@ export default function ContactPage() {
                       <h3 className="font-bold mb-1">Email Us</h3>
                       <p className="text-muted-foreground">
                         <a href="mailto:info@laundrify.com" className="hover:text-primary transition-colors">
-                          info@laundrify.com
+                          info@laundrylab.com
                         </a>
                       </p>
                       <p className="text-muted-foreground">
                         <a href="mailto:support@laundrify.com" className="hover:text-primary transition-colors">
-                          support@laundrify.com
+                          support@laundrylab.com
                         </a>
                       </p>
                     </div>

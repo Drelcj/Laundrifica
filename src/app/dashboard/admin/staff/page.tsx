@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
 export const metadata: Metadata = {
-  title: "Staff Management | Laundrify Admin",
+  title: "Staff Management | LaundryLab Admin",
   description: "Manage all staff members and their assignments",
 }
 

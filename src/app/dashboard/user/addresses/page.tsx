@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import AddressesPageClient from "./AddressesPageClient"
 
 export const metadata: Metadata = {
-  title: "Address Book | Laundrify Dashboard",
+  title: "Address Book | LaundryLab Dashboard",
   description: "Manage your delivery addresses",
 }
 

@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export const metadata: Metadata = {
-  title: "Delivery Management | Laundrify Admin",
+  title: "Delivery Management | LaundryLab Admin",
   description: "Manage all pickups and deliveries",
 }
 

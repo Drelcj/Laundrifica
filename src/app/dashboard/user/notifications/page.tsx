@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from "@/components/ui/separator"
 
 export const metadata: Metadata = {
-  title: "Notification Preferences | Laundrify Dashboard",
+  title: "Notification Preferences | LaundryLab Dashboard",
   description: "Manage your notification settings",
 }
 
@@ -17,7 +17,7 @@ export default function NotificationsPage() {
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Notification Preferences</h1>
-        <p className="text-muted-foreground">Manage how and when you receive notifications from Laundrify.</p>
+        <p className="text-muted-foreground">Manage how and when you receive notifications from LaundryLab.</p>
       </div>
 
       <Tabs defaultValue="channels" className="space-y-4">
@@ -169,7 +169,7 @@ export default function NotificationsPage() {
                   <div className="space-y-1">
                     <p className="font-medium">Your order #LDY-2023-0042 has been delivered</p>
                     <p className="text-sm text-muted-foreground">
-                      Your laundry has been delivered to your home address. Thank you for using Laundrify!
+                      Your laundry has been delivered to your home address. Thank you for using LaundryLab!
                     </p>
                     <p className="text-xs text-muted-foreground">May 15, 2023 • 2:45 PM</p>
                   </div>

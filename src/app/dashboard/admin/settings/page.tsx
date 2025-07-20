@@ -80,11 +80,11 @@ export default function SettingsPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="storeName">Store Name</Label>
-                        <Input id="storeName" defaultValue="Laundrify" />
+                        <Input id="storeName" defaultValue="LaundryLab" />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="storeEmail">Store Email</Label>
-                        <Input id="storeEmail" type="email" defaultValue="info@laundrify.com" />
+                        <Input id="storeEmail" type="email" defaultValue="info@laundrylab.com" />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="storePhone">Store Phone</Label>
@@ -562,7 +562,7 @@ export default function SettingsPage() {
 
                       <div className="grid grid-cols-4 gap-4 p-4 border-b">
                         <div>Admin User</div>
-                        <div>admin@laundrify.com</div>
+                        <div>admin@laundrylab.com</div>
                         <div>Administrator</div>
                         <div className="text-right">
                           <Button variant="ghost" size="sm">
@@ -573,7 +573,7 @@ export default function SettingsPage() {
 
                       <div className="grid grid-cols-4 gap-4 p-4 border-b">
                         <div>Manager User</div>
-                        <div>manager@laundrify.com</div>
+                        <div>manager@laundrylab.com</div>
                         <div>Manager</div>
                         <div className="text-right">
                           <Button variant="ghost" size="sm">
@@ -584,7 +584,7 @@ export default function SettingsPage() {
 
                       <div className="grid grid-cols-4 gap-4 p-4">
                         <div>Staff User</div>
-                        <div>staff@laundrify.com</div>
+                        <div>staff@laundrylab.com</div>
                         <div>Staff</div>
                         <div className="text-right">
                           <Button variant="ghost" size="sm">
