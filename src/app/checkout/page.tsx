@@ -1,6 +1,7 @@
+// src/app/checkout/page.tsx
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircleIcon } from "lucide-react";
 import { useCartStore } from "@/lib/cart";
@@ -16,6 +17,7 @@ import { OrderSummary } from "@/components/checkout/order-summary";
 import { Steps, Step } from "@/components/ui/steps";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/utils/supabase/client";
 
 // Shipping methods with dynamic pricing
 const getShippingMethods = (cartSubtotal: number) => [
@@ -44,6 +46,22 @@ const getShippingMethods = (cartSubtotal: number) => [
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const supabase = createClient();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.push('/login?redirect=/checkout');
+      } else {
+        setLoading(false);
+      }
+    };
+    checkSession();
+  }, [router, supabase]);
+
+  if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   const { cart, clearCart } = useCartStore();
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -111,6 +129,11 @@ export default function CheckoutPage() {
   };
 
   const handlePaymentComplete = async (paymentDetails: any) => {
+      if (cart.items.length === 0) {
+    alert("Your cart is empty. Please add items before checking out.");
+    setIsLoading(false);
+    return;
+  }
     setIsLoading(true);
 
     try {

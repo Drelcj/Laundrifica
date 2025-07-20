@@ -1,20 +1,21 @@
-"use client"
+// src/app/cart/page.tsx
+"use client";
 
-import { useEffect } from "react"
-import Link from "next/link"
-import { ShoppingBag } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useCartStore } from "@/lib/cart"
-import { CartItemComponent } from "@/components/cart/cart-item"
-import { CartSummary } from "@/components/cart/cart-summary"
+import { useEffect } from "react";
+import Link from "next/link";
+import { ShoppingBag } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useCartStore } from "@/lib/cart";
+import { CartItemComponent } from "@/components/cart/cart-item";
+import { CartSummary } from "@/components/cart/cart-summary";
 
 export default function CartPage() {
-  const { cart, calculateTotals } = useCartStore()
+  const { cart, calculateTotals } = useCartStore();
 
   // Recalculate totals when the page loads
   useEffect(() => {
-    calculateTotals()
-  }, [calculateTotals])
+    calculateTotals();
+  }, [calculateTotals]);
 
   return (
     <div className="container mx-auto py-12">
@@ -51,7 +52,10 @@ export default function CartPage() {
               <Button variant="outline" asChild>
                 <Link href="/checkout/success">Continue Shopping</Link>
               </Button>
-              <Button variant="destructive" onClick={() => useCartStore.getState().clearCart()}>
+              <Button
+                variant="destructive"
+                onClick={() => useCartStore.getState().clearCart()}
+              >
                 Clear Cart
               </Button>
             </div>
@@ -63,5 +67,5 @@ export default function CartPage() {
         </div>
       )}
     </div>
-  )
+  );
 }

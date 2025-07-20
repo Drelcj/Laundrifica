@@ -55,7 +55,7 @@ export function CartSummary() {
   };
 
   const handleContinueShopping = () => {
-    router.push("/products");
+    router.push("/checkout/success");
   };
 
   if (items.length === 0) {
@@ -102,7 +102,7 @@ export function CartSummary() {
         <Button
           className="w-full"
           onClick={handleCheckout}
-          disabled={isAuthenticated === null}
+          disabled={isAuthenticated === null || cart.items.length === 0}
         >
           Proceed to Checkout
         </Button>
