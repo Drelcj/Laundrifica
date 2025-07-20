@@ -6,8 +6,7 @@ import { useRouter } from "next/navigation";
 import { CheckCircleIcon } from "lucide-react";
 import { useCartStore } from "@/lib/cart";
 import type { OrderAddress } from "@/lib/types";
-import { createOrder } from "@/lib/actions/order.actions";
-import { calculateTax } from "@/lib/api";
+import { createOrder, calculateTax } from "@/lib/api";
 import {
   AddressForm,
   AddressFormHandle,
@@ -130,41 +129,38 @@ export default function CheckoutPage() {
   };
 
   const handlePaymentComplete = async (paymentDetails: any) => {
-    if (cart.items.length === 0) {
-      alert("Your cart is empty. Please add items before checking out.");
-      return;
-    }
+      if (cart.items.length === 0) {
+    alert("Your cart is empty. Please add items before checking out.");
+    setIsLoading(false);
+    return;
+  }
     setIsLoading(true);
+
     try {
-      // Get current user session
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.user?.email) {
-        throw new Error("User not authenticated");
-      }
+      // Create order
+      const order = await createOrder({
+        items: cart.items,
+        shippingAddress: shippingAddress!,
+        billingAddress: billingAddress!,
+        paymentMethod: paymentDetails,
+        subtotal: cart.subtotal,
+        tax: cart.tax,
+        shipping: shippingCost,
+        total: cart.subtotal + cart.tax + shippingCost,
+        email: "customer@example.com", // In a real app, this would come from the user's account or checkout form
+      });
 
-      // Prepare cart items for database
-      const cartItems = cart.items.map(item => ({
-        product_id: parseInt(item.id.replace('prod-', '')), // Convert string ID to number
-        quantity: item.quantity,
-        price_at_purchase: item.price
-      }));
-
-      const totalAmount = cart.subtotal + cart.tax + shippingCost;
-
-      // Create order using real Supabase function
-      const result = await createOrder(session.user.email, cartItems, totalAmount);
-      
-      if (result.status === 'error') {
-        throw new Error(result.message);
-      }
-
-      setOrderId(`ORD-${result.orderId}`);
+      // Set order ID and mark as complete
+      setOrderId(order.id);
       setOrderComplete(true);
-      setCurrentStep(3);
+
+      // Clear cart
       clearCart();
+
+      // Move to confirmation step
+      setCurrentStep(3);
     } catch (error) {
       console.error("Error creating order:", error);
-      alert(`Order creation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsLoading(false);
     }
