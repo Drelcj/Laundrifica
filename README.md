@@ -1,4 +1,4 @@
-# 🧺 **LaundryLab**
+# 🧺 **Laundrifica**
 
 **your effortless pristine fabric care**
 
