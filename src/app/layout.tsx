@@ -53,15 +53,7 @@ const { data: profile } = user
 
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
-      <head>
-        <link
-          rel="preload"
-          href="/_next/static/media/inter-latin.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-      </head>
+      <head />
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
           <div className="relative flex min-h-screen flex-col">
