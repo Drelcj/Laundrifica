@@ -6,11 +6,18 @@ import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/lib/cart";
+import { shallow } from "zustand/shallow";
 import { CartItemComponent } from "@/components/cart/cart-item";
 import { CartSummary } from "@/components/cart/cart-summary";
 
 export default function CartPage() {
-  const { cart, calculateTotals } = useCartStore();
+  const { items, calculateTotals } = useCartStore(
+    (state) => ({
+      items: state.cart.items,
+      calculateTotals: state.calculateTotals,
+    }),
+    shallow
+  );
 
   // Recalculate totals when the page loads
   useEffect(() => {
@@ -21,7 +28,7 @@ export default function CartPage() {
     <div className="container mx-auto py-12">
       <h1 className="text-3xl font-bold mb-8">Your Shopping Cart</h1>
 
-      {cart.items.length === 0 ? (
+      {items.length === 0 ? (
         <div className="text-center py-16 space-y-6">
           <div className="mx-auto w-24 h-24 rounded-full bg-muted flex items-center justify-center">
             <ShoppingBag className="h-12 w-12 text-muted-foreground" />
@@ -39,9 +46,9 @@ export default function CartPage() {
           <div className="lg:col-span-2">
             <div className="bg-card rounded-lg shadow-sm border">
               <div className="p-6">
-                <h2 className="text-xl font-semibold mb-6">Cart Items ({cart.items.length})</h2>
+                <h2 className="text-xl font-semibold mb-6">Cart Items ({items.length})</h2>
                 <div className="divide-y">
-                  {cart.items.map((item) => (
+                  {items.map((item) => (
                     <CartItemComponent key={item.id} item={item} />
                   ))}
                 </div>
