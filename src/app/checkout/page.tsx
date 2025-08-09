@@ -5,6 +5,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircleIcon } from "lucide-react";
 import { useCartStore } from "@/lib/cart";
+import { shallow } from "zustand/shallow";
 import type { OrderAddress } from "@/lib/types";
 import { createOrder, calculateTax } from "@/lib/api";
 import {
@@ -62,7 +63,24 @@ export default function CheckoutPage() {
   }, [router, supabase]);
 
   if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-  const { cart, clearCart } = useCartStore();
+  const {
+    items,
+    subtotal,
+    tax,
+    shipping,
+    total,
+    clearCart,
+  } = useCartStore(
+    (state) => ({
+      items: state.cart.items,
+      subtotal: state.cart.subtotal,
+      tax: state.cart.tax,
+      shipping: state.cart.shipping,
+      total: state.cart.total,
+      clearCart: state.clearCart,
+    }),
+    shallow
+  );
 
   const [currentStep, setCurrentStep] = useState(0);
   const [shippingAddress, setShippingAddress] = useState<OrderAddress | null>(
@@ -80,7 +98,7 @@ export default function CheckoutPage() {
   const billingFormRef = useRef<AddressFormHandle>(null);
 
   // Get dynamic shipping methods based on cart subtotal
-  const shippingMethods = getShippingMethods(cart.subtotal);
+  const shippingMethods = getShippingMethods(subtotal);
 
   // Calculate shipping cost based on selected method
   const shippingCost =
@@ -89,18 +107,18 @@ export default function CheckoutPage() {
 
   // Update cart with shipping cost
   React.useEffect(() => {
-    if (cart.shipping !== shippingCost) {
+    if (shipping !== shippingCost) {
       // Update cart shipping cost
       // This would typically update the cart state
     }
-  }, [shippingCost, cart.shipping]);
+  }, [shippingCost, shipping]);
 
   const handleShippingAddressSubmit = async (address: OrderAddress) => {
     setShippingAddress(address);
 
     // Calculate tax based on shipping address
     try {
-      const taxAmount = await calculateTax(cart.subtotal, address.state);
+      const taxAmount = await calculateTax(subtotal, address.state);
       // Update cart tax amount
       // This would typically update the cart state
     } catch (error) {
@@ -129,7 +147,7 @@ export default function CheckoutPage() {
   };
 
   const handlePaymentComplete = async (paymentDetails: any) => {
-      if (cart.items.length === 0) {
+      if (items.length === 0) {
     alert("Your cart is empty. Please add items before checking out.");
     setIsLoading(false);
     return;
@@ -139,14 +157,14 @@ export default function CheckoutPage() {
     try {
       // Create order
       const order = await createOrder({
-        items: cart.items,
+        items: items,
         shippingAddress: shippingAddress!,
         billingAddress: billingAddress!,
         paymentMethod: paymentDetails,
-        subtotal: cart.subtotal,
-        tax: cart.tax,
+        subtotal: subtotal,
+        tax: tax,
         shipping: shippingCost,
-        total: cart.subtotal + cart.tax + shippingCost,
+        total: subtotal + tax + shippingCost,
         email: "customer@example.com", // In a real app, this would come from the user's account or checkout form
       });
 
@@ -253,11 +271,11 @@ export default function CheckoutPage() {
           {currentStep === 2 && (
             <div className="space-y-6">
               <OrderSummary
-                items={cart.items}
-                subtotal={cart.subtotal}
-                tax={cart.tax}
+                items={items}
+                subtotal={subtotal}
+                tax={tax}
                 shipping={shippingCost}
-                total={cart.subtotal + cart.tax + shippingCost}
+                total={subtotal + tax + shippingCost}
                 shippingMethod={
                   shippingMethods.find(
                     (method) => method.id === selectedShippingMethod
@@ -332,11 +350,11 @@ export default function CheckoutPage() {
         <div>
           {currentStep !== 3 && (
             <OrderSummary
-            items={cart.items}
-            subtotal={cart.subtotal}
-            tax={cart.tax}
+            items={items}
+            subtotal={subtotal}
+            tax={tax}
             shipping={shippingCost}
-            total={cart.subtotal + cart.tax + shippingCost}
+            total={subtotal + tax + shippingCost}
             shippingMethod={
               shippingMethods.find(
                 (method) => method.id === selectedShippingMethod
