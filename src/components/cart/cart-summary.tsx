@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { ShoppingBagIcon } from "lucide-react";
 import { useCartStore } from "@/lib/cart";
-import { shallow } from "zustand/shallow";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,15 +17,8 @@ import { createClient } from "@/utils/supabase/client";
 
 export function CartSummary() {
   const router = useRouter();
-  const { items, subtotal, tax, total } = useCartStore(
-    (state) => ({
-      items: state.cart.items,
-      subtotal: state.cart.subtotal,
-      tax: state.cart.tax,
-      total: state.cart.total,
-    }),
-    shallow
-  );
+  const { cart } = useCartStore();
+  const { items, subtotal, tax, total } = cart;
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null); // null for loading
   const supabase = createClient();

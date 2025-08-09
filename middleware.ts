@@ -7,18 +7,9 @@ export async function middleware(request: NextRequest) {
     request: { headers: request.headers },
   })
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.error("Supabase URL or anonymous key is not set in middleware. Please check your environment variables.");
-    // Allow the request to proceed, but it will likely fail on pages that need Supabase
-    return NextResponse.next({ request });
-  }
-
   const supabase = createServerClient(
-    supabaseUrl,
-    supabaseAnonKey,
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         get: (name) => request.cookies.get(name)?.value,

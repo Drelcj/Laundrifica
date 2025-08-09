@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { useCartStore } from "@/lib/cart"
-import { shallow } from "zustand/shallow"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Check, Info, Minus, Plus, ShoppingBag } from "lucide-react"
@@ -165,29 +164,15 @@ export default function OrderPage() {
   const initialTier = (searchParams.get("tier") as ServiceTier) || "standard"
 
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategory>("wash-fold")
-  const {
-    items: orderItems,
-    addItem: addCartItem,
-    removeItem: removeCartItem,
-    updateQuantity,
-    clearCart,
-  } = useCartStore(
-    (state) => ({
-      items: state.cart.items,
-      addItem: state.addItem,
-      removeItem: state.removeItem,
-      updateQuantity: state.updateQuantity,
-      clearCart: state.clearCart,
-    }),
-    shallow
-  );
+  const { cart, addItem: addCartItem, removeItem: removeCartItem, updateQuantity, clearCart } = useCartStore()
+  const orderItems = cart.items
   const [defaultTier, setDefaultTier] = useState<ServiceTier>(initialTier)
 
   // Filter items by category
   const filteredItems = laundryItems.filter((item) => item.category === selectedCategory)
 
   // Calculate subtotal and total
-  const subtotal = orderItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
+  const subtotal = cart.items.reduce((acc, item) => acc + item.price * item.quantity, 0)
   const total = subtotal
 
   // Add item to cart (map LaundryItem to CartItem)
