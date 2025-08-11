@@ -6,8 +6,8 @@ import { ShoppingCart } from "lucide-react"
 import { useCartStore } from "@/lib/cart"
 
 export function CartIcon() {
-  const { cart } = useCartStore()
-  const itemCount = cart.items.reduce((sum, item) => sum + item.quantity, 0)
+  const items = useCartStore((state) => state.cart.items)
+  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0)
 
   return (
     <Link href="/cart" className="relative inline-flex items-center">
