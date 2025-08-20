@@ -47,7 +47,21 @@ const getShippingMethods = (cartSubtotal: number) => [
 export default function CheckoutPage() {
   const router = useRouter();
   const supabase = createClient();
+
+  // Hooks must be called unconditionally. Move all hooks here so their
+  // order doesn't change between renders (fixes React Hooks order errors).
+  const { cart, clearCart } = useCartStore();
+
   const [loading, setLoading] = useState(true);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [shippingAddress, setShippingAddress] = useState<OrderAddress | null>(null);
+  const [billingAddress, setBillingAddress] = useState<OrderAddress | null>(null);
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState("standard");
+  const [orderComplete, setOrderComplete] = useState(false);
+  const [orderId, setOrderId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const shippingFormRef = useRef<AddressFormHandle>(null);
+  const billingFormRef = useRef<AddressFormHandle>(null);
 
   useEffect(() => {
     const checkSession = async () => {
@@ -61,23 +75,18 @@ export default function CheckoutPage() {
     checkSession();
   }, [router, supabase]);
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-  const { cart, clearCart } = useCartStore();
+  // Ensure all Hooks (including effects) are called before any early return so
+  // hook order remains stable across renders.
+  React.useEffect(() => {
+    if (cart.shipping !==
+      (getShippingMethods(cart.subtotal).find((method) => method.id === selectedShippingMethod)
+        ?.price || 0)) {
+      // Update cart shipping cost
+      // This would typically update the cart state
+    }
+  }, [cart.shipping, cart.subtotal, selectedShippingMethod]);
 
-  const [currentStep, setCurrentStep] = useState(0);
-  const [shippingAddress, setShippingAddress] = useState<OrderAddress | null>(
-    null
-  );
-  const [billingAddress, setBillingAddress] = useState<OrderAddress | null>(
-    null
-  );
-  const [selectedShippingMethod, setSelectedShippingMethod] =
-    useState("standard");
-  const [orderComplete, setOrderComplete] = useState(false);
-  const [orderId, setOrderId] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const shippingFormRef = useRef<AddressFormHandle>(null);
-  const billingFormRef = useRef<AddressFormHandle>(null);
+  if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
 
   // Get dynamic shipping methods based on cart subtotal
   const shippingMethods = getShippingMethods(cart.subtotal);
@@ -87,13 +96,7 @@ export default function CheckoutPage() {
     shippingMethods.find((method) => method.id === selectedShippingMethod)
       ?.price || 0;
 
-  // Update cart with shipping cost
-  React.useEffect(() => {
-    if (cart.shipping !== shippingCost) {
-      // Update cart shipping cost
-      // This would typically update the cart state
-    }
-  }, [shippingCost, cart.shipping]);
+  // ...existing code...
 
   const handleShippingAddressSubmit = async (address: OrderAddress) => {
     setShippingAddress(address);
