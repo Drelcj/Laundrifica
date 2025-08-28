@@ -229,13 +229,39 @@ export async function getProductById(id: string): Promise<Product | null> {
 }
 
 export async function createOrder(orderData: Partial<Order>): Promise<Order> {
-  await new Promise((resolve) => setTimeout(resolve, 800))
+  // Send to server API route which persists to Supabase
+  const payload = {
+    order: {
+      total_amount: Number(orderData.total || 0),
+      status: (orderData.status as string) || 'pending',
+      shipping_address: orderData.shippingAddress || null,
+      billing_address: orderData.billingAddress || null,
+      user_id: (orderData.userId as string) || null,
+    },
+    items: (orderData.items || []).map((it: any) => ({
+      product_id: Number(it.productId || it.product_id || 0),
+      quantity: Number(it.quantity || 1),
+      price_at_purchase: Number(it.price || it.price_at_purchase || 0),
+    })),
+  }
 
-  // Generate a new order with the provided data
-  const newOrder: Order = {
-    id: `order-${Date.now()}`,
-    userId: orderData.userId || undefined,
-    email: orderData.email || "",
+  const res = await fetch('/api/orders', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    throw new Error(body?.message || `Failed to create order (${res.status})`)
+  }
+
+  const data = await res.json()
+  // Return a minimal Order-like object for client flow (the server returns orderId)
+  return {
+    id: String(data.orderId || `order-${Date.now()}`),
+    userId: (orderData.userId as string) || undefined,
+    email: orderData.email || '',
     items: orderData.items || [],
     shippingAddress: orderData.shippingAddress!,
     billingAddress: orderData.billingAddress!,
@@ -244,15 +270,10 @@ export async function createOrder(orderData: Partial<Order>): Promise<Order> {
     tax: orderData.tax || 0,
     shipping: orderData.shipping || 0,
     total: orderData.total || 0,
-    status: "pending",
+    status: (orderData.status as OrderStatus) || 'pending',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   }
-
-  // In a real app, this would be saved to a database
-  MOCK_ORDERS.push(newOrder)
-
-  return newOrder
 }
 
 export async function getOrders(): Promise<Order[]> {
