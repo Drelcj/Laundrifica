@@ -1,11 +1,11 @@
 // src/lib/supabase-order.ts
-import { createClient } from "@/utils/supabase/client"
+import { createServerClient } from "@/utils/supabase/server-client"
 import type { TablesInsert } from "@/types/database"
 
 type OrderItemInsert = Omit<TablesInsert<'order_items'>, 'id' | 'order_id'> & { order_id?: number }
 
 export async function createSupabaseOrder(order: Omit<TablesInsert<'orders'>, 'id'>, items: OrderItemInsert[]) {
-  const supabase = createClient()
+  const supabase = createServerClient()
   console.log('Order insert payload:', order)
   // Insert order
   const { data: orderData, error: orderError, status: orderStatus, statusText: orderStatusText } = await supabase
