@@ -16,7 +16,7 @@ export function TermsOfService() {
         </CardHeader>
         <CardContent className="space-y-6">
           <p>
-            Welcome to LaundryLab. By using our services, you agree to comply with and be bound by the following terms
+            Welcome to Laundryfica. By using our services, you agree to comply with and be bound by the following terms
             and conditions. These terms may be updated from time to time, and it is your responsibility to review them
             periodically.
           </p>
@@ -212,7 +212,7 @@ export function TermsOfService() {
                   <div>
                     <h4 className="font-medium">Service Availability</h4>
                     <p>
-                      LaundryLab services are available within designated service areas in Nigeria. Service availability
+                      Laundryfica services are available within designated service areas in Nigeria. Service availability
                       may vary by location and is subject to change without notice.
                     </p>
                   </div>

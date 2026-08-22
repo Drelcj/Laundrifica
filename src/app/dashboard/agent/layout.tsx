@@ -14,7 +14,7 @@ import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: "Agent Dashboard | Laundrilab",
+  title: "Agent Dashboard | Laundryfica",
   description: "Manage your assigned orders and track your performance",
 }
 
@@ -50,7 +50,7 @@ export default async function AgentLayout({ children }: AgentLayoutProps) {
             <ScrollArea className="h-[calc(100vh-3rem)] pb-10">
               <div className="px-2 py-2">
                 <Link href="/dashboard/agent" className="flex items-center gap-2 font-semibold">
-                  <span className="gradient-text text-lg md:text-xl">Laundrilab Agent</span>
+                  <span className="gradient-text text-lg md:text-xl">Laundryfica Agent</span>
                 </Link>
                 <AgentNav className="mt-4" />
               </div>
@@ -59,7 +59,7 @@ export default async function AgentLayout({ children }: AgentLayoutProps) {
         </Sheet>
         <div className="flex items-center gap-2">
           <Link href="/dashboard/agent" className="flex items-center gap-2 font-semibold">
-            <span className="gradient-text text-lg md:text-xl hidden md:inline-flex">Laundrilab Agent</span>
+            <span className="gradient-text text-lg md:text-xl hidden md:inline-flex">Laundryfica Agent</span>
           </Link>
         </div>
         <div className="ml-auto flex items-center gap-4">

@@ -17,8 +17,11 @@ export async function getOrders() {
     return { status: 'error' as const, message: 'Failed to fetch orders.', data: [] };
   }
 
-  // Fetch user details for each order
-  const userIds = ordersData.map(order => order.user_id).filter(id => id);
+  // Fetch user details for each order. Guest orders carry no user_id, so the
+  // null entries are filtered out before the lookup.
+  const userIds = ordersData
+    .map(order => order.user_id)
+    .filter((id): id is string => Boolean(id));
   const { data: usersData, error: usersError } = await supabase
     .from('profiles')
     .select('id, full_name')

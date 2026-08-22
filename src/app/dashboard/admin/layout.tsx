@@ -11,12 +11,10 @@ import { Menu } from "lucide-react"
 import { Suspense } from "react"
 import { Skeleton } from "@/components/loading-skeleton"
 import { createClient } from '@/utils/supabase/server';
-
-
-
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard | LaundryLab",
+  title: "Admin Dashboard | Laundryfica",
   description: "Manage your laundry business",
 }
 
@@ -27,9 +25,13 @@ interface AdminLayoutProps {
 export default async function AdminLayout({ children }: AdminLayoutProps) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  const { data: profile } = user 
-    ? await supabase.from('profiles').select('*').eq('id', user.id).single() 
+  const { data: profile } = user
+    ? await supabase.from('profiles').select('*').eq('id', user.id).single()
     : { data: null };
+
+  if (!profile || profile.role !== 'admin') {
+    redirect('/dashboard');
+  }
 
   return (
     <div className="flex flex-col min-h-screen"> {/* Adjust layout for mobile */}
@@ -45,7 +47,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
             <ScrollArea className="h-[calc(100vh-3rem)] pb-10">
               <div className="px-2 py-2">
                 <Link href="/dashboard/admin" className="flex items-center gap-2 font-semibold">
-                  <span className="gradient-text text-lg md:text-xl">LaundryLab Admin</span> {/* Adjust text size */}
+                  <span className="gradient-text text-lg md:text-xl">Laundryfica Admin</span> {/* Adjust text size */}
                 </Link>
                 <AdminNav className="mt-4" />
               </div>
@@ -54,7 +56,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
         </Sheet>
         <div className="flex items-center gap-2">
           <Link href="/dashboard/admin" className="flex items-center gap-2 font-semibold">
-            <span className="gradient-text text-lg md:text-xl hidden md:inline-flex">LaundryLab Admin</span> {/* Adjust text size */}
+            <span className="gradient-text text-lg md:text-xl hidden md:inline-flex">Laundryfica Admin</span> {/* Adjust text size */}
           </Link>
         </div>
         <div className="ml-auto flex items-center gap-4">

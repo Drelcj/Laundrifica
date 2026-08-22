@@ -33,10 +33,10 @@ export function ProductFilters({ categories }: ProductFiltersProps) {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <Slider defaultValue={[0, 500]} max={500} step={10} className="w-full" />
+            <Slider defaultValue={[0, 200000]} max={200000} step={5000} className="w-full" />
             <div className="flex justify-between text-sm text-muted-foreground">
-              <span>$0</span>
-              <span>$500</span>
+              <span>₦0</span>
+              <span>₦200,000</span>
             </div>
           </div>
         </CardContent>

@@ -9,7 +9,16 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
-import { Mail, Phone, MapPin, Clock, Send } from "lucide-react"
+import { Mail, Phone, MapPin, Clock, Send, MessageCircle } from "lucide-react"
+import { LocationInterestForm } from "@/components/location-interest-form"
+import {
+  ADDRESS_LINE,
+  CITY_STATE,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  SUPPORT_EMAIL,
+  WHATSAPP_URL,
+} from "@/lib/contact"
 
 export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -168,26 +177,28 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-bold mb-1">Our Location</h3>
-                      <p className="text-muted-foreground">123 Laundry Street, Lagos, Nigeria</p>
+                      <p className="text-muted-foreground">{ADDRESS_LINE}</p>
+                      <p className="text-muted-foreground">{CITY_STATE}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start">
                     <div className="bg-primary/10 p-3 rounded-lg mr-4">
-                      <Mail className="h-6 w-6 text-primary" />
+                      <MessageCircle className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-bold mb-1">Email Us</h3>
+                      <h3 className="font-bold mb-1">WhatsApp Us</h3>
                       <p className="text-muted-foreground">
-                        <a href="mailto:info@laundrify.com" className="hover:text-primary transition-colors">
-                          info@laundrylab.com
-                        </a>
+                        The fastest way to reach us — bookings, pickups and quotes.
                       </p>
-                      <p className="text-muted-foreground">
-                        <a href="mailto:support@laundrify.com" className="hover:text-primary transition-colors">
-                          support@laundrylab.com
-                        </a>
-                      </p>
+                      <a
+                        href={WHATSAPP_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center mt-2 text-primary font-medium hover:underline"
+                      >
+                        Chat on WhatsApp
+                      </a>
                     </div>
                   </div>
 
@@ -198,16 +209,23 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-bold mb-1">Call Us</h3>
                       <p className="text-muted-foreground">
-                        <a href="tel:+2348000000000" className="hover:text-primary transition-colors">
-                          +234 800 000 0000
-                        </a>{" "}
-                        (Customer Service)
+                        <a href={`tel:${PHONE_TEL}`} className="hover:text-primary transition-colors">
+                          {PHONE_DISPLAY}
+                        </a>
                       </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="bg-primary/10 p-3 rounded-lg mr-4">
+                      <Mail className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold mb-1">Email Us</h3>
                       <p className="text-muted-foreground">
-                        <a href="tel:+2348000000001" className="hover:text-primary transition-colors">
-                          +234 800 000 0001
-                        </a>{" "}
-                        (Business Inquiries)
+                        <a href={`mailto:${SUPPORT_EMAIL}`} className="hover:text-primary transition-colors">
+                          {SUPPORT_EMAIL}
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -224,6 +242,14 @@ export default function ContactPage() {
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* Second branch — not yet open. Deliberately kept out of the
+                  "Contact Information" card so it never reads as an address we
+                  currently operate from. */}
+              <div className="glass-card p-8 rounded-xl">
+                <h2 className="text-2xl font-bold mb-6">Our Next Branch</h2>
+                <LocationInterestForm />
               </div>
 
               <div className="glass-card p-8 rounded-xl">
@@ -253,7 +279,9 @@ export default function ContactPage() {
                 </div>
                 <div className="mt-6">
                   <Button asChild variant="outline" className="w-full">
-                    <a href="/faq">View All FAQs</a>
+                    <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                      Ask us on WhatsApp
+                    </a>
                   </Button>
                 </div>
               </div>

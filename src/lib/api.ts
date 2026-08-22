@@ -1,5 +1,7 @@
 // Mock API functions for demonstration purposes
 // In a real application, these would make actual API calls to your backend
+//
+// All monetary values in this file are in Nigerian Naira (NGN).
 
 import type { Product, Order, InventoryItem, AnalyticsData, OrderStatus, ShippingInfo } from "./types"
 
@@ -9,7 +11,7 @@ const MOCK_PRODUCTS: Product[] = [
     id: "prod-1",
     name: "Premium Laundry Service",
     description: "Our premium laundry service includes washing, drying, and folding.",
-    price: 29.99,
+    price: 12000,
     images: ["/placeholder.svg?height=300&width=300"],
     category: "Laundry",
     inStock: true,
@@ -22,7 +24,7 @@ const MOCK_PRODUCTS: Product[] = [
     id: "prod-2",
     name: "Dry Cleaning Service",
     description: "Professional dry cleaning for your delicate garments.",
-    price: 39.99,
+    price: 18000,
     images: ["/placeholder.svg?height=300&width=300"],
     category: "Dry Cleaning",
     inStock: true,
@@ -35,7 +37,7 @@ const MOCK_PRODUCTS: Product[] = [
     id: "prod-3",
     name: "Express Laundry Service",
     description: "Same-day laundry service for when you need it fast.",
-    price: 49.99,
+    price: 25000,
     images: ["/placeholder.svg?height=300&width=300"],
     category: "Laundry",
     inStock: true,
@@ -56,49 +58,49 @@ const MOCK_ORDERS: Order[] = [
         id: "item-1",
         productId: "prod-1",
         name: "Premium Laundry Service",
-        price: 29.99,
+        price: 12000,
         quantity: 2,
         image: "/placeholder.svg?height=100&width=100",
       },
     ],
     shippingAddress: {
-      firstName: "John",
-      lastName: "Doe",
-      addressLine1: "123 Main St",
-      city: "Anytown",
-      state: "Lagos",
-      phone: "555-123-4567",
+      firstName: "Chinedu",
+      lastName: "Okoro",
+      addressLine1: "12 Okporo Road",
+      city: "Port Harcourt",
+      state: "Rivers",
+      phone: "+234 811 061 2646",
     },
     billingAddress: {
-      firstName: "John",
-      lastName: "Doe",
-      addressLine1: "123 Main St",
-      city: "Anytown",
+      firstName: "Chinedu",
+      lastName: "Okoro",
+      addressLine1: "12 Okporo Road",
+      city: "Port Harcourt",
       state: "Rivers",
-      phone: "555-123-4567",
+      phone: "+234 811 061 2646",
     },
     paymentMethod: {
       type: "credit_card",
       last4: "4242",
       expiryDate: "12/25",
     },
-    subtotal: 59.98,
-    tax: 4.8,
-    shipping: 5.99,
-    total: 70.77,
+    subtotal: 24000,
+    tax: 0,
+    shipping: 1500,
+    total: 25500,
     status: "shipped",
     shippingInfo: {
       method: "Standard",
-      carrier: "USPS",
-      trackingNumber: "1Z999AA10123456784",
+      carrier: "Laundryfica Delivery",
+      trackingNumber: "LF-2023-0612-0001",
       estimatedDelivery: "2023-06-15T00:00:00Z",
-      cost: 5.99,
+      cost: 1500,
       currentLocation: {
-        city: "Los Angeles",
-        state: "CA",
-        country: "USA",
-        latitude: 34.0522,
-        longitude: -118.2437,
+        city: "Port Harcourt",
+        state: "Rivers",
+        country: "Nigeria",
+        latitude: 4.8156,
+        longitude: 7.0498,
       },
       updates: [
         {
@@ -109,13 +111,13 @@ const MOCK_ORDERS: Order[] = [
         },
         {
           status: "processing",
-          location: "LaundryLab Facility",
+          location: "Laundryfica Facility",
           timestamp: "2023-06-11T09:30:00Z",
           description: "Order is being processed",
         },
         {
           status: "shipped",
-          location: "LaundryLab Facility",
+          location: "Laundryfica Facility",
           timestamp: "2023-06-12T14:20:00Z",
           description: "Order has been shipped",
         },
@@ -136,7 +138,7 @@ const MOCK_INVENTORY: InventoryItem[] = [
     threshold: 20,
     lastRestocked: "2023-05-10",
     supplier: "CleanChem Ltd",
-    cost: 3.99,
+    cost: 1600,
     location: "Warehouse A",
   },
   {
@@ -148,7 +150,7 @@ const MOCK_INVENTORY: InventoryItem[] = [
     threshold: 15,
     lastRestocked: "2023-05-05",
     supplier: "CleanChem Ltd",
-    cost: 2.99,
+    cost: 1200,
     location: "Warehouse A",
   },
   {
@@ -160,7 +162,7 @@ const MOCK_INVENTORY: InventoryItem[] = [
     threshold: 10,
     lastRestocked: "2023-05-12",
     supplier: "SpotFree Inc",
-    cost: 4.5,
+    cost: 1800,
     location: "Warehouse B",
   },
   {
@@ -172,7 +174,7 @@ const MOCK_INVENTORY: InventoryItem[] = [
     threshold: 100,
     lastRestocked: "2023-05-08",
     supplier: "PackWell Solutions",
-    cost: 0.25,
+    cost: 250,
     location: "Warehouse C",
   },
   {
@@ -184,29 +186,29 @@ const MOCK_INVENTORY: InventoryItem[] = [
     threshold: 200,
     lastRestocked: "2023-05-15",
     supplier: "PackWell Solutions",
-    cost: 0.15,
+    cost: 150,
     location: "Warehouse C",
   },
 ]
 
 const MOCK_ANALYTICS: AnalyticsData = {
   sales: [
-    { date: "2023-05-01", revenue: 1250.45, orders: 42, averageOrderValue: 29.77 },
-    { date: "2023-05-02", revenue: 1340.2, orders: 45, averageOrderValue: 29.78 },
-    { date: "2023-05-03", revenue: 1100.75, orders: 38, averageOrderValue: 28.97 },
-    { date: "2023-05-04", revenue: 1420.3, orders: 47, averageOrderValue: 30.22 },
-    { date: "2023-05-05", revenue: 1550.9, orders: 52, averageOrderValue: 29.83 },
-    { date: "2023-05-06", revenue: 1200.15, orders: 40, averageOrderValue: 30.0 },
-    { date: "2023-05-07", revenue: 980.5, orders: 33, averageOrderValue: 29.71 },
+    { date: "2023-05-01", revenue: 504000, orders: 42, averageOrderValue: 12000 },
+    { date: "2023-05-02", revenue: 540000, orders: 45, averageOrderValue: 12000 },
+    { date: "2023-05-03", revenue: 442000, orders: 38, averageOrderValue: 11632 },
+    { date: "2023-05-04", revenue: 570000, orders: 47, averageOrderValue: 12128 },
+    { date: "2023-05-05", revenue: 624000, orders: 52, averageOrderValue: 12000 },
+    { date: "2023-05-06", revenue: 482000, orders: 40, averageOrderValue: 12050 },
+    { date: "2023-05-07", revenue: 394000, orders: 33, averageOrderValue: 11939 },
   ],
   products: [
-    { id: "prod-1", name: "Premium Laundry Service", sales: 120, revenue: 3598.8, views: 450, conversionRate: 0.27 },
-    { id: "prod-2", name: "Dry Cleaning Service", sales: 85, revenue: 3399.15, views: 380, conversionRate: 0.22 },
-    { id: "prod-3", name: "Express Laundry Service", sales: 65, revenue: 3249.35, views: 320, conversionRate: 0.2 },
+    { id: "prod-1", name: "Premium Laundry Service", sales: 120, revenue: 1440000, views: 450, conversionRate: 0.27 },
+    { id: "prod-2", name: "Dry Cleaning Service", sales: 85, revenue: 1530000, views: 380, conversionRate: 0.22 },
+    { id: "prod-3", name: "Express Laundry Service", sales: 65, revenue: 1625000, views: 320, conversionRate: 0.2 },
   ],
   customers: {
-    acquisitionCost: 12.5,
-    lifetimeValue: 250.75,
+    acquisitionCost: 5000,
+    lifetimeValue: 100000,
     retentionRate: 0.68,
     churnRate: 0.32,
   },
@@ -354,30 +356,22 @@ export async function processPayment(
 export async function calculateTax(subtotal: number, state: string): Promise<number> {
   await new Promise((resolve) => setTimeout(resolve, 300))
 
-  // Simple tax calculation based on state
-  // In a real app, this would use a tax API or more complex rules
-  const taxRates: Record<string, number> = {
-    CA: 0.0725, // 7.25%
-    NY: 0.0845, // 8.45%
-    TX: 0.0625, // 6.25%
-    // Default rate for other states
-    default: 0.06, // 6%
-  }
-
-  const rate = taxRates[state] || taxRates.default
-  return Number.parseFloat((subtotal * rate).toFixed(2))
+  // VAT handling is not yet implemented. Nigerian VAT is a single national
+  // rate (not a per-state rate), and whether it applies to these orders has
+  // not been confirmed with the business, so tax is zero for now.
+  return 0
 }
 
 export async function calculateShipping(items: any[], zipCode: string): Promise<number> {
   await new Promise((resolve) => setTimeout(resolve, 400))
 
-  // Simple shipping calculation
+  // Simple shipping calculation, in Naira.
   // In a real app, this would use a shipping API or more complex rules
-  const baseRate = 5.99
+  const baseRate = 1500
   const itemCount = items.reduce((total, item) => total + item.quantity, 0)
 
-  // Add $1 for each item beyond the first
-  const additionalItemCost = Math.max(0, itemCount - 1) * 1.0
+  // Add ₦200 for each item beyond the first
+  const additionalItemCost = Math.max(0, itemCount - 1) * 200
 
-  return Number.parseFloat((baseRate + additionalItemCost).toFixed(2))
+  return baseRate + additionalItemCost
 }

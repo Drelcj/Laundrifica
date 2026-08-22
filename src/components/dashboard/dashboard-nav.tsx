@@ -4,19 +4,7 @@ import type React from "react"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import {
-  Bell,
-  CreditCard,
-  FileText,
-  Gift,
-  Home,
-  MapPin,
-  Package,
-  Settings,
-  ShoppingBag,
-  Star,
-  Truck,
-} from "lucide-react"
+import { FileText, Home, MapPin, Package, Settings } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
@@ -32,49 +20,19 @@ export function DashboardNav({ className, ...props }: DashboardNavProps) {
       title: "Overview",
     },
     {
-      href: "/dashboard//user/orders",
+      href: "/dashboard/user/orders",
       icon: Package,
       title: "Orders",
-    },
-    {
-      href: "/dashboard/user/upcoming",
-      icon: Truck,
-      title: "Upcoming",
-    },
-    {
-      href: "/dashboard/user/membership",
-      icon: Star,
-      title: "Membership",
-    },
-    {
-      href: "/dashboard/user/rewards",
-      icon: Gift,
-      title: "Rewards",
-    },
-    {
-      href: "/dashboard/user/payment-methods",
-      icon: CreditCard,
-      title: "Payment Methods",
-    },
-    {
-      href: "/dashboard/user/addresses",
-      icon: MapPin,
-      title: "Addresses",
-    },
-    {
-      href: "/dashboard/user/notifications",
-      icon: Bell,
-      title: "Notifications",
-    },
-    {
-      href: "/dashboard/user/vouchers",
-      icon: ShoppingBag,
-      title: "Vouchers",
     },
     {
       href: "/dashboard/user/invoices",
       icon: FileText,
       title: "Invoices",
+    },
+    {
+      href: "/dashboard/user/addresses",
+      icon: MapPin,
+      title: "Addresses",
     },
     {
       href: "/dashboard/user/settings",

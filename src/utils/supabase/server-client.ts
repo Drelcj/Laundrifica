@@ -5,9 +5,9 @@ import { Database } from '@/types/database'
 // Use this only in trusted server code (API routes, server actions).
 export const createServerClient = () => {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE
   if (!url || !serviceKey) {
-    throw new Error('SUPABASE server client requires NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY')
+    throw new Error('SUPABASE server client requires NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE')
   }
   return createSupabaseClient<Database>(url, serviceKey)
 }
