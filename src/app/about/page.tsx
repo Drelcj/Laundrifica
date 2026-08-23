@@ -9,20 +9,20 @@ import { Award, Clock, Droplets, Leaf, ShieldCheck, Users } from "lucide-react"
 const teamMembers = [
   {
     name: "Emmanuel Chijioke",
-    role: "Founder & CEO",
-    bio: "With over 15 years in the laundry industry, Emmanuel founded Laundryfica to revolutionize how people handle their laundry needs.",
+    role: "Founder, CEO & CTO",
+    bio: "With over 15 years in the laundry industry, Emmanuel founded Laundryfica to revolutionize how people handle their laundry. As CEO and Chief Technology Officer, he leads both overall strategic vision and tech development, driving innovative solutions for a seamless, efficient user experience.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1746121522/Emmanuelchijioke/emmanuel-chijioke_jxc5hf.jpg",
   },
   {
-    name: "Gladys Ewurum",
+    name: "Gladys Chijioke",
     role: "Chief Operations Officer",
     bio: "Gladys ensures that every aspect of our operations runs smoothly, from pickup to delivery and everything in between.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1748611985/Emmanuelchijioke/Gladys_Ewurum_rqegbw.jpg",
   },
   {
-    name: "Emmanuel Chijioke",
-    role: "Chief Technology Officer",
-    bio: "In addition to his role as Founder and CEO, Emmanuel serves as our Chief Technology Officer (CTO). He leads our tech team, driving the development of innovative solutions that ensure a seamless and efficient laundry experience.",
+    name: "Paul Chinedu",
+    role: "Operations & Logistics Manager",
+    bio: "Paul manages ground operations to keep everything running smoothly. He oversees daily quality assurance checks on all washed garments and coordinates our logistics network to ensure reliable, on-time pickups and deliveries.",
     image: "https://res.cloudinary.com/dt3czltxx/image/upload/v1746121697/Emmanuelchijioke/emmanuel-chijioke-techmandrel_ofikix.jpg",
   },
   {
@@ -319,7 +319,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <h3 className="text-4xl md:text-6xl font-bold mb-2">1.2+</h3>
+              <h3 className="text-4xl md:text-6xl font-bold mb-2">400+</h3>
               <p className="text-primary-foreground/80">Orders Completed</p>
             </motion.div>
 
@@ -330,7 +330,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <h3 className="text-4xl md:text-6xl font-bold mb-2">6</h3>
+              <h3 className="text-4xl md:text-6xl font-bold mb-2">2</h3>
               <p className="text-primary-foreground/80">Cities Served</p>
             </motion.div>
           </div>
