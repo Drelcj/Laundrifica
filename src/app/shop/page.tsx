@@ -2,7 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import ShopPageClient from './ShopPageClient'
 
 export const metadata = {
-  title: 'Shop - Laundrilab',
+  title: 'Shop - Laundryfica',
   description: 'Browse our premium collection of laundry care products and unique thrift finds.',
 }
 

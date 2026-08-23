@@ -91,7 +91,7 @@ export const useCartStore = create<CartState>()(
       },
     }),
     {
-      name: "laundryLab-cart",
+      name: "laundryfica-cart",
     },
   ),
 )

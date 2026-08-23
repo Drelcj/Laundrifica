@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 
 export const metadata: Metadata = {
-  title: "Invoices | LaundryLab Dashboard",
+  title: "Invoices | Laundryfica Dashboard",
   description: "View and download your invoices",
 }
 

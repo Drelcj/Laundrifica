@@ -31,7 +31,7 @@ export default function CartPage() {
             <p className="text-muted-foreground">Looks like you haven't added anything to your cart yet.</p>
           </div>
           <Button asChild size="lg">
-            <Link href="/checkout/success">Continue Shopping</Link>
+            <Link href="/shop">Continue Shopping</Link>
           </Button>
         </div>
       ) : (
@@ -50,7 +50,7 @@ export default function CartPage() {
 
             <div className="mt-6 flex justify-between items-center">
               <Button variant="outline" asChild>
-                <Link href="/checkout/success">Continue Shopping</Link>
+                <Link href="/shop">Continue Shopping</Link>
               </Button>
               <Button
                 variant="destructive"

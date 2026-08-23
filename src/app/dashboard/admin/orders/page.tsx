@@ -15,7 +15,7 @@ import { getDeliveryAgents } from "@/lib/actions/user.actions";
 import { AssignAgentDialog } from "@/components/admin/assign-agent-dialog";
 
 export const metadata: Metadata = {
-  title: "Orders Management | Laundrilab Admin",
+  title: "Orders Management | Laundryfica Admin",
   description: "Manage all customer orders and their statuses",
 };
 

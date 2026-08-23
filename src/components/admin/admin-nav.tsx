@@ -4,20 +4,7 @@ import type React from "react"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import {
-  BarChart3,
-  Box,
-  FileText,
-  Gift,
-  LayoutDashboard,
-  MapPin,
-  Package,
-  Settings,
-  ShoppingBag,
-  Tag,
-  Truck,
-  Users,
-} from "lucide-react"
+import { LayoutDashboard, Package, ShoppingBag } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
@@ -38,69 +25,9 @@ export function AdminNav({ className, ...props }: AdminNavProps) {
       title: "Orders",
     },
     {
-      href: "/dashboard/admin/customers",
-      icon: Users,
-      title: "Customers",
-    },
-    {
-      href: "/dashboard/admin/staff",
-      icon: Users,
-      title: "Staff",
-    },
-    {
-      href: "/dashboard/admin/delivery",
-      icon: Truck,
-      title: "Delivery",
-    },
-    {
-      href: "/dashboard/admin/inventory",
-      icon: Box,
-      title: "Inventory",
-    },
-    {
-      href: "/dashboard/admin/blog",
-      icon: FileText,
-      title: "Blog",
-    },
-    {
       href: "/dashboard/admin/products",
       icon: ShoppingBag,
-      title: "Products",
-    },
-    {
-      href: "/dashboard/admin/voucher",
-      icon: Gift,
-      title: "Voucher",
-    },
-    {
-      href: "/dashboard/admin/vouchers",
-      icon: Gift,
-      title: "Vouchers",
-    },
-    {
-      href: "/dashboard/admin/analytics",
-      icon: BarChart3,
-      title: "Analytics",
-    },
-    {
-      href: "/dashboard/admin/marketing",
-      icon: Tag,
-      title: "Marketing",
-    },
-    {
-      href: "/dashboard/admin/reports",
-      icon: FileText,
-      title: "Reports",
-    },
-    {
-      href: "/dashboard/admin/locations",
-      icon: MapPin,
-      title: "Locations",
-    },
-    {
-      href: "/dashboard/admin/settings",
-      icon: Settings,
-      title: "Settings",
+      title: "Items & prices",
     },
   ]
 

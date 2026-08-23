@@ -22,19 +22,19 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "LaundryLab - your effortless pristine fabric care",
+  title: "Laundryfica - your effortless pristine fabric care",
   description:
-    "Premium laundry services with pickup and delivery. Experience the convenience of professional fabric care with LaundryLab.",
-  keywords: ["laundry", "247 digital laundry", "Laundry in Choba", "Choba", "Uniport Laundry", "Laundryman", "Port Harcourt", "dry cleaning", "free pickup", "free delivery", "fabric care", "pickup delivery", "Lagos", "Nigeria"],
+    "Premium laundry services with pickup and delivery. Experience the convenience of professional fabric care with Laundryfica.",
+  keywords: ["laundry", "247 digital laundry", "Laundry in Choba", "Choba", "Uniport Laundry", "Laundryman", "Port Harcourt", "laundry Port Harcourt", "Rumuekini", "Okporo", "dry cleaning", "free pickup", "free delivery", "fabric care", "pickup delivery", "Nigeria"],
   openGraph: {
-    title: "LaundryLab - your effortless pristine fabric care",
+    title: "Laundryfica - your effortless pristine fabric care",
     description: "Premium laundry services with pickup and delivery",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "LaundryLab - your effortless pristine fabric care",
+    title: "Laundryfica - your effortless pristine fabric care",
     description: "Premium laundry services with pickup and delivery",
   }}
 

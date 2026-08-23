@@ -14,7 +14,7 @@ const services = [
     price: "From ₦500",
     duration: "24-48 hours",
     features: ["Eco-friendly detergents", "Fabric softener included", "Folded to perfection"],
-    href: "/services/wash-and-fold",
+    href: "/order",
     badge: "Popular",
   },
   {
@@ -25,7 +25,7 @@ const services = [
     price: "From ₦1,200",
     duration: "48-72 hours",
     features: ["Delicate fabric care", "Stain removal", "Professional pressing"],
-    href: "/services/dry-cleaning",
+    href: "/order",
     badge: "Premium",
   },
   {
@@ -36,7 +36,7 @@ const services = [
     price: "From ₦300",
     duration: "Same day",
     features: ["Steam pressing", "Crease-free finish", "Hanger service"],
-    href: "/services/ironing",
+    href: "/order",
     badge: "Express",
   },
   {
@@ -47,7 +47,7 @@ const services = [
     price: "From ₦800",
     duration: "3-5 days",
     features: ["Expert tailoring", "Button replacement", "Hem adjustments"],
-    href: "/services/repairs",
+    href: "/order",
     badge: "Specialized",
   },
 ]
@@ -59,7 +59,7 @@ export function ServicesSection() {
         <div className="text-center space-y-4 mb-12">
           <h2 className="text-3xl md:text-4xl font-bold">Our Premium Services</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Experience Laundrilab's comprehensive fabric care solutions. your effortless pristine fabric care is our specialty.
+            Experience Laundryfica's comprehensive fabric care solutions. your effortless pristine fabric care is our specialty.
           </p>
         </div>
 

@@ -42,16 +42,26 @@ export async function middleware(request: NextRequest) {
 
   // Define protected routes for different roles
   const adminRoutes = ['/dashboard/admin'];
-  const agentRoutes = ['/delivery-agent'];
+  const agentRoutes = ['/dashboard/agent'];
   const userRoutes = ['/dashboard', '/checkout', '/order-history'];
 
   // Role-based redirection logic
-  if (adminRoutes.some(route => pathname.startsWith(route)) && userRole !== 'admin') {
-    return NextResponse.redirect(new URL('/login', request.url));
+  if (adminRoutes.some(route => pathname.startsWith(route))) {
+    if (!user) {
+      return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathname)}`, request.url));
+    }
+    if (userRole !== 'admin') {
+      return NextResponse.redirect(new URL('/dashboard', request.url));
+    }
   }
 
-  if (pathname.startsWith('/delivery-agent') && userRole !== 'delivery_agent' && userRole !== 'admin') {
-    return NextResponse.redirect(new URL('/login', request.url));
+  if (agentRoutes.some(route => pathname.startsWith(route))) {
+    if (!user) {
+      return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathname)}`, request.url));
+    }
+    if (userRole !== 'delivery_agent' && userRole !== 'admin') {
+      return NextResponse.redirect(new URL('/dashboard', request.url));
+    }
   }
 
   // Redirect unauthenticated users from generic protected routes

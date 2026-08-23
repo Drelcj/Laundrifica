@@ -34,12 +34,12 @@ export default function PrivacyPolicyPage() {
           <section>
             <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
             <p className="mb-4">
-              Welcome to Laundrilab. We respect your privacy and are committed to protecting your personal data. This
+              Welcome to Laundryfica. We respect your privacy and are committed to protecting your personal data. This
               privacy policy will inform you about how we look after your personal data when you visit our website and
               tell you about your privacy rights and how the law protects you.
             </p>
             <p>
-              This privacy policy aims to give you information on how Laundrilab collects and processes your personal
+              This privacy policy aims to give you information on how Laundryfica collects and processes your personal
               data through your use of this website, including any data you may provide through this website when you
               sign up for our service, place an order, or take part in a promotion.
             </p>
@@ -150,13 +150,13 @@ export default function PrivacyPolicyPage() {
             </p>
             <div className="bg-primary/10 p-4 rounded-lg">
               <p>
-                <strong>Email:</strong> privacy@laundrilab.com
+                <strong>Email:</strong> <a href="mailto:hello@laundryfica.com.ng" className="hover:text-primary">hello@laundryfica.com.ng</a>
               </p>
               <p>
-                <strong>Phone:</strong> +234 800 000 0000
+                <strong>Phone:</strong> <a href="tel:+2348110612646" className="hover:text-primary">+234 811 061 2646</a> (<a href="https://wa.me/2348110612646" target="_blank" rel="noopener noreferrer" className="hover:text-primary">WhatsApp</a>)
               </p>
               <p>
-                <strong>Address:</strong> 123 Laundry Street, Lagos, Nigeria
+                <strong>Address:</strong> Plot 1 Road 5, Okporo Estate, by Today FM Drive, Rumuekini, Port Harcourt, Rivers State, Nigeria
               </p>
             </div>
           </section>

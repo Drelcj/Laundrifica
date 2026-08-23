@@ -8,62 +8,21 @@ import { ChevronLeft, ChevronRight, Play, Volume2, VolumeX } from "lucide-react"
 import { cn } from "@/lib/utils";
 import Image from "next/image"; // Import the Image component
 
-const testimonials = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    role: "Premium Member",
-    content:
-      "LaundryLab has completely changed how I handle laundry. The premium membership is worth every naira with the instant pickup and priority handling. My clothes have never looked better!",
-    videoThumbnail: "https://res.cloudinary.com/dt3czltxx/image/upload/v1747412517/images/ninthgrid-ti8cT-DKwes-unsplash_n0j4lj.jpg",
-    videoSrc: "#",
-  },
-  {
-    id: 2,
-    name: "Michael Adebayo",
-    role: "Standard Member",
-    content:
-      "Even as a standard member, the service is exceptional. The scheduled pickups are always on time, and the quality of cleaning is outstanding. I've recommended LaundryLab to all my friends.",
-    videoThumbnail: "https://res.cloudinary.com/dt3czltxx/image/upload/v1748611498/laundrifica_images/testimonials/michael-adebayo_c3whmc.jpg",
-    videoSrc: "#",
-  },
-  {
-    id: 3,
-    name: "Chioma Okafor",
-    role: "Premium Member",
-    content:
-      "The attention to detail is impressive. They noticed a small tear in my favorite dress and repaired it without me even asking. That's the kind of service that keeps me coming back to LaundryLab.",
-    videoThumbnail: "https://res.cloudinary.com/dt3czltxx/image/upload/v1747411844/images/good-faces-E1QbnThiatM-unsplash_mtgore.jpg",
-    videoSrc: "#",
-  },
-  {
-    id: 4,
-    name: "David Nwachukwu",
-    role: "Standard Member",
-    content:
-      "I was skeptical at first, but LaundryLab has exceeded my expectations. The app makes it so easy to schedule pickups and track my orders. It's laundry service for the modern age.",
-    videoThumbnail: "https://res.cloudinary.com/dt3czltxx/image/upload/v1747411728/images/johnny-cardoso-icy1NR9iU3g-unsplash_gtmzt7.jpg",
-    videoSrc: "#",
-  },
-  {
-    id: 5,
-    name: "Amina Ibrahim",
-    role: "Premium Member",
-    content:
-      "As a busy professional, LaundryLab has been a game-changer. The premium membership gives me the flexibility I need with on-demand pickups. The quality is consistently excellent.",
-    videoThumbnail: "https://res.cloudinary.com/dt3czltxx/image/upload/v1747303569/images/about-who-we-are_xxummu.jpg",
-    videoSrc: "#",
-  },
-  {
-    id: 6,
-    name: "Emmanuel Okonkwo",
-    role: "Standard Member",
-    content:
-      "The eco-friendly approach to laundry is what initially attracted me to LaundryLab, but the exceptional service is why I stay. My clothes come back perfectly clean every time.",
-    videoThumbnail: "https://res.cloudinary.com/dt3czltxx/image/upload/v1747416797/images/ben-scott-CwWCuaTp21o-unsplash_tqy7wl.jpg",
-    videoSrc: "#",
-  },
-];
+type Testimonial = {
+  id: number;
+  name: string;
+  role: string;
+  content: string;
+  videoThumbnail: string;
+  videoSrc: string;
+};
+
+/**
+ * Real customer testimonials only. Left empty until we have them — the section
+ * renders nothing while this array is empty. Drop real reviews in here (same
+ * shape) and the section reappears with its existing carousel intact.
+ */
+const testimonials: Testimonial[] = [];
 
 export function TestimonialsSection() {
   const [activeVideo, setActiveVideo] = useState<number | null>(null);
@@ -130,6 +89,12 @@ export function TestimonialsSection() {
     });
   };
 
+  // No real testimonials yet — render nothing rather than a placeholder.
+  // Declared after the hooks above so hook order stays stable.
+  if (testimonials.length === 0) {
+    return null;
+  }
+
   return (
     <section className="w-full bg-muted/30 py-8 sm:py-12 md:py-16 lg:py-24 overflow-hidden">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -151,7 +116,7 @@ export function TestimonialsSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Don't just take our word for it. Watch what our customers have to say about LaundryLab.
+            Don't just take our word for it. Watch what our customers have to say about Laundryfica.
           </motion.p>
         </div>
 

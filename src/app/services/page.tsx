@@ -13,28 +13,28 @@ const services = [
     description: "Professional washing and folding service for your everyday clothes.",
     icon: Droplets,
     image: "/placeholder.svg?height=400&width=600",
-    link: "/services/wash-and-fold",
+    link: "/order",
   },
   {
     title: "Dry Cleaning",
     description: "Specialized cleaning for delicate fabrics and formal wear.",
     icon: Shirt,
     image: "/placeholder.svg?height=400&width=600",
-    link: "/services/dry-cleaning",
+    link: "/order",
   },
   {
     title: "Ironing",
     description: "Expert ironing service to keep your clothes wrinkle-free.",
     icon: Sparkles,
     image: "/placeholder.svg?height=400&width=600",
-    link: "/services/ironing",
+    link: "/order",
   },
   {
     title: "Repairs & Amendments",
     description: "Fix tears, replace buttons, and make alterations to your garments.",
     icon: Scissors,
     image: "/placeholder.svg?height=400&width=600",
-    link: "/services/repairs",
+    link: "/order",
   },
 ]
 
@@ -186,7 +186,7 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">Why Choose Laundrilab</h2>
+            <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">Why Choose Laundryfica</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Experience the benefits of our professional laundry service.
             </p>
@@ -314,7 +314,7 @@ export default function ServicesPage() {
           <div className="max-w-4xl mx-auto glass-card p-12 rounded-3xl relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10"></div>
             <div className="relative z-10 text-center">
-              <h2 className="text-3xl font-bold gradient-text mb-6">Ready to Experience Laundrilab?</h2>
+              <h2 className="text-3xl font-bold gradient-text mb-6">Ready to Experience Laundryfica?</h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Join thousands of satisfied customers who have made laundry day the easiest part of their week.
               </p>
@@ -326,7 +326,7 @@ export default function ServicesPage() {
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg">
-                  <Link href="/membership-comparison">Compare Memberships</Link>
+                  <Link href="/pricing">See Our Prices</Link>
                 </Button>
               </div>
             </div>

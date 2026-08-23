@@ -1,55 +1,81 @@
 import { NextResponse } from 'next/server'
+import { createClient } from '@/utils/supabase/server'
 import { createServerClient } from '@/utils/supabase/server-client'
 import { createSupabaseOrder } from '@/lib/supabase-order'
 
 /**
- * Server route to create an order and its items.
- * This route uses the service_role key via createServerClient so DB inserts bypass RLS.
+ * Server route to create an order and its items for the authenticated caller.
+ * Prices/total and user_id are always derived server-side — never trusted from the client.
  */
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    console.log('[api/orders] Received request body:', JSON.stringify(body))
     const { order, items } = body
 
-    if (!order || !items) {
-      console.log('[api/orders] Invalid payload, missing order or items')
+    if (!order || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json({ status: 'error', message: 'Invalid payload' }, { status: 400 })
     }
 
+    const authClient = await createClient()
+    const { data: { user } } = await authClient.auth.getUser()
+
+    if (!user) {
+      return NextResponse.json({ status: 'error', message: 'Authentication required' }, { status: 401 })
+    }
+
     const supabase = createServerClient()
-    console.log('[api/orders] client-supplied order user_id:', order.user_id)
+
+    const productIds = items.map((it: any) => Number(it.product_id))
+    const { data: products, error: productsError } = await supabase
+      .from('products')
+      .select('id, price, discount_price')
+      .in('id', productIds)
+
+    if (productsError || !products) {
+      console.error('[api/orders] Failed to load products for pricing:', productsError?.message)
+      return NextResponse.json({ status: 'error', message: 'Failed to validate order items' }, { status: 500 })
+    }
+
+    const productsById = new Map(products.map((p) => [p.id, p]))
+
+    let totalAmount = 0
+    const itemsPayload: { product_id: number; quantity: number; price_at_purchase: number }[] = []
+
+    for (const it of items) {
+      const productId = Number(it.product_id)
+      const quantity = Number(it.quantity)
+      const product = productsById.get(productId)
+
+      if (!product || !Number.isInteger(quantity) || quantity <= 0) {
+        return NextResponse.json(
+          { status: 'error', message: `Invalid order item: product ${it.product_id}` },
+          { status: 400 }
+        )
+      }
+
+      const unitPrice = product.discount_price ?? product.price
+      totalAmount += unitPrice * quantity
+      itemsPayload.push({ product_id: productId, quantity, price_at_purchase: unitPrice })
+    }
 
     const orderPayload: any = {
-      total_amount: Number(order.total_amount || 0),
+      total_amount: totalAmount,
       status: order.status || 'pending_pickup',
       shipping_address: order.shipping_address || null,
       billing_address: order.billing_address || null,
-      user_id: order.user_id ?? null,
+      user_id: user.id,
     }
-
-    const itemsPayload = (items || []).map((it: any) => ({
-      product_id: Number(it.product_id || 0),
-      quantity: Number(it.quantity || 0),
-      price_at_purchase: Number(it.price_at_purchase || 0),
-    }))
-
-    console.log('[api/orders] Prepared order payload:', JSON.stringify(orderPayload))
-    console.log('[api/orders] Prepared items payload:', JSON.stringify(itemsPayload))
 
     try {
       const insertedOrderId = await createSupabaseOrder(orderPayload, itemsPayload)
-      console.log('[api/orders] createSupabaseOrder succeeded, order id:', insertedOrderId)
       return NextResponse.json({ status: 'success', orderId: insertedOrderId })
     } catch (dbErr: any) {
-      console.error('[api/orders] createSupabaseOrder error:', dbErr)
-      try { console.error('[api/orders] dbErr stack:', dbErr?.stack) } catch (e) {}
+      console.error('[api/orders] createSupabaseOrder error:', dbErr?.message || dbErr)
       return NextResponse.json({ status: 'error', message: dbErr?.message || 'Database insert failed' }, { status: 500 })
     }
   } catch (error: any) {
-    console.error('[api/orders] Unexpected handler error:', error)
-    try { console.error(error.stack) } catch (e) {}
+    console.error('[api/orders] Unexpected handler error:', error?.message || error)
     return NextResponse.json({ status: 'error', message: error?.message || 'Unknown error' }, { status: 500 })
   }
 }

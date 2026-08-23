@@ -60,6 +60,7 @@ export default function CheckoutPage() {
   const [orderComplete, setOrderComplete] = useState(false);
   const [orderId, setOrderId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState<{ id: string; email: string } | null>(null);
   const shippingFormRef = useRef<AddressFormHandle>(null);
   const billingFormRef = useRef<AddressFormHandle>(null);
 
@@ -69,6 +70,7 @@ export default function CheckoutPage() {
       if (!session) {
         router.push('/login?redirect=/checkout');
       } else {
+        setCurrentUser({ id: session.user.id, email: session.user.email ?? '' });
         setLoading(false);
       }
     };
@@ -150,7 +152,8 @@ export default function CheckoutPage() {
         tax: cart.tax,
         shipping: shippingCost,
         total: cart.subtotal + cart.tax + shippingCost,
-        email: "customer@example.com", // In a real app, this would come from the user's account or checkout form
+        userId: currentUser?.id,
+        email: currentUser?.email || "",
       });
 
       // Set order ID and mark as complete

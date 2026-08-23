@@ -5,7 +5,6 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard,
-  Package,
   ShoppingCart,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -21,11 +20,6 @@ export function AgentNav({ className, ...props }: AgentNavProps) {
       href: "/dashboard/agent",
       icon: LayoutDashboard,
       title: "Dashboard",
-    },
-    {
-      href: "/dashboard/agent/orders",
-      icon: Package,
-      title: "My Orders",
     },
     {
       href: `/dashboard/agent/place-order`,

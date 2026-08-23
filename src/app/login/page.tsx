@@ -94,7 +94,7 @@ export default function LoginPage() {
         <div className="text-center">
           <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }}>
             <Link href="/" className="inline-block">
-              <h2 className="text-3xl font-bold gradient-text">Laundrilab</h2>
+              <h2 className="text-3xl font-bold gradient-text">Laundryfica</h2>
             </Link>
           </motion.div>
           <motion.h2 className="mt-6 text-3xl font-extrabold" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>
